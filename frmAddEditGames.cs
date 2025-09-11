@@ -7,23 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MediaProgressBusinessLayer;
 
 namespace MediaProgressWindowsForms
 {
-    public partial class frmMovies : Form
+    public partial class frmAddEditGames : Form
     {
-        public frmMovies()
+        public frmAddEditGames()
         {
             InitializeComponent();
-        }
-      
-
-        private void btnAddMovies_Click(object sender, EventArgs e)
-        {
-            frmAddEditMedia frm = new frmAddEditMedia(-1);
-            frm.ShowDialog();
-           
         }
     }
 }

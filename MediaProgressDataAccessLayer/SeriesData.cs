@@ -353,48 +353,30 @@ namespace MediaProgressDataAccessLayer
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
 
             string query = @"
-   SELECT TOP 100
-    CASE 
-        WHEN mediaBasics.titleType = 'series' THEN seriesBasics.primaryTitle
-        ELSE mediaBasics.primaryTitle
-    END AS MediaName,
-    Ratings.averageRating,
-    Ratings.numVotes,
-    mediaBasics.runtimeMinutes,
-    mediaBasics.whereToWatch,
-    mediaBasics.titleType,
-    Episodes.seasonNumber,
-    Episodes.episodeNumber,
-	seriesBasics.primaryTitle as Series_Name,
-	mediaBasics.startYear,
-	mediaBasics.whereToWatch,
-	mediaBasics.isAdult,
-	Episodes.Completed as Episode_Completed,
-	mediaBasics.Completed as Media_Completed
-FROM
-    Basics AS mediaBasics
-LEFT JOIN
-    Episodes ON mediaBasics.tconst = Episodes.tconst
-LEFT JOIN
-    Basics AS seriesBasics ON Episodes.parentTconst = seriesBasics.tconst
-JOIN
-    Ratings ON mediaBasics.tconst = Ratings.tconst
-WHERE
+  SELECT
+SeriesBasics.primaryTitle as SeriesName,
 
-    mediaBasics.runtimeMinutes <= @Duration AND 
-    Ratings.numVotes >= 5000 AND 
-    mediaBasics.Completed IS NULL AND
-    (
-        mediaBasics.titleType IN ('tvEpisode') OR
-        (mediaBasics.titleType = 'tvEpisode' AND Episodes.Completed IS NULL)
-    )
-ORDER BY
- 
-    Episodes.seasonNumber ASC,
-    Episodes.episodeNumber ASC,
-	 Ratings.averageRating DESC
-	;
-	;";
+Ratings.averageRating,
+
+Ratings.numVotes,
+
+SeriesBasics.whereToWatch,
+SeriesBasics.runtimeMinutes,
+SeriesBasics.titleType,
+SeriesBasics.watchAgain
+
+From
+Basics as SeriesBasics
+
+Join
+Ratings on SeriesBasics.tconst = Ratings.tconst
+
+where
+Ratings.averageRating >= 8.5 and Ratings.numVotes >= 5000 and SeriesBasics.titleType = 'tvSeries' 
+
+order by
+Ratings.averageRating desc
+	";
 
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@Duration", Duration);

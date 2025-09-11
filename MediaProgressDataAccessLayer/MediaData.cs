@@ -6,7 +6,7 @@ namespace MediaProgressDataAccessLayer
 {
     public class clsMovieDataAccess
     {
-        public static bool GetMediaInfoByID(int ID, ref string Name, ref double Rating, ref int Season, ref int EpisodeNumber,  ref int Duration, ref bool Completed,ref int SeriesID, ref int CategoryID, ref bool WatchAgain
+        public static bool GetMediaInfoByID(int ID, ref string Name, ref double Rating, ref int Season, ref int EpisodeNumber, ref int Duration, ref bool Completed, ref int SeriesID, ref int CategoryID, ref bool WatchAgain
            )
         {
             bool isFound = false;
@@ -91,7 +91,7 @@ namespace MediaProgressDataAccessLayer
             return isFound;
         }
 
- 
+
         public static int AddNewMedia(string Name, double Rating, int Season, int EpisodeNumber,
             int Duration, bool Completed, int SeriesID, int CategoryID, bool WatchAgain)
         {
@@ -160,7 +160,7 @@ namespace MediaProgressDataAccessLayer
         }
 
         public static bool UpdateMedia(int ID, string Name, double Rating, int Season, int EpisodeNumber,
-            int Duration, bool Completed,int SeriesID, int CategoryID, bool WatchAgain)
+            int Duration, bool Completed, int SeriesID, int CategoryID, bool WatchAgain)
         {
 
             int rowsAffected = 0;
@@ -381,7 +381,7 @@ namespace MediaProgressDataAccessLayer
 
         public static DataTable getAllMediaWithinAvailableTime(int Duration)
         {
-           
+
 
             DataTable dt = new DataTable();
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
@@ -455,7 +455,7 @@ ORDER BY
             return dt;
         }
 
-        
+
 
         public static DataTable getAllMoviesWithinAvailableTime(int Duration)
         {
@@ -473,13 +473,12 @@ ORDER BY
     mediaBasics.runtimeMinutes,
     mediaBasics.whereToWatch,
     mediaBasics.titleType,
-    Episodes.seasonNumber,
-    Episodes.episodeNumber,
-	seriesBasics.primaryTitle as Series_Name,
+   
+	
 	mediaBasics.startYear,
-	mediaBasics.whereToWatch,
+	
 	mediaBasics.isAdult,
-	Episodes.Completed as Episode_Completed,
+	
 	mediaBasics.Completed as Media_Completed,
     mediaBasics.WatchAgain as Media_Watch_Again
 FROM
