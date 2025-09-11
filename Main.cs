@@ -55,6 +55,7 @@ namespace MediaProgressWindowsForms
         private void btnShow_Click(object sender, EventArgs e)
         {
             int Duration = Convert.ToInt32(hoursComboBox.Text) * 60 + (Convert.ToInt32(minutesComboBox.Text)); // Bug! validate if one of two comboboxes is not chosen
+            dgvAll.AutoGenerateColumns = true;
             switch (categoryComboBox.SelectedIndex)
             {
                 case 0:

@@ -19,6 +19,7 @@ namespace MediaProgressBusinessLayer
         public double Rating { set; get; }
         public short Duration { set; get; }
         public bool Completed { set; get; }
+        public bool WatchAgain { set; get; }
 
 
 
@@ -33,13 +34,14 @@ namespace MediaProgressBusinessLayer
             this.Rating = -1;
             this.Duration = -1;
             this.Completed = false;
+            this.WatchAgain = false;
 
 
             Mode = enMode.AddNew;
         }
 
         private clsEpisode(int EpisodeID, int SeriesID, int Season, int EpisodeNumber, string Name, double Rating,
-            short Duration, bool Completed)
+            short Duration, bool Completed, bool WatchAgain)
 
         {
             this.EpisodeID = EpisodeID;
@@ -50,6 +52,7 @@ namespace MediaProgressBusinessLayer
             this.Rating = Rating;
             this.Duration = Duration;
             this.Completed = Completed;
+            this.WatchAgain = WatchAgain;
 
 
             Mode = enMode.Update;
@@ -60,7 +63,7 @@ namespace MediaProgressBusinessLayer
         {
             //call DataAccess Layer 
 
-            this.EpisodeID = clsEpisodeDataAccess.AddNewEpisode(this.SeriesID, this.Season, this.EpisodeNumber, this.Name, this.Rating, this.Duration, this.Completed);
+            this.EpisodeID = clsEpisodeDataAccess.AddNewEpisode(this.SeriesID, this.Season, this.EpisodeNumber, this.Name, this.Rating, this.Duration, this.Completed, this.WatchAgain);
 
             return (this.EpisodeID != -1);
         }
@@ -69,7 +72,7 @@ namespace MediaProgressBusinessLayer
         {
             //call DataAccess Layer 
 
-            return clsEpisodeDataAccess.UpdateEpisode(this.EpisodeID, this.SeriesID, this.Season, this.EpisodeNumber, this.Name, this.Rating, this.Duration, this.Completed);
+            return clsEpisodeDataAccess.UpdateEpisode(this.EpisodeID, this.SeriesID, this.Season, this.EpisodeNumber, this.Name, this.Rating, this.Duration, this.Completed, this.WatchAgain);
 
         }
 
@@ -84,13 +87,14 @@ namespace MediaProgressBusinessLayer
             double Rating = -1;
             short Duration = -1;
             bool Completed = false;
+            bool WatchAgain = false;
 
 
             if (clsEpisodeDataAccess.GetEpisodeInfoByID(ID, ref SeriesID, ref Season, ref EpisodeNumber, ref Name, ref Rating,
-                          ref Duration, ref Completed))
+                          ref Duration, ref Completed, ref WatchAgain))
 
                 return new clsEpisode(ID, SeriesID, Season, EpisodeNumber, Name, Rating,
-                           Duration, Completed);
+                           Duration, Completed, WatchAgain);
             else
                 return null;
         }

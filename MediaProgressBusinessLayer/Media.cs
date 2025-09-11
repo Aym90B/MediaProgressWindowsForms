@@ -21,9 +21,10 @@ namespace MediaProgressBusinessLayer
         public bool Completed { set; get; }
         public int SeriesID { set; get; }
         public int CategoryID { set; get; }
+        public bool WatchAgain { set; get; }
 
-        
-        
+
+
         public clsMedia()
 
         {
@@ -36,13 +37,14 @@ namespace MediaProgressBusinessLayer
             this.Completed = false;
             this.SeriesID = -1;
             this.CategoryID = -1;
-            
+            this.WatchAgain = false;
+
 
             Mode = enMode.AddNew;
         }
 
         private clsMedia(int ID, string Name, double Rating, int Season, int EpisodeNumber,
-            int Duration, bool Completed, int SeriesID, int CategoryID)
+            int Duration, bool Completed, int SeriesID, int CategoryID, bool WatchAgain)
 
         {
             this.ID = ID;
@@ -54,8 +56,9 @@ namespace MediaProgressBusinessLayer
             this.Completed = Completed;
             this.SeriesID = SeriesID;
             this.CategoryID = CategoryID;
+            this.WatchAgain = WatchAgain;
 
-         
+
 
             Mode = enMode.Update;
 
@@ -65,7 +68,7 @@ namespace MediaProgressBusinessLayer
         {
             //call DataAccess Layer 
 
-            this.ID = clsMovieDataAccess.AddNewMedia(this.Name, this.Rating, this.Season, this.EpisodeNumber, this.Duration, this.Completed, this.SeriesID, this.CategoryID);
+            this.ID = clsMovieDataAccess.AddNewMedia(this.Name, this.Rating, this.Season, this.EpisodeNumber, this.Duration, this.Completed, this.SeriesID, this.CategoryID, this.WatchAgain);
 
             return (this.ID != -1);
         }
@@ -74,7 +77,7 @@ namespace MediaProgressBusinessLayer
         {
             //call DataAccess Layer 
 
-            return clsMovieDataAccess.UpdateMedia(this.ID, this.Name, this.Rating, this.Season, this.EpisodeNumber, this.Duration, this.Completed, this.SeriesID, this.CategoryID);
+            return clsMovieDataAccess.UpdateMedia(this.ID, this.Name, this.Rating, this.Season, this.EpisodeNumber, this.Duration, this.Completed, this.SeriesID, this.CategoryID, this.WatchAgain);
 
         }
 
@@ -89,13 +92,14 @@ namespace MediaProgressBusinessLayer
             bool Completed = false;
             int SeriesID = -1;
             int CategoryID = -1;
-          
+            bool WatchAgain = false;
+
 
             if (clsMovieDataAccess.GetMediaInfoByID(ID, ref Name, ref Rating, ref Season, ref EpisodeNumber,
-                          ref Duration, ref Completed, ref SeriesID, ref CategoryID))
+                          ref Duration, ref Completed, ref SeriesID, ref CategoryID, ref WatchAgain))
 
                 return new clsMedia(ID, Name, Rating, Season, EpisodeNumber,
-                           Duration, Completed, SeriesID, CategoryID);
+                           Duration, Completed, SeriesID, CategoryID, WatchAgain);
             else
                 return null;
         }

@@ -33,24 +33,7 @@ namespace MediaProgressDataAccessLayer
                   
 
 
-                    // allows null in database so we should handle null
-                    //if (reader["Seasons"] != DBNull.Value)
-                    //{
-                    //    Season = (int)reader["Season"];
-                    //}
-                    //else
-                    //{
-                    //    Season = -1;
-                    //}
-                    //if (reader["SeriesID"] != DBNull.Value)
-                    //{
-                    //    SeriesID = (int)reader["SeriesID"];
-                    //}
-                    //else
-                    //{
-                    //    SeriesID = -1;
-                    //}
-
+       
                 }
                 else
                 {
@@ -152,15 +135,7 @@ namespace MediaProgressDataAccessLayer
           
 
 
-            //if (Season != -1 && Season != null)
-            //    command.Parameters.AddWithValue("@Season", Season);
-            //else
-            //    command.Parameters.AddWithValue("@Season", System.DBNull.Value);
-
-            //if (SeriesID != -1 && SeriesID != null)
-            //    command.Parameters.AddWithValue("@SeriesID", SeriesID);
-            //else
-            //    command.Parameters.AddWithValue("@SeriesID", System.DBNull.Value);
+           
 
             try
             {
@@ -209,15 +184,7 @@ namespace MediaProgressDataAccessLayer
           
 
 
-            //if (Season != -1 && Season != null)
-            //    command.Parameters.AddWithValue("@Season", Season);
-            //else
-            //    command.Parameters.AddWithValue("@Seasons", System.DBNull.Value);
 
-            //if (SeriesID != -1 && SeriesID != null)
-            //    command.Parameters.AddWithValue("@SeriesID", SeriesID);
-            //else
-            //    command.Parameters.AddWithValue("@SeriesID", System.DBNull.Value);
 
 
             try

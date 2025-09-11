@@ -6,7 +6,7 @@ namespace MediaProgressDataAccessLayer
 {
     public class clsMovieDataAccess
     {
-        public static bool GetMediaInfoByID(int ID, ref string Name, ref double Rating, ref int Season, ref int EpisodeNumber,  ref int Duration, ref bool Completed,ref int SeriesID, ref int CategoryID
+        public static bool GetMediaInfoByID(int ID, ref string Name, ref double Rating, ref int Season, ref int EpisodeNumber,  ref int Duration, ref bool Completed,ref int SeriesID, ref int CategoryID, ref bool WatchAgain
            )
         {
             bool isFound = false;
@@ -37,6 +37,7 @@ namespace MediaProgressDataAccessLayer
                     Completed = (bool)reader["Completed"];
                     //SeriesID = (int)reader["SeriesID"];
                     CategoryID = (int)reader["CategoryID"];
+                    WatchAgain = (bool)reader["WatchAgain"];
 
 
                     // allows null in database so we should handle null
@@ -90,92 +91,9 @@ namespace MediaProgressDataAccessLayer
             return isFound;
         }
 
-        //public static bool GetMediaInfoByName(ref int ID, string Name, ref double Rating, ref int Season, ref int EpisodeNumber, ref int Duration, ref bool Completed, ref int SeriesID, ref int CategoryID
-        //   )
-        //{
-        //    bool isFound = false;
-
-        //    SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
-
-        //    string query = "SELECT * FROM Main WHERE Name = @Name";
-
-        //    SqlCommand command = new SqlCommand(query, connection);
-
-        //    command.Parameters.AddWithValue("@Name", Name);
-
-        //    try
-        //    {
-        //        connection.Open();
-        //        SqlDataReader reader = command.ExecuteReader();
-
-        //        if (reader.Read())
-        //        {
-        //            // The record was found
-        //            isFound = true;
-        //            ID = (int)reader["ID"];
-        //            //Name = (string)reader["Name"];
-        //            Rating = (double)reader["Rating"];
-        //            //Season = (int)reader["Season"];
-        //            //EpisodeNumber = (int)reader["EpisodeNumber"];
-        //            Duration = (int)reader["Duration"];
-        //            Completed = (bool)reader["Completed"];
-        //            //SeriesID = (int)reader["SeriesID"];
-        //            CategoryID = (int)reader["CategoryID"];
-
-
-        //            // allows null in database so we should handle null
-        //            if (reader["Season"] != DBNull.Value)
-        //            {
-        //                Season = (int)reader["Season"];
-        //            }
-        //            else
-        //            {
-        //                Season = -1;
-        //            }
-        //            if (reader["SeriesID"] != DBNull.Value)
-        //            {
-        //                SeriesID = (int)reader["SeriesID"];
-        //            }
-        //            else
-        //            {
-        //                SeriesID = -1;
-        //            }
-
-        //            if (reader["EpisodeNumber"] != DBNull.Value)
-        //            {
-        //                EpisodeNumber = (int)reader["EpisodeNumber"];
-        //            }
-        //            else
-        //            {
-        //                EpisodeNumber = -1;
-        //            }
-
-        //        }
-        //        else
-        //        {
-        //            // The record was not found
-        //            isFound = false;
-        //        }
-
-        //        reader.Close();
-
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine("Error: " + ex.Message);
-        //        isFound = false;
-        //    }
-        //    finally
-        //    {
-        //        connection.Close();
-        //    }
-
-        //    return isFound;
-        //}
-
+ 
         public static int AddNewMedia(string Name, double Rating, int Season, int EpisodeNumber,
-            int Duration, bool Completed, int SeriesID, int CategoryID)
+            int Duration, bool Completed, int SeriesID, int CategoryID, bool WatchAgain)
         {
             //this function will return the new contact id if succeeded and -1 if not.
             int ID = -1;
@@ -183,7 +101,7 @@ namespace MediaProgressDataAccessLayer
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
 
             string query = @"INSERT INTO Main (Name, Rating, Season, EpisodeNumber, Duration, Completed, SeriesID, CategoryID)
-                             VALUES (@Name, @Rating, @Season, @EpisodeNumber, @Duration, @Completed, @SeriesID, @CategoryID);
+                             VALUES (@Name, @Rating, @Season, @EpisodeNumber, @Duration, @Completed, @SeriesID, @CategoryID, @WatchAgain);
                              SELECT SCOPE_IDENTITY();";
 
             SqlCommand command = new SqlCommand(query, connection);
@@ -195,6 +113,7 @@ namespace MediaProgressDataAccessLayer
             command.Parameters.AddWithValue("@Completed", Completed);
             //command.Parameters.AddWithValue("@SeriesID", SeriesID);
             command.Parameters.AddWithValue("@CategoryID", CategoryID);
+            command.Parameters.AddWithValue("@WatchAgain", WatchAgain);
 
 
             if (Season != -1 && Season.ToString() != null)
@@ -241,7 +160,7 @@ namespace MediaProgressDataAccessLayer
         }
 
         public static bool UpdateMedia(int ID, string Name, double Rating, int Season, int EpisodeNumber,
-            int Duration, bool Completed,int SeriesID, int CategoryID)
+            int Duration, bool Completed,int SeriesID, int CategoryID, bool WatchAgain)
         {
 
             int rowsAffected = 0;
@@ -255,7 +174,9 @@ namespace MediaProgressDataAccessLayer
                                 Duration = @Duration, 
                                 Completed = @Completed,
                                 SeriesID = @SeriesID,
-                                CategoryID = @CategoryID
+                                CategoryID = @CategoryID,
+                                WatchAgain = @WatchAgain
+                            
                               
                                 where ID = @ID";
 
@@ -269,6 +190,7 @@ namespace MediaProgressDataAccessLayer
             command.Parameters.AddWithValue("@Completed", Completed);
             //command.Parameters.AddWithValue("@SeriesID", SeriesID);
             command.Parameters.AddWithValue("@CategoryID", CategoryID);
+            command.Parameters.AddWithValue("@WatchAgain", WatchAgain);
 
 
             if (Season != -1 && Season.ToString() != null)
@@ -353,7 +275,7 @@ namespace MediaProgressDataAccessLayer
             DataTable dt = new DataTable();
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
 
-            string query = "SELECT\r\nMovieBasics.primaryTitle as MovieName,\r\n\r\nRatings.averageRating,\r\n\r\nRatings.numVotes,\r\n\r\nMovieBasics.whereToWatch,\r\nMovieBasics.runtimeMinutes,\r\nMovieBasics.titleType\r\n\r\nFrom\r\nBasics as MovieBasics\r\n\r\nJoin\r\nRatings on MovieBasics.tconst = Ratings.tconst\r\n\r\nwhere\r\nRatings.averageRating >= 8.5 and Ratings.numVotes >= 5000 and MovieBasics.Completed IS NULL and MovieBasics.titleType = 'movie' \r\n\r\norder by\r\nRatings.averageRating desc\r\n";
+            string query = "SELECT\r\nMovieBasics.primaryTitle as MovieName,\r\n\r\nRatings.averageRating,\r\n\r\nRatings.numVotes,\r\n\r\nMovieBasics.whereToWatch,\r\nMovieBasics.runtimeMinutes,\r\nMovieBasics.titleType,MovieBasics.WatchAgain\r\n\r\nFrom\r\nBasics as MovieBasics\r\n\r\nJoin\r\nRatings on MovieBasics.tconst = Ratings.tconst\r\n\r\nwhere\r\nRatings.averageRating >= 8.5 and Ratings.numVotes >= 5000 and MovieBasics.Completed IS NULL and MovieBasics.titleType = 'movie' \r\n\r\norder by\r\nRatings.averageRating desc\r\n";
 
             SqlCommand command = new SqlCommand(query, connection);
 
@@ -480,7 +402,8 @@ namespace MediaProgressDataAccessLayer
 	seriesBasics.primaryTitle as Series_Name,
 	mediaBasics.startYear,
 	Episodes.Completed as Episode_Completed,
-	mediaBasics.Completed as Media_Completed
+	mediaBasics.Completed as Media_Completed,
+    mediaBasics.WatchAgain as Media_Watch_Again
 FROM
     Basics AS mediaBasics
 LEFT JOIN
@@ -557,7 +480,8 @@ ORDER BY
 	mediaBasics.whereToWatch,
 	mediaBasics.isAdult,
 	Episodes.Completed as Episode_Completed,
-	mediaBasics.Completed as Media_Completed
+	mediaBasics.Completed as Media_Completed,
+    mediaBasics.WatchAgain as Media_Watch_Again
 FROM
     Basics AS mediaBasics
 LEFT JOIN

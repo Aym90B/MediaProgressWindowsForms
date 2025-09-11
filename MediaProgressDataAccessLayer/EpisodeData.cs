@@ -6,7 +6,7 @@ namespace MediaProgressDataAccessLayer
 {
     public class clsEpisodeDataAccess
     {
-        public static bool GetEpisodeInfoByID(int EpisodeID, ref int SeriesID, ref int Season, ref int EpisodeNumber, ref string Name, ref double Rating, ref short Duration, ref bool Completed
+        public static bool GetEpisodeInfoByID(int EpisodeID, ref int SeriesID, ref int Season, ref int EpisodeNumber, ref string Name, ref double Rating, ref short Duration, ref bool Completed, ref bool WatchAgain
            )
         {
             bool isFound = false;
@@ -36,6 +36,7 @@ namespace MediaProgressDataAccessLayer
                     Rating = (double)reader["Rating"];
                     Duration = (short)reader["Duration"];
                     Completed = (bool)reader["Completed"];
+                    WatchAgain = (bool)reader["WatchAgain"];
 
 
                     //ImagePath: allows null in database so we should handle null
@@ -72,8 +73,8 @@ namespace MediaProgressDataAccessLayer
             return isFound;
         }
 
-        public static int AddNewEpisode(int SeriesID, int Season, int EpisodeNumber, string Name,  double Rating,
-            short Duration, bool Completed)
+        public static int AddNewEpisode(int SeriesID, int Season, int EpisodeNumber, string Name, double Rating,
+            short Duration, bool Completed, bool WatchAgain)
         {
             //this function will return the new contact id if succeeded and -1 if not.
             int ID = -1;
@@ -81,7 +82,7 @@ namespace MediaProgressDataAccessLayer
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
 
             string query = @"INSERT INTO Episodes (SeriesID, Season, EpisodeNumber, Name, Rating, Duration, Watched)
-                             VALUES (@SeriesID, @Season, @EpisodeNumber, @Name, @Rating, @Duration, @Completed);
+                             VALUES (@SeriesID, @Season, @EpisodeNumber, @Name, @Rating, @Duration, @Completed, @WatchAgain);
                              SELECT SCOPE_IDENTITY();";
 
             SqlCommand command = new SqlCommand(query, connection);
@@ -93,6 +94,7 @@ namespace MediaProgressDataAccessLayer
             command.Parameters.AddWithValue("@Rating", Rating);
             command.Parameters.AddWithValue("@Duration", Duration);
             command.Parameters.AddWithValue("@Completed", Completed);
+            command.Parameters.AddWithValue("@WatchAgain", WatchAgain);
 
 
             //if (ImagePath != "" && ImagePath != null)
@@ -129,7 +131,7 @@ namespace MediaProgressDataAccessLayer
         }
 
         public static bool UpdateEpisode(int EpisodeID, int SeriesID, int Season, int EpisodeNumber, string Name, double Rating,
-            short Duration, bool Completed)
+            short Duration, bool Completed, bool WatchAgain)
         {
 
             int rowsAffected = 0;
@@ -141,8 +143,9 @@ namespace MediaProgressDataAccessLayer
                                 EpisodeNumber = @EpisodeNumber, 
                                 Name = @Name, 
                                 Rating = @Rating,
-                                Duration = @Duration
-                                Completed = @Completed
+                                Duration = @Duration,
+                                Completed = @Completed,
+                                WatchAgain = @WatchAgain
                               
                                 where EpisodeID = @EpisodeID";
 
@@ -156,14 +159,10 @@ namespace MediaProgressDataAccessLayer
             command.Parameters.AddWithValue("@Rating", Rating);
             command.Parameters.AddWithValue("@Duration", Duration);
             command.Parameters.AddWithValue("@Completed", Completed);
+            command.Parameters.AddWithValue("@WatchAgain", WatchAgain);
 
 
-            //if (ImagePath != "" && ImagePath != null)
-            //    command.Parameters.AddWithValue("@ImagePath", ImagePath);
-            //else
-            //    command.Parameters.AddWithValue("@ImagePath", System.DBNull.Value);
-
-
+         
             try
             {
                 connection.Open();
@@ -346,7 +345,7 @@ namespace MediaProgressDataAccessLayer
             //string query = "SELECT * FROM Episodes Where Duration <= @Duration and Watched = 0 order by EpisodeNumber asc";
 
             string query = "SELECT\r\nseriesBasics.primaryTitle as seriesName,\r\nepisodeBasics.primaryTitle as episodeTitle,\r\nRatings.averageRating,\r\nEpisodes.seasonNumber,\r\nEpisodes.episodeNumber,\r\nRatings.numVotes,\r\nEpisodes.tconst,\r\nEpisodes.Completed as Episode_Completed,\r\nseriesBasics.Completed as Series_Completed,\r\nseriesBasics.whereToWatch,\r\nseriesBasics.runtimeMinutes " +
-                "From\r\nBasics as seriesBasics\r\n\r\nJoin\r\nEpisodes on seriesBasics.tconst = Episodes.parentTconst\r\n\r\njoin\r\nBasics as episodeBasics on Episodes.tconst = episodeBasics.tconst\r\n\r\nJoin\r\nRatings on Episodes.tconst = Ratings.tconst\r\n\r\nwhere\r\nRatings.averageRating >= 8.5 and Ratings.numVotes >= 5000 and seriesBasics.runtimeMinutes <= @duration and Episodes.Completed IS NULL and Episodes.episodeNumber = 1 and Episodes.seasonNumber = 1\r\n\r\norder by\r\nRatings.averageRating Desc";
+                "From\r\nBasics as seriesBasics\r\n\r\nJoin\r\nEpisodes on seriesBasics.tconst = Episodes.parentTconst\r\n\r\njoin\r\nBasics as episodeBasics on Episodes.tconst = episodeBasics.tconst\r\n\r\nJoin\r\nRatings on Episodes.tconst = Ratings.tconst\r\n\r\nwhere\r\nRatings.averageRating >= 7 and Ratings.numVotes >= 5000 and seriesBasics.runtimeMinutes <= @duration and Episodes.Completed IS NULL and Episodes.episodeNumber = 1 and Episodes.seasonNumber = 1\r\n\r\norder by\r\nRatings.averageRating Desc";
 
             SqlCommand command = new SqlCommand(query, connection);
 
