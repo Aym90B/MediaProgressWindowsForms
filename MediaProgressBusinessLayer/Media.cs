@@ -15,13 +15,14 @@ namespace MediaProgressBusinessLayer
         public int ID { set; get; }
         public string Name { set; get; }
         public double Rating { set; get; }
-        public int Season { set; get; }
-        public int EpisodeNumber { set; get; }
+       
+    
         public int Duration { set; get; }
         public bool Completed { set; get; }
-        public int SeriesID { set; get; }
+     
         public int CategoryID { set; get; }
         public bool WatchAgain { set; get; }
+        public string WhereToWatch { set; get; }
 
 
 
@@ -31,32 +32,33 @@ namespace MediaProgressBusinessLayer
             this.ID = -1;
             this.Name = "";
             this.Rating = -1;
-            this.Season = -1;
-            this.EpisodeNumber = -1;
+           
+           
             this.Duration = -1;
             this.Completed = false;
-            this.SeriesID = -1;
+           
             this.CategoryID = -1;
             this.WatchAgain = false;
+            this.WhereToWatch = "";
 
 
             Mode = enMode.AddNew;
         }
 
-        private clsMedia(int ID, string Name, double Rating, int Season, int EpisodeNumber,
-            int Duration, bool Completed, int SeriesID, int CategoryID, bool WatchAgain)
+        private clsMedia(int ID, string Name, double Rating,
+            int Duration, bool Completed,  int CategoryID, bool WatchAgain, string WhereToWatch)
 
         {
             this.ID = ID;
             this.Name = Name;
             this.Rating = Rating;
-            this.Season = Season;
-            this.EpisodeNumber = EpisodeNumber;
+          
             this.Duration = Duration;
             this.Completed = Completed;
-            this.SeriesID = SeriesID;
+          
             this.CategoryID = CategoryID;
             this.WatchAgain = WatchAgain;
+            this.WhereToWatch = WhereToWatch;
 
 
 
@@ -68,7 +70,7 @@ namespace MediaProgressBusinessLayer
         {
             //call DataAccess Layer 
 
-            this.ID = clsMovieDataAccess.AddNewMedia(this.Name, this.Rating, this.Season, this.EpisodeNumber, this.Duration, this.Completed, this.SeriesID, this.CategoryID, this.WatchAgain);
+            this.ID = clsMovieDataAccess.AddNewMedia(this.Name, this.Rating,this.Duration, this.Completed, this.CategoryID, this.WatchAgain, this.WhereToWatch);
 
             return (this.ID != -1);
         }
@@ -77,7 +79,7 @@ namespace MediaProgressBusinessLayer
         {
             //call DataAccess Layer 
 
-            return clsMovieDataAccess.UpdateMedia(this.ID, this.Name, this.Rating, this.Season, this.EpisodeNumber, this.Duration, this.Completed, this.SeriesID, this.CategoryID, this.WatchAgain);
+            return clsMovieDataAccess.UpdateMedia(this.ID, this.Name, this.Rating,  this.Duration, this.Completed,  this.CategoryID, this.WatchAgain, this.WhereToWatch);
 
         }
 
@@ -86,20 +88,20 @@ namespace MediaProgressBusinessLayer
 
             string Name = "";
            double Rating = -1;
-            int Season = -1;    
-            int EpisodeNumber = -1;
+           
             int Duration = -1;
             bool Completed = false;
-            int SeriesID = -1;
+          
             int CategoryID = -1;
             bool WatchAgain = false;
+            string WhereToWatch = "";
 
 
-            if (clsMovieDataAccess.GetMediaInfoByID(ID, ref Name, ref Rating, ref Season, ref EpisodeNumber,
-                          ref Duration, ref Completed, ref SeriesID, ref CategoryID, ref WatchAgain))
+            if (clsMovieDataAccess.GetMediaInfoByID(ID, ref Name, ref Rating, 
+                          ref Duration, ref Completed, ref CategoryID, ref WatchAgain, ref WhereToWatch))
 
-                return new clsMedia(ID, Name, Rating, Season, EpisodeNumber,
-                           Duration, Completed, SeriesID, CategoryID, WatchAgain);
+                return new clsMedia(ID, Name, Rating, 
+                           Duration, Completed,  CategoryID, WatchAgain, WhereToWatch);
             else
                 return null;
         }
@@ -148,9 +150,9 @@ namespace MediaProgressBusinessLayer
             return clsMovieDataAccess.GetAllMovies();
         }
 
-        public static DataTable getAllSeries()
+        public static DataTable getAllSeriesFromIMDB()
         {
-            return clsSeriesDataAccess.GetAllSeries();
+            return clsSeriesDataAccess.GetAllSeriesFromIMDB();
         }
 
         public static DataTable GetAllMedia()

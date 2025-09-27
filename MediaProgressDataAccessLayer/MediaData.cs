@@ -6,7 +6,7 @@ namespace MediaProgressDataAccessLayer
 {
     public class clsMovieDataAccess
     {
-        public static bool GetMediaInfoByID(int ID, ref string Name, ref double Rating, ref int Season, ref int EpisodeNumber, ref int Duration, ref bool Completed, ref int SeriesID, ref int CategoryID, ref bool WatchAgain
+        public static bool GetMediaInfoByID(int ID, ref string Name, ref double Rating, ref int Duration, ref bool Completed,  ref int CategoryID, ref bool WatchAgain, ref string WhereToWatch
            )
         {
             bool isFound = false;
@@ -38,34 +38,10 @@ namespace MediaProgressDataAccessLayer
                     //SeriesID = (int)reader["SeriesID"];
                     CategoryID = (int)reader["CategoryID"];
                     WatchAgain = (bool)reader["WatchAgain"];
+                    WhereToWatch = (string)reader["WhereToWatch"];
 
 
-                    // allows null in database so we should handle null
-                    if (reader["Season"] != DBNull.Value)
-                    {
-                        Season = (int)reader["Season"];
-                    }
-                    else
-                    {
-                        Season = -1;
-                    }
-                    if (reader["SeriesID"] != DBNull.Value)
-                    {
-                        SeriesID = (int)reader["SeriesID"];
-                    }
-                    else
-                    {
-                        SeriesID = -1;
-                    }
-
-                    if (reader["EpisodeNumber"] != DBNull.Value)
-                    {
-                        EpisodeNumber = (int)reader["EpisodeNumber"];
-                    }
-                    else
-                    {
-                        EpisodeNumber = -1;
-                    }
+               
 
                 }
                 else
@@ -92,44 +68,79 @@ namespace MediaProgressDataAccessLayer
         }
 
 
-        public static int AddNewMedia(string Name, double Rating, int Season, int EpisodeNumber,
-            int Duration, bool Completed, int SeriesID, int CategoryID, bool WatchAgain)
+        public static int AddNewMedia(string Name, double Rating,
+            int Duration, bool Completed,  int CategoryID, bool WatchAgain, string WhereToWatch)
         {
             //this function will return the new contact id if succeeded and -1 if not.
             int ID = -1;
 
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
 
-            string query = @"INSERT INTO Main (Name, Rating, Season, EpisodeNumber, Duration, Completed, SeriesID, CategoryID)
-                             VALUES (@Name, @Rating, @Season, @EpisodeNumber, @Duration, @Completed, @SeriesID, @CategoryID, @WatchAgain);
+            string query = @"INSERT INTO Main (Name, Rating,  Duration, Completed,  CategoryID, WatchAgain, WhereToWatch)
+                             VALUES (@Name, @Rating,  @Duration, @Completed, @CategoryID, @WatchAgain, @WhereToWatch);
                              SELECT SCOPE_IDENTITY();";
 
             SqlCommand command = new SqlCommand(query, connection);
 
-            command.Parameters.AddWithValue("@Name", Name);
-            command.Parameters.AddWithValue("@Rating", Rating);
-            //command.Parameters.AddWithValue("@Season", Season);
-            command.Parameters.AddWithValue("@Duration", Duration);
-            command.Parameters.AddWithValue("@Completed", Completed);
-            //command.Parameters.AddWithValue("@SeriesID", SeriesID);
-            command.Parameters.AddWithValue("@CategoryID", CategoryID);
-            command.Parameters.AddWithValue("@WatchAgain", WatchAgain);
+           
 
-
-            if (Season != -1 && Season.ToString() != null)
-                command.Parameters.AddWithValue("@Season", Season);
+            if(Name != "" && Name != null)
+            {
+                command.Parameters.AddWithValue("@Name", Name);
+            }
             else
-                command.Parameters.AddWithValue("@Season", System.DBNull.Value);
+            {
+                command.Parameters.AddWithValue("@Name", System.DBNull.Value);
+            }
 
-            if (SeriesID != -1 && SeriesID.ToString() != null)
-                command.Parameters.AddWithValue("@SeriesID", SeriesID);
+            if(Rating != -1 && Rating.ToString() != null)
+            {
+                command.Parameters.AddWithValue("@Rating", Rating);
+            }
             else
-                command.Parameters.AddWithValue("@SeriesID", System.DBNull.Value);
+            {
+                command.Parameters.AddWithValue("@Rating", System.DBNull.Value);
+            }
 
-            if (EpisodeNumber != -1 && EpisodeNumber.ToString() != null)
-                command.Parameters.AddWithValue("@EpisodeNumber", EpisodeNumber);
+            if (Duration != -1 && Duration.ToString() != null)
+                command.Parameters.AddWithValue("@Duration", Duration);
             else
-                command.Parameters.AddWithValue("@EpisodeNumber", System.DBNull.Value);
+                command.Parameters.AddWithValue("@Duration", System.DBNull.Value);
+
+            if( Completed.ToString() != null)
+            {
+                command.Parameters.AddWithValue("@Completed", Completed);
+            }
+            else
+            {
+                command.Parameters.AddWithValue("@Completed", System.DBNull.Value);
+            }
+            if( CategoryID != -1 && CategoryID.ToString() != null)
+            {
+                command.Parameters.AddWithValue("@CategoryID", CategoryID);
+            }
+            else
+            {
+                command.Parameters.AddWithValue("@CategoryID", System.DBNull.Value);
+            }
+            if(WatchAgain.ToString() != null)
+            {
+                command.Parameters.AddWithValue("@WatchAgain", WatchAgain);
+            }
+            else
+            {
+                command.Parameters.AddWithValue("@WatchAgain", System.DBNull.Value);
+            }
+            if(WhereToWatch != "" && WhereToWatch != null)
+            {
+                command.Parameters.AddWithValue("@WhereToWatch", WhereToWatch);
+            }
+            else
+            {
+                command.Parameters.AddWithValue("@WhereToWatch", System.DBNull.Value);
+            }
+
+           
 
             try
             {
@@ -159,8 +170,8 @@ namespace MediaProgressDataAccessLayer
             return ID;
         }
 
-        public static bool UpdateMedia(int ID, string Name, double Rating, int Season, int EpisodeNumber,
-            int Duration, bool Completed, int SeriesID, int CategoryID, bool WatchAgain)
+        public static bool UpdateMedia(int ID, string Name, double Rating, 
+            int Duration, bool Completed,  int CategoryID, bool WatchAgain, string WhereToWatch)
         {
 
             int rowsAffected = 0;
@@ -169,13 +180,13 @@ namespace MediaProgressDataAccessLayer
             string query = @"Update  Main  
                             set Name = @Name, 
                                 Rating = @Rating, 
-                                Season = @Season,
-                                EpisodeNumber = @EpisodeNumber,
+                             
                                 Duration = @Duration, 
                                 Completed = @Completed,
-                                SeriesID = @SeriesID,
+                               
                                 CategoryID = @CategoryID,
-                                WatchAgain = @WatchAgain
+                                WatchAgain = @WatchAgain,
+                                WhereToWatch = @WhereToWatch    
                             
                               
                                 where ID = @ID";
@@ -185,28 +196,71 @@ namespace MediaProgressDataAccessLayer
             command.Parameters.AddWithValue("@ID", ID);
             command.Parameters.AddWithValue("@Name", Name);
             command.Parameters.AddWithValue("@Rating", Rating);
-            //command.Parameters.AddWithValue("@Season", Season);
+           
             command.Parameters.AddWithValue("@Duration", Duration);
             command.Parameters.AddWithValue("@Completed", Completed);
-            //command.Parameters.AddWithValue("@SeriesID", SeriesID);
+           
             command.Parameters.AddWithValue("@CategoryID", CategoryID);
             command.Parameters.AddWithValue("@WatchAgain", WatchAgain);
+            command.Parameters.AddWithValue("@WhereToWatch", WhereToWatch);
 
-
-            if (Season != -1 && Season.ToString() != null)
-                command.Parameters.AddWithValue("@Season", Season);
+            if (Name != "" && Name != null)
+            {
+                command.Parameters.AddWithValue("@Name", Name);
+            }
             else
-                command.Parameters.AddWithValue("@Seasons", System.DBNull.Value);
+            {
+                command.Parameters.AddWithValue("@Name", System.DBNull.Value);
+            }
 
-            if (SeriesID != -1 && SeriesID.ToString() != null)
-                command.Parameters.AddWithValue("@SeriesID", SeriesID);
+            if (Rating != -1 && Rating.ToString() != null)
+            {
+                command.Parameters.AddWithValue("@Rating", Rating);
+            }
             else
-                command.Parameters.AddWithValue("@SeriesID", System.DBNull.Value);
+            {
+                command.Parameters.AddWithValue("@Rating", System.DBNull.Value);
+            }
 
-            if (EpisodeNumber != -1 && EpisodeNumber.ToString() != null)
-                command.Parameters.AddWithValue("@EpisodeNumber", EpisodeNumber);
+            if (Duration != -1 && Duration.ToString() != null)
+                command.Parameters.AddWithValue("@Duration", Duration);
             else
-                command.Parameters.AddWithValue("@EpisodeNumber", System.DBNull.Value);
+                command.Parameters.AddWithValue("@Duration", System.DBNull.Value);
+
+            if (Completed.ToString() != null)
+            {
+                command.Parameters.AddWithValue("@Completed", Completed);
+            }
+            else
+            {
+                command.Parameters.AddWithValue("@Completed", System.DBNull.Value);
+            }
+            if (CategoryID != -1 && CategoryID.ToString() != null)
+            {
+                command.Parameters.AddWithValue("@CategoryID", CategoryID);
+            }
+            else
+            {
+                command.Parameters.AddWithValue("@CategoryID", System.DBNull.Value);
+            }
+            if (WatchAgain.ToString() != null)
+            {
+                command.Parameters.AddWithValue("@WatchAgain", WatchAgain);
+            }
+            else
+            {
+                command.Parameters.AddWithValue("@WatchAgain", System.DBNull.Value);
+            }
+            if (WhereToWatch != "" && WhereToWatch != null)
+            {
+                command.Parameters.AddWithValue("@WhereToWatch", WhereToWatch);
+            }
+            else
+            {
+                command.Parameters.AddWithValue("@WhereToWatch", System.DBNull.Value);
+            }
+
+
 
 
             try

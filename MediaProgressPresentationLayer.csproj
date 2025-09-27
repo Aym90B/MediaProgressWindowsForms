@@ -85,29 +85,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FirstScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FirstScreen.Designer.cs">
+      <DependentUpon>FirstScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmAddEditEpisodes.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmAddEditEpisodes.Designer.cs">
       <DependentUpon>FrmAddEditEpisodes.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmAddEditGames.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmAddEditGames.Designer.cs">
-      <DependentUpon>frmAddEditGames.cs</DependentUpon>
-    </Compile>
     <Compile Include="frmAddEditMedia.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmAddEditMedia.Designer.cs">
       <DependentUpon>frmAddEditMedia.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmAddEditSeries.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmAddEditSeries.Designer.cs">
-      <DependentUpon>frmAddEditSeries.cs</DependentUpon>
     </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
@@ -123,14 +117,14 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FirstScreen.resx">
+      <DependentUpon>FirstScreen.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmAddEditEpisodes.resx">
       <DependentUpon>FrmAddEditEpisodes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmAddEditMedia.resx">
       <DependentUpon>frmAddEditMedia.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmAddEditSeries.resx">
-      <DependentUpon>frmAddEditSeries.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>

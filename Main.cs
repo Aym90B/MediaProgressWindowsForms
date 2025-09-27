@@ -36,7 +36,7 @@ namespace MediaProgressWindowsForms
 
         private void _RefreshSeriesList()
         {
-            dgvAll.DataSource = clsSeries.GetAllSeries();
+            dgvAll.DataSource = clsSeries.GetAllSeriesFromIMDB();
         }
 
         //private void _RefreshEpisodesList()
@@ -116,12 +116,12 @@ namespace MediaProgressWindowsForms
             _RefreshMoviesList();
         }
 
-        private void btnAddSeries_Click(object sender, EventArgs e)
-        {
-            frmAddEditSeries frm = new frmAddEditSeries(-1);
-            frm.ShowDialog();
-            _RefreshSeriesList();
-        }
+        //private void btnAddSeries_Click(object sender, EventArgs e)
+        //{
+        //    frmAddEditSeries frm = new frmAddEditSeries(-1);
+        //    frm.ShowDialog();
+        //    _RefreshSeriesList();
+        //}
 
         private void categoryComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -142,11 +142,11 @@ namespace MediaProgressWindowsForms
             }
         }
 
-        private void btnAddEpisodes_Click(object sender, EventArgs e)
-        {
-            FrmAddEditEpisodes frm = new FrmAddEditEpisodes(-1);
-            frm.ShowDialog();
-        }
+        //private void btnAddEpisodes_Click(object sender, EventArgs e)
+        //{
+        //    FrmAddEditEpisodes frm = new FrmAddEditEpisodes(-1);
+        //    frm.ShowDialog();
+        //}
 
         private void hoursComboBox_Validating(object sender, CancelEventArgs e)
         {
@@ -218,7 +218,12 @@ namespace MediaProgressWindowsForms
         private void btnShowSeries_Click(object sender, EventArgs e)
         {
             _RefreshSeriesList();
-            dgvAll.DataSource = clsMedia.getAllSeries();
+            dgvAll.DataSource = clsMedia.getAllSeriesFromIMDB();
+        }
+
+        private void hoursComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

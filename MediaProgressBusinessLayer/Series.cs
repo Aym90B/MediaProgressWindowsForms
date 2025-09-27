@@ -1,119 +1,130 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Xml.Linq;
 using MediaProgressDataAccessLayer;
 
 namespace MediaProgressBusinessLayer
 {
-    public class clsSeries
+    public class clsSeries : clsMedia
     {
         public enum enMode { AddNew = 0, Update = 1 };
         public enMode Mode = enMode.AddNew;
 
-        public int ID { set; get; }
-        public int Seasons { set; get; }
-        public string Name { set; get; }
-        public double Rating { set; get; }
-        public int Duration { set; get; }
-        public bool Completed { set; get; }
+        public int SeriesID { set; get; }
+        public int NumberOfSeasons { set; get; }
+       
+       
+        public int NumberOfEpisodes { set; get; }
+
+        public bool startWatching { set; get; }
+
+        public float percentageOfCompletion { set; get; }
+
+        public int watchedEpisodes { set; get; }
 
 
 
         public clsSeries()
 
         {
-            this.ID = -1;
-            this.Seasons = -1;
-            this.Name = "";
-            this.Rating = -1;
-            this.Duration = -1;
-            this.Completed = false;
+            this.SeriesID = -1;
+            this.NumberOfSeasons = -1;
+            this.NumberOfEpisodes = -1;
+            this.startWatching = false;
+           
+            this.watchedEpisodes = 0;
+
+
 
 
             Mode = enMode.AddNew;
         }
 
-        private clsSeries(int ID, string Name, int Seasons, double Rating,
-            int Duration, bool Completed)
+        private clsSeries(int SeriesID, int NumberOfSeasons, int NumberOfEpisodes, bool startWatching,  int WatchedEpisodes)
 
         {
-            this.ID = ID;
-            this.Name = Name;
-            this.Seasons = Seasons;
-            this.Rating = Rating;
-            this.Duration = Duration;
-            this.Completed = Completed;
+           this.SeriesID = SeriesID;
+            this.NumberOfSeasons = NumberOfSeasons;
+            this.NumberOfEpisodes = NumberOfEpisodes;
+            this.startWatching = startWatching;
+           
+            this.watchedEpisodes = WatchedEpisodes;
 
 
             Mode = enMode.Update;
 
         }
 
-        private bool _AddNewSeries()
+        private bool _AddNewSeries(int ID)
         {
             //call DataAccess Layer 
 
-            this.ID = clsSeriesDataAccess.AddNewSeries(this.Name, this.Seasons, this.Rating, this.Duration, this.Completed);
+            this.SeriesID = clsSeriesDataAccess.AddNewSeries(this.NumberOfSeasons, this.NumberOfEpisodes, ID, this.startWatching, this.watchedEpisodes);
 
-            return (this.ID != -1);
+            return (this.SeriesID != -1);
         }
 
         private bool _UpdateSeries()
         {
             //call DataAccess Layer 
 
-            return clsSeriesDataAccess.UpdateSeries(this.ID, this.Name, this.Seasons, this.Rating, this.Duration, this.Completed);
+            return clsSeriesDataAccess.UpdateSeries(this.SeriesID, this.NumberOfSeasons, this.NumberOfEpisodes, this.startWatching,  this.watchedEpisodes);
 
         }
 
-        public static clsSeries Find(int ID)
+        public static clsSeries Find(int SeriesID)
         {
 
-            string Name = "";
-            int Seasons = -1;
-            double Rating = -1;
-            int Duration = -1;
-            bool Completed = false;
+            
+            int NumberOfSeasons = -1;
+            int NumberOfEpisodes = -1;
+           bool startWatching = false;
+          
+            int watchedEpisodes = 0;
 
             //int SeriesID = -1;
 
-            if (clsSeriesDataAccess.GetSeriesInfoByID(ID, ref Seasons, ref Name,  ref Rating,
-                          ref Duration, ref Completed))
+            if (clsSeriesDataAccess.GetSeriesInfoByID(SeriesID, ref NumberOfSeasons, ref NumberOfEpisodes, ref startWatching, ref watchedEpisodes))
 
-                return new clsSeries(ID, Name, Seasons, Rating,
-                           Duration, Completed);
+                return new clsSeries(SeriesID, NumberOfSeasons, NumberOfEpisodes, startWatching,  watchedEpisodes);
             else
                 return null;
         }
 
-        public static clsSeries Find(string SeriesName)
-        {
-            int ID = -1;
+        //public static clsSeries Find(string SeriesName)
+        //{
+        //    int ID = -1;
           
-            int Seasons = -1;
-            double Rating = -1;
-            int Duration = -1;
-            bool Completed = false;
+        //    int Seasons = -1;
+        //    double Rating = -1;
+        //    int Duration = -1;
+        //    bool Completed = false;
 
 
-            if (clsSeriesDataAccess.GetSeriesInfoByName(SeriesName, ref ID, ref Seasons, ref Rating, ref Duration, ref Completed))
+        //    if (clsSeriesDataAccess.GetSeriesInfoByName(SeriesName, ref ID, ref Seasons, ref Rating, ref Duration, ref Completed))
 
-                return new clsSeries(ID, SeriesName, Seasons, Rating, Duration, Completed);
-            else
-                return null;
+        //        return new clsSeries(ID, SeriesName, Seasons, Rating, Duration, Completed);
+        //    else
+        //        return null;
 
+        //}
+
+        static public float GetSeriesPercentageCompletion(int SeriesID)
+        {
+            return clsSeriesDataAccess.GetSeriesPercentageCompletion(SeriesID);
         }
 
 
 
-        public bool Save()
+        public bool SaveSeries(int ID)
         {
 
 
             switch (Mode)
             {
                 case enMode.AddNew:
-                    if (_AddNewSeries())
+                    if (_AddNewSeries(ID))
                     {
 
                         Mode = enMode.Update;
@@ -136,10 +147,30 @@ namespace MediaProgressBusinessLayer
             return false;
         }
 
+        public static int GetSeriesIDByName(string SeriesName)
+        {
+            return clsSeriesDataAccess.GetSeriesIDByName(SeriesName);
+        }
+
         public static DataTable GetAllSeries()
         {
             return clsSeriesDataAccess.GetAllSeries();
+        }
 
+        public static DataTable GetAllSeasons(string SeriesName)
+        {
+            return clsSeriesDataAccess.GetAllSeasons(SeriesName);
+        }
+
+        public static DataTable GetAllSeriesFromIMDB()
+        {
+            return clsSeriesDataAccess.GetAllSeriesFromIMDB();
+
+        }
+
+        public static List< string>  GetAllSeriesNames()
+        {
+            return clsSeriesDataAccess.getAllSeriesNames();
         }
 
         public static bool DeleteSeries(int ID)
@@ -155,6 +186,11 @@ namespace MediaProgressBusinessLayer
         public static DataTable getAllSeriesWithinAvailableTime(int Duration)
         {
             return clsSeriesDataAccess.getAllSeriesWithinAvailableTime(Duration);
+        }
+
+        public static int GetNumberOfSeasonsForSeries(string seriesName)
+        {
+            return clsSeriesDataAccess.getNumberOfSeasonsForSeries(seriesName);
         }
 
 

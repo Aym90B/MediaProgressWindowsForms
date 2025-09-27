@@ -81,7 +81,7 @@ namespace MediaProgressDataAccessLayer
 
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
 
-            string query = @"INSERT INTO Episodes (SeriesID, Season, EpisodeNumber, Name, Rating, Duration, Watched)
+            string query = @"INSERT INTO NewEpisodes (SeriesID, Season, EpisodeNumber, EpisodeName, Rating, Duration, Completed, WatchAgain)
                              VALUES (@SeriesID, @Season, @EpisodeNumber, @Name, @Rating, @Duration, @Completed, @WatchAgain);
                              SELECT SCOPE_IDENTITY();";
 
@@ -97,10 +97,7 @@ namespace MediaProgressDataAccessLayer
             command.Parameters.AddWithValue("@WatchAgain", WatchAgain);
 
 
-            //if (ImagePath != "" && ImagePath != null)
-            //    command.Parameters.AddWithValue("@ImagePath", ImagePath);
-            //else
-            //    command.Parameters.AddWithValue("@ImagePath", System.DBNull.Value);
+
 
             try
             {
@@ -117,7 +114,7 @@ namespace MediaProgressDataAccessLayer
 
             catch (Exception ex)
             {
-                //Console.WriteLine("Error: " + ex.Message);
+                Console.WriteLine("Error: " + ex.Message);
 
             }
 
