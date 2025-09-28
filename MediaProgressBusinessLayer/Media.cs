@@ -23,7 +23,7 @@ namespace MediaProgressBusinessLayer
         public int CategoryID { set; get; }
         public bool WatchAgain { set; get; }
         public string WhereToWatch { set; get; }
-
+        public bool StartPlaying { set; get; }
 
 
         public clsMedia()
@@ -40,13 +40,13 @@ namespace MediaProgressBusinessLayer
             this.CategoryID = -1;
             this.WatchAgain = false;
             this.WhereToWatch = "";
-
+            this.StartPlaying = false;
 
             Mode = enMode.AddNew;
         }
 
         private clsMedia(int ID, string Name, double Rating,
-            int Duration, bool Completed,  int CategoryID, bool WatchAgain, string WhereToWatch)
+            int Duration, bool Completed,  int CategoryID, bool WatchAgain, string WhereToWatch, bool StartPlaying)
 
         {
             this.ID = ID;
@@ -59,7 +59,7 @@ namespace MediaProgressBusinessLayer
             this.CategoryID = CategoryID;
             this.WatchAgain = WatchAgain;
             this.WhereToWatch = WhereToWatch;
-
+            this.StartPlaying = StartPlaying;
 
 
             Mode = enMode.Update;
@@ -70,7 +70,7 @@ namespace MediaProgressBusinessLayer
         {
             //call DataAccess Layer 
 
-            this.ID = clsMovieDataAccess.AddNewMedia(this.Name, this.Rating,this.Duration, this.Completed, this.CategoryID, this.WatchAgain, this.WhereToWatch);
+            this.ID = clsMovieDataAccess.AddNewMedia(this.Name, this.Rating,this.Duration, this.Completed, this.CategoryID, this.WatchAgain, this.WhereToWatch, this.StartPlaying);
 
             return (this.ID != -1);
         }
@@ -79,7 +79,7 @@ namespace MediaProgressBusinessLayer
         {
             //call DataAccess Layer 
 
-            return clsMovieDataAccess.UpdateMedia(this.ID, this.Name, this.Rating,  this.Duration, this.Completed,  this.CategoryID, this.WatchAgain, this.WhereToWatch);
+            return clsMovieDataAccess.UpdateMedia(this.ID, this.Name, this.Rating,  this.Duration, this.Completed,  this.CategoryID, this.WatchAgain, this.WhereToWatch, this.StartPlaying);
 
         }
 
@@ -95,13 +95,14 @@ namespace MediaProgressBusinessLayer
             int CategoryID = -1;
             bool WatchAgain = false;
             string WhereToWatch = "";
+            bool StartPlaying = false;
 
 
             if (clsMovieDataAccess.GetMediaInfoByID(ID, ref Name, ref Rating, 
-                          ref Duration, ref Completed, ref CategoryID, ref WatchAgain, ref WhereToWatch))
+                          ref Duration, ref Completed, ref CategoryID, ref WatchAgain, ref WhereToWatch, ref StartPlaying))
 
                 return new clsMedia(ID, Name, Rating, 
-                           Duration, Completed,  CategoryID, WatchAgain, WhereToWatch);
+                           Duration, Completed,  CategoryID, WatchAgain, WhereToWatch,StartPlaying);
             else
                 return null;
         }

@@ -13,7 +13,7 @@ namespace MediaProgressDataAccessLayer
 
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
 
-            string query = "SELECT * FROM Series WHERE BookID = @BookID";
+            string query = "SELECT * FROM Main WHERE BookID = @BookID";
 
             SqlCommand command = new SqlCommand(query, connection);
 
@@ -152,15 +152,15 @@ namespace MediaProgressDataAccessLayer
             return isFound;
         }
 
-        public static int AddNewBook(int NumberOfPages, int CurrentPage, int ID)
+        public static int AddNewBook(int NumberOfPages, int CurrentPage, int ID, string Author, string ISBN)
         {
             //this function will return the new contact id if succeeded and -1 if not.
             int BookID = -1;
 
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
 
-            string query = @"INSERT INTO Books (NumberOfPages, CurrentPage, ID)
-                             VALUES (@NumberOfPages, @CurrentPage, @ID);
+            string query = @"INSERT INTO Books (NumberOfPages, CurrentPage, ID, Author, ISBN)
+                             VALUES (@NumberOfPages, @CurrentPage, @ID, @Author, @ISBN);
                              SELECT SCOPE_IDENTITY();";
 
             SqlCommand command = new SqlCommand(query, connection);
@@ -180,7 +180,17 @@ namespace MediaProgressDataAccessLayer
             else
                 command.Parameters.AddWithValue("@ID", System.DBNull.Value);
 
-           
+            if (Author != null && Author.ToString() != null)
+                command.Parameters.AddWithValue("@Author", Author);
+            else
+                command.Parameters.AddWithValue("@Author", System.DBNull.Value);
+
+            if (ISBN != null && Author.ToString() != null)
+                command.Parameters.AddWithValue("@ISBN", ISBN);
+            else
+                command.Parameters.AddWithValue("@ISBN", System.DBNull.Value);
+
+
             try
             {
                 connection.Open();
@@ -209,7 +219,7 @@ namespace MediaProgressDataAccessLayer
             return BookID;
         }
 
-        public static bool UpdateBook(int BookID, int NumberOfPages, int CurrentPage)
+        public static bool UpdateBook(int BookID, int NumberOfPages, int CurrentPage, string Author, string ISBN)
         {
 
             int rowsAffected = 0;
@@ -218,8 +228,9 @@ namespace MediaProgressDataAccessLayer
             string query = @"Update  Books 
                                 set 
                                 NumberOfPages = @NumberOfPages,
-                                CurrentPage = @CurrentPage
-                              
+                                CurrentPage = @CurrentPage,
+                                Author = @Author,
+                                ISBN = @ISBN
                               
                                 where BookID = @BookID";
           
@@ -229,7 +240,9 @@ namespace MediaProgressDataAccessLayer
             command.Parameters.AddWithValue("@BookID", BookID);
             command.Parameters.AddWithValue("@NumberOfPages", NumberOfPages);
             command.Parameters.AddWithValue("@CurrentPage", CurrentPage);
-           
+            command.Parameters.AddWithValue("@Author", Author);
+            command.Parameters.AddWithValue("@ISBN", ISBN);
+
 
 
 
@@ -242,7 +255,16 @@ namespace MediaProgressDataAccessLayer
                 command.Parameters.AddWithValue("@CurrentPage", CurrentPage);
             else
                 command.Parameters.AddWithValue("@CurrentPage", System.DBNull.Value);
-           
+            if (Author != null && Author.ToString() != null)
+                command.Parameters.AddWithValue("@Author", Author);
+            else
+                command.Parameters.AddWithValue("@Author", System.DBNull.Value);
+
+            if (ISBN != null && Author.ToString() != null)
+                command.Parameters.AddWithValue("@ISBN", ISBN);
+            else
+                command.Parameters.AddWithValue("@ISBN", System.DBNull.Value);
+
             try
             {
                 connection.Open();

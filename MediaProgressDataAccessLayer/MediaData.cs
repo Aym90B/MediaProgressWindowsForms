@@ -6,7 +6,7 @@ namespace MediaProgressDataAccessLayer
 {
     public class clsMovieDataAccess
     {
-        public static bool GetMediaInfoByID(int ID, ref string Name, ref double Rating, ref int Duration, ref bool Completed,  ref int CategoryID, ref bool WatchAgain, ref string WhereToWatch
+        public static bool GetMediaInfoByID(int ID, ref string Name, ref double Rating, ref int Duration, ref bool Completed,  ref int CategoryID, ref bool WatchAgain, ref string WhereToWatch, ref bool StartPlaying
            )
         {
             bool isFound = false;
@@ -39,6 +39,7 @@ namespace MediaProgressDataAccessLayer
                     CategoryID = (int)reader["CategoryID"];
                     WatchAgain = (bool)reader["WatchAgain"];
                     WhereToWatch = (string)reader["WhereToWatch"];
+                    StartPlaying = (bool)reader["startPlaying"];
 
 
                
@@ -69,15 +70,15 @@ namespace MediaProgressDataAccessLayer
 
 
         public static int AddNewMedia(string Name, double Rating,
-            int Duration, bool Completed,  int CategoryID, bool WatchAgain, string WhereToWatch)
+            int Duration, bool Completed,  int CategoryID, bool WatchAgain, string WhereToWatch, bool StartPlaying)
         {
             //this function will return the new contact id if succeeded and -1 if not.
             int ID = -1;
 
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
 
-            string query = @"INSERT INTO Main (Name, Rating,  Duration, Completed,  CategoryID, WatchAgain, WhereToWatch)
-                             VALUES (@Name, @Rating,  @Duration, @Completed, @CategoryID, @WatchAgain, @WhereToWatch);
+            string query = @"INSERT INTO Main (Name, Rating,  Duration, Completed,  CategoryID, WatchAgain, WhereToWatch, StartPlaying)
+                             VALUES (@Name, @Rating,  @Duration, @Completed, @CategoryID, @WatchAgain, @WhereToWatch, @StartPlaying);
                              SELECT SCOPE_IDENTITY();";
 
             SqlCommand command = new SqlCommand(query, connection);
@@ -139,8 +140,17 @@ namespace MediaProgressDataAccessLayer
             {
                 command.Parameters.AddWithValue("@WhereToWatch", System.DBNull.Value);
             }
+            if (StartPlaying.ToString() != null)
+            {
+                command.Parameters.AddWithValue("@StartPlaying", StartPlaying);
+            }
+            else
+            {
+                command.Parameters.AddWithValue("@StartPlaying", System.DBNull.Value);
+            }
 
-           
+
+
 
             try
             {
@@ -171,7 +181,7 @@ namespace MediaProgressDataAccessLayer
         }
 
         public static bool UpdateMedia(int ID, string Name, double Rating, 
-            int Duration, bool Completed,  int CategoryID, bool WatchAgain, string WhereToWatch)
+            int Duration, bool Completed,  int CategoryID, bool WatchAgain, string WhereToWatch, bool StartPlaying)
         {
 
             int rowsAffected = 0;
@@ -186,7 +196,8 @@ namespace MediaProgressDataAccessLayer
                                
                                 CategoryID = @CategoryID,
                                 WatchAgain = @WatchAgain,
-                                WhereToWatch = @WhereToWatch    
+                                WhereToWatch = @WhereToWatch,
+                                StartPlaying = @StartPlaying
                             
                               
                                 where ID = @ID";
@@ -203,6 +214,7 @@ namespace MediaProgressDataAccessLayer
             command.Parameters.AddWithValue("@CategoryID", CategoryID);
             command.Parameters.AddWithValue("@WatchAgain", WatchAgain);
             command.Parameters.AddWithValue("@WhereToWatch", WhereToWatch);
+            command.Parameters.AddWithValue("@StartPlaying", StartPlaying);
 
             if (Name != "" && Name != null)
             {
@@ -258,6 +270,14 @@ namespace MediaProgressDataAccessLayer
             else
             {
                 command.Parameters.AddWithValue("@WhereToWatch", System.DBNull.Value);
+            }
+            if (StartPlaying.ToString() != null)
+            {
+                command.Parameters.AddWithValue("@StartPlaying", StartPlaying);
+            }
+            else
+            {
+                command.Parameters.AddWithValue("@StartPlaying", System.DBNull.Value);
             }
 
 

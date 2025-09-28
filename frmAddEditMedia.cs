@@ -20,6 +20,7 @@ namespace MediaProgressWindowsForms
         int _ID;
         clsMedia _Media;
         clsSeries _Series;
+        clsBook _Book;
         public frmAddEditMedia(int ID)
         {
             InitializeComponent();
@@ -49,6 +50,7 @@ namespace MediaProgressWindowsForms
                 lblMode.Text = "Add New Media";
                 _Media = new clsMedia();
                 _Series = new clsSeries();
+                _Book = new clsBook();
                 return;
             }
 
@@ -94,6 +96,7 @@ namespace MediaProgressWindowsForms
             _Media.Completed = checkBoxCompleted.Checked;
             _Media.WatchAgain = chkbxWatchAgain.Checked;
           _Media.WhereToWatch = txtWhereToWatch.Text;
+            
           
             if(cbCategory.SelectedIndex == 1)
             {
@@ -105,6 +108,16 @@ namespace MediaProgressWindowsForms
                 MessageBox.Show("Series Data Saved Successfully.");
              
 
+            } else if (cbCategory.SelectedIndex == 3)
+            {
+                _Media.Save();
+                
+                _Book.NumberOfPages = Convert.ToInt32(txtNumberOfPages.Text);
+                _Book.CurrentPage = Convert.ToInt32(txtCurrentPage.Text);
+                _Book.Author = txtAuthor.Text;
+                _Book.ISBN = txtISBN.Text;
+                _Book.SaveBook(_Media.ID);
+                MessageBox.Show("Book Data Saved Successfully.");
             }
 
             else
@@ -158,6 +171,12 @@ namespace MediaProgressWindowsForms
                         _Media.CategoryID = 4;
                     lblNumberOfPages.Visible = true;
                     txtNumberOfPages.Visible = true;
+                    lblCurrentPage.Visible = true;
+                    txtCurrentPage.Visible = true;
+                    lblAuthor.Visible = true;
+                    txtAuthor.Visible = true;
+                    lblISBN.Visible = true;
+                    txtISBN.Visible = true;
                     break;
                 default:
                     _Media.CategoryID = 1;
