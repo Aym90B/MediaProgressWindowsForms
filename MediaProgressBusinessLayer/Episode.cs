@@ -10,7 +10,7 @@ namespace MediaProgressBusinessLayer
         public enum enMode { AddNew = 0, Update = 1 };
         public enMode Mode = enMode.AddNew;
 
-        public int EpisodeID { set; get; }
+        public int ID { set; get; }
         public int SeriesID { set; get; }
         public int Season { set; get; }
         public int EpisodeNumber { set; get; }  
@@ -26,7 +26,7 @@ namespace MediaProgressBusinessLayer
         public clsEpisode()
 
         {
-            this.EpisodeID = -1;
+            this.ID = -1;
             this.SeriesID = -1;
             this.Season = -1;
             this.EpisodeNumber = -1;
@@ -40,11 +40,11 @@ namespace MediaProgressBusinessLayer
             Mode = enMode.AddNew;
         }
 
-        private clsEpisode(int EpisodeID, int SeriesID, int Season, int EpisodeNumber, string Name, double Rating,
+        private clsEpisode(int ID, int SeriesID, int Season, int EpisodeNumber, string Name, double Rating,
             short Duration, bool Completed, bool WatchAgain)
 
         {
-            this.EpisodeID = EpisodeID;
+            this.ID = ID;
             this.SeriesID = SeriesID;
             this.Season = Season;
             this.EpisodeNumber = EpisodeNumber;
@@ -59,20 +59,20 @@ namespace MediaProgressBusinessLayer
 
         }
 
-        private bool _AddNewEpisode()
+        private bool _AddNewEpisode(int SeriesID)
         {
             //call DataAccess Layer 
 
-            this.EpisodeID = clsEpisodeDataAccess.AddNewEpisode(this.SeriesID, this.Season, this.EpisodeNumber, this.Name, this.Rating, this.Duration, this.Completed, this.WatchAgain);
+            this.ID = clsEpisodeDataAccess.AddNewEpisode(SeriesID, this.Season, this.EpisodeNumber, this.Name, this.Rating, this.Duration, this.Completed, this.WatchAgain);
 
-            return (this.EpisodeID != -1);
+            return (this.ID != -1);
         }
 
         private bool _UpdateEpisode()
         {
             //call DataAccess Layer 
 
-            return clsEpisodeDataAccess.UpdateEpisode(this.EpisodeID, this.SeriesID, this.Season, this.EpisodeNumber, this.Name, this.Rating, this.Duration, this.Completed, this.WatchAgain);
+            return clsEpisodeDataAccess.UpdateEpisode(this.ID, this.SeriesID, this.Season, this.EpisodeNumber, this.Name, this.Rating, this.Duration, this.Completed, this.WatchAgain);
 
         }
 
@@ -101,14 +101,14 @@ namespace MediaProgressBusinessLayer
 
 
 
-        public bool Save()
+        public bool Save(enMode Mode, int SeriesID)
         {
 
 
             switch (Mode)
             {
                 case enMode.AddNew:
-                    if (_AddNewEpisode())
+                    if (_AddNewEpisode(SeriesID))
                     {
 
                         Mode = enMode.Update;
@@ -147,9 +147,9 @@ namespace MediaProgressBusinessLayer
             return clsEpisodeDataAccess.DeleteEpisode(ID);
         }
 
-        public static bool IsEpisodeExist(int ID)
+        public static bool IsEpisodeExist(string Name)
         {
-            return clsEpisodeDataAccess.IsEpisodeExist(ID);
+            return clsEpisodeDataAccess.IsEpisodeExist(Name);
         }
 
         public static DataTable getAllEpisodesWithinAvailableTime(int Duration)

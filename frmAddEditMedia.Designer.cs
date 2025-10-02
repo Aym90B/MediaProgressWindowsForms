@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lblMode = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lblMovieID = new System.Windows.Forms.Label();
@@ -64,6 +65,8 @@
             this.txtAuthor = new System.Windows.Forms.TextBox();
             this.lblISBN = new System.Windows.Forms.Label();
             this.txtISBN = new System.Windows.Forms.TextBox();
+            this.ep1 = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.ep1)).BeginInit();
             this.SuspendLayout();
             // 
             // lblMode
@@ -135,6 +138,7 @@
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(215, 20);
             this.txtName.TabIndex = 7;
+            this.txtName.Validating += new System.ComponentModel.CancelEventHandler(this.txtName_Validating);
             // 
             // txtRating
             // 
@@ -142,6 +146,7 @@
             this.txtRating.Name = "txtRating";
             this.txtRating.Size = new System.Drawing.Size(100, 20);
             this.txtRating.TabIndex = 8;
+            this.txtRating.Validating += new System.ComponentModel.CancelEventHandler(this.txtRating_Validating);
             // 
             // txtDuration
             // 
@@ -149,6 +154,7 @@
             this.txtDuration.Name = "txtDuration";
             this.txtDuration.Size = new System.Drawing.Size(100, 20);
             this.txtDuration.TabIndex = 9;
+            this.txtDuration.Validating += new System.ComponentModel.CancelEventHandler(this.txtDuration_Validating);
             // 
             // checkBoxCompleted
             // 
@@ -221,6 +227,7 @@
             this.cbCategory.Size = new System.Drawing.Size(121, 21);
             this.cbCategory.TabIndex = 16;
             this.cbCategory.SelectedIndexChanged += new System.EventHandler(this.cbCategory_SelectedIndexChanged);
+            this.cbCategory.Validating += new System.ComponentModel.CancelEventHandler(this.cbCategory_Validating);
             // 
             // lblNumberOfSeasons
             // 
@@ -239,6 +246,7 @@
             this.txtNumberOfSeasons.Size = new System.Drawing.Size(100, 20);
             this.txtNumberOfSeasons.TabIndex = 18;
             this.txtNumberOfSeasons.Visible = false;
+            this.txtNumberOfSeasons.Validating += new System.ComponentModel.CancelEventHandler(this.txtNumberOfSeasons_Validating);
             // 
             // lblWhereToWatch
             // 
@@ -255,6 +263,7 @@
             this.txtWhereToWatch.Name = "txtWhereToWatch";
             this.txtWhereToWatch.Size = new System.Drawing.Size(100, 20);
             this.txtWhereToWatch.TabIndex = 20;
+            this.txtWhereToWatch.Validating += new System.ComponentModel.CancelEventHandler(this.txtWhereToWatch_Validating);
             // 
             // lblNumberOfEpisodes
             // 
@@ -273,6 +282,7 @@
             this.txtNumberOfEpisodes.Size = new System.Drawing.Size(100, 20);
             this.txtNumberOfEpisodes.TabIndex = 22;
             this.txtNumberOfEpisodes.Visible = false;
+            this.txtNumberOfEpisodes.Validating += new System.ComponentModel.CancelEventHandler(this.txtNumberOfEpisodes_Validating);
             // 
             // lblNumberOfPages
             // 
@@ -291,6 +301,7 @@
             this.txtNumberOfPages.Size = new System.Drawing.Size(100, 20);
             this.txtNumberOfPages.TabIndex = 24;
             this.txtNumberOfPages.Visible = false;
+            this.txtNumberOfPages.Validating += new System.ComponentModel.CancelEventHandler(this.txtNumberOfPages_Validating);
             // 
             // label4
             // 
@@ -330,7 +341,7 @@
             // btnAddEpisodes
             // 
             this.btnAddEpisodes.Location = new System.Drawing.Point(507, 116);
-            this.btnAddEpisodes.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnAddEpisodes.Margin = new System.Windows.Forms.Padding(1);
             this.btnAddEpisodes.Name = "btnAddEpisodes";
             this.btnAddEpisodes.Size = new System.Drawing.Size(171, 29);
             this.btnAddEpisodes.TabIndex = 29;
@@ -356,6 +367,7 @@
             this.txtCurrentPage.Size = new System.Drawing.Size(100, 20);
             this.txtCurrentPage.TabIndex = 31;
             this.txtCurrentPage.Visible = false;
+            this.txtCurrentPage.Validating += new System.ComponentModel.CancelEventHandler(this.txtCurrentPage_Validating);
             // 
             // lblAuthor
             // 
@@ -374,6 +386,7 @@
             this.txtAuthor.Size = new System.Drawing.Size(171, 20);
             this.txtAuthor.TabIndex = 33;
             this.txtAuthor.Visible = false;
+            this.txtAuthor.Validating += new System.ComponentModel.CancelEventHandler(this.txtAuthor_Validating);
             // 
             // lblISBN
             // 
@@ -392,6 +405,11 @@
             this.txtISBN.Size = new System.Drawing.Size(210, 20);
             this.txtISBN.TabIndex = 35;
             this.txtISBN.Visible = false;
+            this.txtISBN.Validating += new System.ComponentModel.CancelEventHandler(this.txtISBN_Validating);
+            // 
+            // ep1
+            // 
+            this.ep1.ContainerControl = this;
             // 
             // frmAddEditMedia
             // 
@@ -437,6 +455,7 @@
             this.Name = "frmAddEditMedia";
             this.Text = "Add Edit Media";
             this.Load += new System.EventHandler(this.frmAddEditMovie_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.ep1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -480,5 +499,6 @@
         private System.Windows.Forms.TextBox txtAuthor;
         private System.Windows.Forms.Label lblISBN;
         private System.Windows.Forms.TextBox txtISBN;
+        private System.Windows.Forms.ErrorProvider ep1;
     }
 }

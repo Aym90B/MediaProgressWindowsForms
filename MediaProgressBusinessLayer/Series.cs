@@ -17,7 +17,7 @@ namespace MediaProgressBusinessLayer
        
         public int NumberOfEpisodes { set; get; }
 
-        public bool startWatching { set; get; }
+     
 
         public float percentageOfCompletion { set; get; }
 
@@ -31,8 +31,7 @@ namespace MediaProgressBusinessLayer
             this.SeriesID = -1;
             this.NumberOfSeasons = -1;
             this.NumberOfEpisodes = -1;
-            this.startWatching = false;
-           
+            this.percentageOfCompletion = -1;
             this.watchedEpisodes = 0;
 
 
@@ -47,7 +46,7 @@ namespace MediaProgressBusinessLayer
            this.SeriesID = SeriesID;
             this.NumberOfSeasons = NumberOfSeasons;
             this.NumberOfEpisodes = NumberOfEpisodes;
-            this.startWatching = startWatching;
+         
            
             this.watchedEpisodes = WatchedEpisodes;
 
@@ -56,41 +55,40 @@ namespace MediaProgressBusinessLayer
 
         }
 
-        private bool _AddNewSeries(int ID)
+        private bool _AddNewSeries(int SeriesID)
         {
             //call DataAccess Layer 
 
-            this.SeriesID = clsSeriesDataAccess.AddNewSeries(this.NumberOfSeasons, this.NumberOfEpisodes, ID, this.startWatching, this.watchedEpisodes);
+            this.ID = clsSeriesDataAccess.AddNewSeries(this.NumberOfSeasons, this.NumberOfEpisodes, SeriesID, this.watchedEpisodes);
 
-            return (this.SeriesID != -1);
+            return (this.ID != -1);
         }
 
         private bool _UpdateSeries()
         {
             //call DataAccess Layer 
 
-            return clsSeriesDataAccess.UpdateSeries(this.SeriesID, this.NumberOfSeasons, this.NumberOfEpisodes, this.startWatching,  this.watchedEpisodes);
+            return clsSeriesDataAccess.UpdateSeries(this.SeriesID, this.NumberOfSeasons, this.NumberOfEpisodes, this.watchedEpisodes);
 
         }
 
-        public static clsSeries Find(int SeriesID)
-        {
+        //public static clsSeries Find(int SeriesID)
+        //{
 
             
-            int NumberOfSeasons = -1;
-            int NumberOfEpisodes = -1;
-           bool startWatching = false;
+        //    int NumberOfSeasons = -1;
+        //    int NumberOfEpisodes = -1;
           
-            int watchedEpisodes = 0;
+        //    int watchedEpisodes = 0;
 
-            //int SeriesID = -1;
+        //    //int SeriesID = -1;
 
-            if (clsSeriesDataAccess.GetSeriesInfoByID(SeriesID, ref NumberOfSeasons, ref NumberOfEpisodes, ref startWatching, ref watchedEpisodes))
+        //    if (clsSeriesDataAccess.GetSeriesInfoByID(SeriesID, ref NumberOfSeasons, ref NumberOfEpisodes, ref watchedEpisodes))
 
-                return new clsSeries(SeriesID, NumberOfSeasons, NumberOfEpisodes, startWatching,  watchedEpisodes);
-            else
-                return null;
-        }
+        //        return new clsSeries(SeriesID, NumberOfSeasons, NumberOfEpisodes, watchedEpisodes);
+        //    else
+        //        return null;
+        //}
 
         //public static clsSeries Find(string SeriesName)
         //{

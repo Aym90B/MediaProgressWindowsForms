@@ -87,14 +87,53 @@ namespace MediaProgressDataAccessLayer
 
             SqlCommand command = new SqlCommand(query, connection);
 
-            command.Parameters.AddWithValue("@SeriesID", SeriesID);
-            command.Parameters.AddWithValue("@Season", Season);
-            command.Parameters.AddWithValue("@EpisodeNumber", EpisodeNumber);
-            command.Parameters.AddWithValue("@Name", Name);
-            command.Parameters.AddWithValue("@Rating", Rating);
-            command.Parameters.AddWithValue("@Duration", Duration);
-            command.Parameters.AddWithValue("@Completed", Completed);
-            command.Parameters.AddWithValue("@WatchAgain", WatchAgain);
+            if (SeriesID != -1 && SeriesID.ToString() != null)
+                command.Parameters.AddWithValue("@SeriesID", SeriesID);
+            else
+                command.Parameters.AddWithValue("@NumberOfPages", System.DBNull.Value);
+
+            if (Season != -1 && SeriesID.ToString() != null)
+                command.Parameters.AddWithValue("@Season", Season);
+            else
+                command.Parameters.AddWithValue("@Season", System.DBNull.Value);
+
+            if (EpisodeNumber != -1 && EpisodeNumber.ToString() != null)
+                command.Parameters.AddWithValue("@EpisodeNumber", EpisodeNumber);
+            else
+                command.Parameters.AddWithValue("@EpisodeNumber", System.DBNull.Value);
+
+            if (Name != null && Name.ToString() != null)
+                command.Parameters.AddWithValue("@Name", Name);
+            else
+                command.Parameters.AddWithValue("@Name", System.DBNull.Value);
+
+            if (Rating != -1 && Rating.ToString() != null)
+                command.Parameters.AddWithValue("@Rating", Rating);
+            else
+                command.Parameters.AddWithValue("@Rating", System.DBNull.Value);
+
+            if (Duration != -1 && Duration.ToString() != null)
+                command.Parameters.AddWithValue("@Duration", Duration);
+            else
+                command.Parameters.AddWithValue("@Duration", System.DBNull.Value);
+
+            if (Completed.ToString() != null)
+            {
+                command.Parameters.AddWithValue("@Completed", Completed);
+            }
+            else
+            {
+                command.Parameters.AddWithValue("@Completed", System.DBNull.Value);
+            }
+
+            if (WatchAgain.ToString() != null)
+            {
+                command.Parameters.AddWithValue("@WatchAgain", WatchAgain);
+            }
+            else
+            {
+                command.Parameters.AddWithValue("@WatchAgain", System.DBNull.Value);
+            }
 
 
 
@@ -168,7 +207,7 @@ namespace MediaProgressDataAccessLayer
             }
             catch (Exception ex)
             {
-                //Console.WriteLine("Error: " + ex.Message);
+                Console.WriteLine("Error: " + ex.Message);
                 return false;
             }
 
@@ -299,17 +338,17 @@ namespace MediaProgressDataAccessLayer
 
         }
 
-        public static bool IsEpisodeExist(int EpisodeID)
+        public static bool IsEpisodeExist(string Name)
         {
             bool isFound = false;
 
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
 
-            string query = "SELECT Found=1 FROM Series WHERE EpisodeID = @EpisodeID";
+            string query = "SELECT Found=1 FROM NewEpisodes WHERE EpisodeName = @Name";
 
             SqlCommand command = new SqlCommand(query, connection);
 
-            command.Parameters.AddWithValue("@EpisodeID", EpisodeID);
+            command.Parameters.AddWithValue("@Name", Name);
 
             try
             {
@@ -322,7 +361,7 @@ namespace MediaProgressDataAccessLayer
             }
             catch (Exception ex)
             {
-                //Console.WriteLine("Error: " + ex.Message);
+                Console.WriteLine("Error: " + ex.Message);
                 isFound = false;
             }
             finally

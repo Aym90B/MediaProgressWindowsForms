@@ -41,24 +41,24 @@ namespace MediaProgressBusinessLayer
             Mode = enMode.Update;
         }
 
-        private bool _AddNewBook(int ID)
+        private bool _AddNewBook(int BookID)
         {
             //call DataAccess Layer 
-            this.BookID = clsBookDataAccess.AddNewBook(this.NumberOfPages, this.CurrentPage, ID, this.Author, this.ISBN);
+            this.ID = clsBookDataAccess.AddNewBook(this.NumberOfPages, this.CurrentPage, BookID, this.Author, this.ISBN);
 
-            return (this.BookID != -1);
+            return (this.ID != -1);
         }
 
-        private bool _UpdateBook()
+        private bool _UpdateBook(int ID)
         {
             //call DataAccess Layer 
 
-            return clsBookDataAccess.UpdateBook(this.BookID, this.NumberOfPages, this.CurrentPage, this.Author, this.ISBN);
+            return clsBookDataAccess.UpdateBook(ID, this.NumberOfPages, this.CurrentPage, this.Author, this.ISBN);
 
         }
 
 
-        public bool SaveBook(int ID)
+        public bool SaveBook(int ID, enMode Mode)
         {
 
 
@@ -78,7 +78,7 @@ namespace MediaProgressBusinessLayer
 
                 case enMode.Update:
 
-                    return _UpdateBook();
+                    return _UpdateBook(ID);
 
             }
 

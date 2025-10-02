@@ -110,7 +110,16 @@ namespace MediaProgressWindowsForms
             _Episode.Duration = Convert.ToInt16(txtEpisodeDuration.Text);
             _Episode.Completed = chkCompleted.Checked;
             _Episode.WatchAgain = chkWatchAgain.Checked;
-            if (_Episode.Save())
+
+            // Check if media exists by name and set mode
+            if (clsEpisode.IsEpisodeExist(_Episode.Name))
+                _Mode = enMode.Update;
+            else
+                _Mode = enMode.AddNew;
+
+            //_Episode.Save((clsEpisode.enMode)_Mode, _Episode.SeriesID);
+
+            if (_Episode.Save((clsEpisode.enMode)_Mode, _Episode.SeriesID))
                 MessageBox.Show("Episode Data Saved Successfully.");
             else
                 MessageBox.Show("Error: Episode Data Is not Saved Successfully.");
@@ -132,6 +141,96 @@ namespace MediaProgressWindowsForms
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void cbxSeriesNames_Validating(object sender, CancelEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(cbxSeriesNames.Text.ToString()))
+            {
+                e.Cancel = true;
+                cbxSeriesNames.Focus();
+                errorProvider1.SetError(cbxSeriesNames, "Choose Series");
+            }
+            else
+            {
+                e.Cancel = false;
+                errorProvider1.SetError(cbxSeriesNames, "");
+            }
+        }
+
+        private void cbxSeasons_Validating(object sender, CancelEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(cbxSeasons.Text.ToString()))
+            {
+                e.Cancel = true;
+                cbxSeasons.Focus();
+                errorProvider1.SetError(cbxSeasons, "Choose Season");
+            }
+            else
+            {
+                e.Cancel = false;
+                errorProvider1.SetError(cbxSeasons, "");
+            }
+        }
+
+        private void txtEpisodeNumber_Validating(object sender, CancelEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtEpisodeNumber.Text.ToString()))
+            {
+                e.Cancel = true;
+                txtEpisodeNumber.Focus();
+                errorProvider1.SetError(txtEpisodeNumber, "Enter Episode's Number");
+            }
+            else
+            {
+                e.Cancel = false;
+                errorProvider1.SetError(txtEpisodeNumber, "");
+            }
+        }
+
+        private void txtEpisodeName_Validating(object sender, CancelEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtEpisodeName.Text.ToString()))
+            {
+                e.Cancel = true;
+                txtEpisodeName.Focus();
+                errorProvider1.SetError(txtEpisodeName, "Enter Episode's Name");
+            }
+            else
+            {
+                e.Cancel = false;
+                errorProvider1.SetError(txtEpisodeName, "");
+            }
+        }
+
+        private void txtEpisodeRating_Validating(object sender, CancelEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtEpisodeRating.Text.ToString()))
+            {
+                e.Cancel = true;
+                txtEpisodeRating.Focus();
+                errorProvider1.SetError(txtEpisodeRating, "Enter Episode's Rating");
+            }
+            else
+            {
+                e.Cancel = false;
+                errorProvider1.SetError(txtEpisodeRating, "");
+            }
+        }
+
+        private void txtEpisodeDuration_Validating(object sender, CancelEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtEpisodeDuration.Text.ToString()))
+            {
+                e.Cancel = true;
+                txtEpisodeDuration.Focus();
+                errorProvider1.SetError(txtEpisodeDuration, "Enter Episode's Duration");
+            }
+            else
+            {
+                e.Cancel = false;
+                errorProvider1.SetError(txtEpisodeDuration, "");
+            }
         }
     }
 }

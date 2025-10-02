@@ -6,6 +6,43 @@ namespace MediaProgressDataAccessLayer
 {
     public class clsMovieDataAccess
     {
+
+        public static int getMediaIDByName(string Name)
+        {
+            int ID = -1;
+            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
+            string query = "SELECT TOP 1 ID FROM Main WHERE Name = @Name";
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@Name", Name);
+            try
+            {
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.Read())
+                {
+                    // The record was found
+                    ID = (int)reader["ID"];
+                    
+                }
+                else
+                {
+                    // The record was not found
+                    ID = -1;
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+                ID = -1;
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return ID;
+        }  
+
         public static bool GetMediaInfoByID(int ID, ref string Name, ref double Rating, ref int Duration, ref bool Completed,  ref int CategoryID, ref bool WatchAgain, ref string WhereToWatch, ref bool StartPlaying
            )
         {
@@ -31,11 +68,8 @@ namespace MediaProgressDataAccessLayer
 
                     Name = (string)reader["Name"];
                     Rating = (double)reader["Rating"];
-                    //Season = (int)reader["Season"];
-                    //EpisodeNumber = (int)reader["EpisodeNumber"];
                     Duration = (int)reader["Duration"];
                     Completed = (bool)reader["Completed"];
-                    //SeriesID = (int)reader["SeriesID"];
                     CategoryID = (int)reader["CategoryID"];
                     WatchAgain = (bool)reader["WatchAgain"];
                     WhereToWatch = (string)reader["WhereToWatch"];
@@ -187,8 +221,8 @@ namespace MediaProgressDataAccessLayer
             int rowsAffected = 0;
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
 
-            string query = @"Update  Main  
-                            set Name = @Name, 
+            string query = @"Update Main  
+                            set 
                                 Rating = @Rating, 
                              
                                 Duration = @Duration, 
@@ -200,21 +234,21 @@ namespace MediaProgressDataAccessLayer
                                 StartPlaying = @StartPlaying
                             
                               
-                                where ID = @ID";
+                                where Name = @Name";
 
             SqlCommand command = new SqlCommand(query, connection);
 
-            command.Parameters.AddWithValue("@ID", ID);
-            command.Parameters.AddWithValue("@Name", Name);
-            command.Parameters.AddWithValue("@Rating", Rating);
-           
-            command.Parameters.AddWithValue("@Duration", Duration);
-            command.Parameters.AddWithValue("@Completed", Completed);
-           
-            command.Parameters.AddWithValue("@CategoryID", CategoryID);
-            command.Parameters.AddWithValue("@WatchAgain", WatchAgain);
-            command.Parameters.AddWithValue("@WhereToWatch", WhereToWatch);
-            command.Parameters.AddWithValue("@StartPlaying", StartPlaying);
+            //command.Parameters.AddWithValue("@ID", ID);
+            //command.Parameters.AddWithValue("@Name", Name);
+            //command.Parameters.AddWithValue("@Rating", Rating);
+
+            //command.Parameters.AddWithValue("@Duration", Duration);
+            //command.Parameters.AddWithValue("@Completed", Completed);
+
+            //command.Parameters.AddWithValue("@CategoryID", CategoryID);
+            //command.Parameters.AddWithValue("@WatchAgain", WatchAgain);
+            //command.Parameters.AddWithValue("@WhereToWatch", WhereToWatch);
+            //command.Parameters.AddWithValue("@StartPlaying", StartPlaying);
 
             if (Name != "" && Name != null)
             {
@@ -419,7 +453,7 @@ namespace MediaProgressDataAccessLayer
 
         }
 
-        public static bool IsMediaExist(int ID)
+        public static bool IsMediaExistInIMDB(int ID)
         {
             bool isFound = false;
 
@@ -450,6 +484,32 @@ namespace MediaProgressDataAccessLayer
                 connection.Close();
             }
 
+            return isFound;
+        }
+
+        public static bool IsMediaExistInMain(string Name)
+        {
+            bool isFound = false;
+            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
+            string query = "SELECT Found=1 FROM Main WHERE Name = @Name";
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@Name", Name);
+            try
+            {
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                isFound = reader.HasRows;
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+                isFound = false;
+            }
+            finally
+            {
+                connection.Close();
+            }
             return isFound;
         }
 
@@ -639,7 +699,7 @@ ORDER BY
 
             catch (Exception ex)
             {
-                // Console.WriteLine("Error: " + ex.Message);
+                Console.WriteLine("Error: " + ex.Message);
             }
             finally
             {

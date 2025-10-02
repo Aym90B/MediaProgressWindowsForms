@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -46,6 +47,8 @@
             this.lblMode = new System.Windows.Forms.Label();
             this.chkCompleted = new System.Windows.Forms.CheckBox();
             this.chkWatchAgain = new System.Windows.Forms.CheckBox();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -151,6 +154,7 @@
             this.cbxSeriesNames.TabIndex = 9;
             this.cbxSeriesNames.Text = "Choose Series";
             this.cbxSeriesNames.SelectedIndexChanged += new System.EventHandler(this.cbxSeriesNames_SelectedIndexChanged);
+            this.cbxSeriesNames.Validating += new System.ComponentModel.CancelEventHandler(this.cbxSeriesNames_Validating);
             // 
             // cbxSeasons
             // 
@@ -161,6 +165,7 @@
             this.cbxSeasons.Size = new System.Drawing.Size(103, 21);
             this.cbxSeasons.TabIndex = 10;
             this.cbxSeasons.Text = "Choose Season";
+            this.cbxSeasons.Validating += new System.ComponentModel.CancelEventHandler(this.cbxSeasons_Validating);
             // 
             // txtEpisodeName
             // 
@@ -169,6 +174,7 @@
             this.txtEpisodeName.Name = "txtEpisodeName";
             this.txtEpisodeName.Size = new System.Drawing.Size(256, 20);
             this.txtEpisodeName.TabIndex = 12;
+            this.txtEpisodeName.Validating += new System.ComponentModel.CancelEventHandler(this.txtEpisodeName_Validating);
             // 
             // txtEpisodeRating
             // 
@@ -177,6 +183,7 @@
             this.txtEpisodeRating.Name = "txtEpisodeRating";
             this.txtEpisodeRating.Size = new System.Drawing.Size(58, 20);
             this.txtEpisodeRating.TabIndex = 13;
+            this.txtEpisodeRating.Validating += new System.ComponentModel.CancelEventHandler(this.txtEpisodeRating_Validating);
             // 
             // txtEpisodeDuration
             // 
@@ -185,6 +192,7 @@
             this.txtEpisodeDuration.Name = "txtEpisodeDuration";
             this.txtEpisodeDuration.Size = new System.Drawing.Size(58, 20);
             this.txtEpisodeDuration.TabIndex = 14;
+            this.txtEpisodeDuration.Validating += new System.ComponentModel.CancelEventHandler(this.txtEpisodeDuration_Validating);
             // 
             // txtEpisodeNumber
             // 
@@ -193,6 +201,7 @@
             this.txtEpisodeNumber.Name = "txtEpisodeNumber";
             this.txtEpisodeNumber.Size = new System.Drawing.Size(58, 20);
             this.txtEpisodeNumber.TabIndex = 15;
+            this.txtEpisodeNumber.Validating += new System.ComponentModel.CancelEventHandler(this.txtEpisodeNumber_Validating);
             // 
             // lblMode
             // 
@@ -223,6 +232,10 @@
             this.chkWatchAgain.Text = "Watch Again";
             this.chkWatchAgain.UseVisualStyleBackColor = true;
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // frmAddEditEpisodes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -250,6 +263,7 @@
             this.Name = "frmAddEditEpisodes";
             this.Text = "frmAddEditEpisodes";
             this.Load += new System.EventHandler(this.frmAddEditEpisodes_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -275,5 +289,6 @@
         private System.Windows.Forms.Label lblMode;
         private System.Windows.Forms.CheckBox chkCompleted;
         private System.Windows.Forms.CheckBox chkWatchAgain;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

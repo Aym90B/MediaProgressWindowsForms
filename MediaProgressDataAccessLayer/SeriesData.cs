@@ -8,14 +8,14 @@ namespace MediaProgressDataAccessLayer
 {
     public class clsSeriesDataAccess
     {
-        public static bool GetSeriesInfoByID(int SeriesID, ref int NumberOfSeasons, ref int NumberOfEpisodes, ref bool StartWatching, ref int WatchedEpisodes
+        public static bool GetSeriesInfoByID(int SeriesID, ref int NumberOfSeasons, ref int NumberOfEpisodes, ref int WatchedEpisodes
            )
         {
             bool isFound = false;
 
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
 
-            string query = "SELECT * FROM Series WHERE SeriesID = @SeriesID";
+            string query = "SELECT * FROM NewSeries WHERE SeriesID = @SeriesID";
 
             SqlCommand command = new SqlCommand(query, connection);
 
@@ -34,7 +34,7 @@ namespace MediaProgressDataAccessLayer
                     NumberOfSeasons = (int)reader["NumberOfSeasons"];
                     NumberOfEpisodes = (int)reader["NumberOfEpisodes"];
                     
-                    StartWatching = (bool)reader["StartWatching"];
+                
                    
                     WatchedEpisodes = (int)reader["WatchedEpisodes"];
 
@@ -206,15 +206,15 @@ namespace MediaProgressDataAccessLayer
 
         }
 
-        public static int AddNewSeries(int NumberOfSeasons, int NumberOfEpisodes, int ID, bool StartWatching, int WatchedEpisodes) 
+        public static int AddNewSeries(int NumberOfSeasons, int NumberOfEpisodes, int SeriesID, int WatchedEpisodes) 
         {
             //this function will return the new contact id if succeeded and -1 if not.
-            int SeriesID = -1;
+            int ID = -1;
        
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
 
-            string query = @"INSERT INTO NewSeries (NumberOfSeasons, NumberOfEpisodes, ID, StartWatching,  WatchedEpisodes)
-                             VALUES (@NumberOfSeasons, @NumberOfEpisodes, @ID,  @StartWatching,  @WatchedEpisodes);
+            string query = @"INSERT INTO NewSeries (NumberOfSeasons, NumberOfEpisodes, SeriesID,  WatchedEpisodes)
+                             VALUES (@NumberOfSeasons, @NumberOfEpisodes, @SeriesID,  @WatchedEpisodes);
                              SELECT SCOPE_IDENTITY();";
 
             SqlCommand command = new SqlCommand(query, connection);
@@ -229,15 +229,12 @@ namespace MediaProgressDataAccessLayer
             else
                 command.Parameters.AddWithValue("@NumberOfEpisodes", System.DBNull.Value);
 
-            if (ID != -1 && ID.ToString() != null)
-                command.Parameters.AddWithValue("@ID", ID);
+            if (SeriesID != -1 && SeriesID.ToString() != null)
+                command.Parameters.AddWithValue("@SeriesID", SeriesID);
             else
-                command.Parameters.AddWithValue("@ID", System.DBNull.Value);
+                command.Parameters.AddWithValue("@SeriesID", System.DBNull.Value);
 
-            if (StartWatching.ToString() != null)
-                command.Parameters.AddWithValue("@StartWatching", StartWatching);
-            else
-                command.Parameters.AddWithValue("@StartWatching", System.DBNull.Value);
+        
 
        
           if(WatchedEpisodes != 1 && WatchedEpisodes.ToString() != null)
@@ -253,7 +250,7 @@ namespace MediaProgressDataAccessLayer
 
                 if (result != null && int.TryParse(result.ToString(), out int insertedID))
                 {
-                    SeriesID = insertedID;
+                    ID = insertedID;
                 }
             }
 
@@ -269,10 +266,10 @@ namespace MediaProgressDataAccessLayer
             }
 
 
-            return SeriesID;
+            return ID;
         }
 
-        public static bool UpdateSeries(int SeriesID, int NumberOfSeasons, int NumberOfEpisodes, bool StartWatching, int WatchedEpisodes)
+        public static bool UpdateSeries(int SeriesID, int NumberOfSeasons, int NumberOfEpisodes,  int WatchedEpisodes)
         {
 
             int rowsAffected = 0;
@@ -282,7 +279,7 @@ namespace MediaProgressDataAccessLayer
                             set 
                                 NumberOfSeasons = @NumberOfSeasons,
                                 NumberOfEpisodes = @NumberOfEpisodes, 
-                                StartWatching = @StartWatching,
+                               
                                
                                 Watchdepisodes = @WatchedEpisodes
                               
@@ -294,7 +291,7 @@ namespace MediaProgressDataAccessLayer
             command.Parameters.AddWithValue("@SeriesID", SeriesID);
             command.Parameters.AddWithValue("@NumberOfSeasons", NumberOfSeasons);
             command.Parameters.AddWithValue("@NumberOfEpisodes", NumberOfEpisodes);
-            command.Parameters.AddWithValue("@StartWatching", StartWatching);
+        
            
             command.Parameters.AddWithValue("@WatchedEpisodes", WatchedEpisodes);
 
@@ -309,10 +306,7 @@ namespace MediaProgressDataAccessLayer
                 command.Parameters.AddWithValue("@NumberOfEpisodes", NumberOfEpisodes);
             else
                 command.Parameters.AddWithValue("@NumberOfEpisodes", System.DBNull.Value);
-            if(StartWatching.ToString() != null)
-                command.Parameters.AddWithValue("@StartWatching", StartWatching);
-            else
-                command.Parameters.AddWithValue("@StartWatching", System.DBNull.Value);
+     
            
             if(WatchedEpisodes != 1 && WatchedEpisodes.ToString() != null)
                 command.Parameters.AddWithValue("@WatchedEpisodes", WatchedEpisodes);
@@ -583,7 +577,7 @@ Ratings.averageRating desc
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
 
             // Implement the Iterator for the less than the number of seasons
-            string query = "WITH SeasonCounter AS (\r\n    SELECT 1 AS SeasonNumber\r\n    UNION ALL\r\n    SELECT SeasonNumber + 1\r\n    FROM SeasonCounter\r\n    WHERE SeasonNumber < (\r\n        SELECT NumberOfSeasons \r\n        FROM NewSeries \r\n        INNER JOIN Main ON Main.ID = NewSeries.ID \r\n        WHERE Name = @SeriesName\r\n    )\r\n)\r\nSELECT \r\n    SeasonNumber\r\nFROM \r\n    SeasonCounter\r\nOPTION (MAXRECURSION 0);\r\n";
+            string query = "WITH SeasonCounter AS (\r\n    SELECT 1 AS SeasonNumber\r\n    UNION ALL\r\n    SELECT SeasonNumber + 1\r\n    FROM SeasonCounter\r\n    WHERE SeasonNumber < (\r\n        SELECT NumberOfSeasons \r\n        FROM NewSeries \r\n        INNER JOIN Main ON Main.ID = NewSeries.SeriesID \r\n        WHERE Name = @SeriesName\r\n    )\r\n)\r\nSELECT \r\n    SeasonNumber\r\nFROM \r\n    SeasonCounter\r\nOPTION (MAXRECURSION 0);\r\n";
             
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@SeriesName", SeriesName);

@@ -79,7 +79,7 @@ namespace MediaProgressBusinessLayer
         {
             //call DataAccess Layer 
 
-            return clsMovieDataAccess.UpdateMedia(this.ID, this.Name, this.Rating,  this.Duration, this.Completed,  this.CategoryID, this.WatchAgain, this.WhereToWatch, this.StartPlaying);
+            return clsMovieDataAccess.UpdateMedia(this.ID,this.Name, this.Rating,   this.Duration, this.Completed,  this.CategoryID, this.WatchAgain, this.WhereToWatch, this.StartPlaying);
 
         }
 
@@ -111,7 +111,7 @@ namespace MediaProgressBusinessLayer
 
         
 
-        public bool Save()
+        public bool Save(enMode Mode)
         {
 
 
@@ -169,7 +169,7 @@ namespace MediaProgressBusinessLayer
 
         public static bool isMediaExist(int ID)
         {
-            return clsMovieDataAccess.IsMediaExist(ID);
+            return clsMovieDataAccess.IsMediaExistInIMDB(ID);
         }
 
         public static DataTable getAllMediaWithinAvailableTime(int Duration)
@@ -185,6 +185,16 @@ namespace MediaProgressBusinessLayer
         public static DataTable getAllMediaWithinName(string Name)
         {
             return clsMovieDataAccess.GetMediaInfoByName(Name);
+        }
+
+        public static bool IsMediaExistInMain(string Name)
+        {
+            return clsMovieDataAccess.IsMediaExistInMain(Name);
+        }
+
+        public static int getMediaIDByName(string Name)
+        {
+            return clsMovieDataAccess.getMediaIDByName(Name);
         }
 
 
