@@ -159,9 +159,9 @@ namespace MediaProgressBusinessLayer
         }
 
 
-        public static async Task<bool>  AddNewMediaToMainAsync(string title, string tconst)
+        public static async Task<bool>  AddNewMediaToMainAsync(string title, string tconst, bool isAdult, int runtimeMinutes)
         {
-            return await clsMovieDataAccess.AddNewMediaToMainAsync(title, tconst);
+            return await clsMovieDataAccess.AddNewMediaToMainAsync(title, tconst, isAdult, runtimeMinutes);
         }
 
         public static DataTable GetAllMoviesWithinAvailableTime(int duration)

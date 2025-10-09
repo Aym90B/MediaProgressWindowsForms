@@ -9,9 +9,9 @@ namespace MediaProgressDataAccessLayer
     {
 
         // Add this method to DatabaseService.cs
-        public static async Task<bool> AddNewMediaToMainAsync(string title, string tconst)
+        public static async Task<bool> AddNewMediaToMainAsync(string title, string tconst, bool isAdult, int runtimeMinutes)
         {
-            var sqlQuery = "IF EXISTS (SELECT 1 FROM Basics WHERE tconst = @tconst)\r\nBEGIN\r\n  \r\n   update Basics set primaryTitle = @primaryTitle where tconst = @tconst;\r\nEND";
+            var sqlQuery = "IF EXISTS (SELECT 1 FROM Basics WHERE tconst = @tconst)\r\nBEGIN\r\n  \r\n   update Basics set primaryTitle = @primaryTitle , isAdult = @isAdult, runtimeMinutes = @runtimeMinutes  where tconst = @tconst;\r\nEND";
 
             using (var connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
             {
@@ -19,6 +19,8 @@ namespace MediaProgressDataAccessLayer
                 {
                     command.Parameters.AddWithValue("@primaryTitle", title);
                     command.Parameters.AddWithValue("@tconst", tconst);
+                    command.Parameters.AddWithValue("@isAdult", isAdult);
+                    command.Parameters.AddWithValue("@runtimeMinutes", runtimeMinutes);
 
                     await connection.OpenAsync();
 
@@ -288,17 +290,7 @@ namespace MediaProgressDataAccessLayer
 
             SqlCommand command = new SqlCommand(query, connection);
 
-            //command.Parameters.AddWithValue("@ID", ID);
-            //command.Parameters.AddWithValue("@Name", Name);
-            //command.Parameters.AddWithValue("@Rating", Rating);
-
-            //command.Parameters.AddWithValue("@Duration", Duration);
-            //command.Parameters.AddWithValue("@Completed", Completed);
-
-            //command.Parameters.AddWithValue("@CategoryID", CategoryID);
-            //command.Parameters.AddWithValue("@WatchAgain", WatchAgain);
-            //command.Parameters.AddWithValue("@WhereToWatch", WhereToWatch);
-            //command.Parameters.AddWithValue("@StartPlaying", StartPlaying);
+  
 
             if (Name != "" && Name != null)
             {

@@ -98,6 +98,12 @@ public static async Task<ImdbService> SearchLocalImdbDatabaseAsync(string title)
         [JsonProperty("imdbID")]
         public string Tconst { get; set; }
 
+        [JsonProperty("isAdult")]
+        public bool isAdult { get; set; }
+
+        [JsonProperty("runtimeMinutes")]
+        public int runtimeMinutes { get; set; }
+
         [JsonProperty("Response")]
         public string Response { get; set; }
 

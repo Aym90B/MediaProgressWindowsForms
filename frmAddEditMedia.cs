@@ -382,7 +382,7 @@ namespace MediaProgressWindowsForms
                     {
 
                         // 3. If confirmed, INSERT the complete record in one step
-                        bool success = await clsMedia.AddNewMediaToMainAsync(foundMedia.Title, foundMedia.Tconst);
+                        bool success = await clsMedia.AddNewMediaToMainAsync(foundMedia.Title, foundMedia.Tconst, foundMedia.isAdult, foundMedia.runtimeMinutes);
                         if(!success)
                         {
                             MessageBox.Show("This media already exists in your collection.", "Duplicate Entry", MessageBoxButtons.OK, MessageBoxIcon.Warning);
