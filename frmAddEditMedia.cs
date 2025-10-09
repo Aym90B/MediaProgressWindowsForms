@@ -1,4 +1,7 @@
-﻿using System;
+﻿using MediaProgressBusinessLayer;
+using MediaProgressWindowsForms;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MediaProgressBusinessLayer;
+
 
 namespace MediaProgressWindowsForms
 {
@@ -37,7 +40,7 @@ namespace MediaProgressWindowsForms
 
         private void _LoadData()
         {
-      
+
 
             if (_Mode == enMode.AddNew)
             {
@@ -61,17 +64,17 @@ namespace MediaProgressWindowsForms
             lblMode.Text = "Edit Media ID = " + _ID;
             lblMovieID.Text = _ID.ToString();
             txtName.Text = _Media.Name;
-          
+
             txtRating.Text = _Media.Rating.ToString();
-           cbCategory.SelectedIndex = _Media.CategoryID;
+            cbCategory.SelectedIndex = _Media.CategoryID;
             txtDuration.Text = _Media.Duration.ToString();
             checkBoxCompleted.Checked = _Media.Completed;
             chkbxWatchAgain.Checked = _Media.WatchAgain;
             txtWhereToWatch.Text = _Media.WhereToWatch;
             txtNumberOfSeasons.Text = _Series.NumberOfSeasons.ToString();
             txtNumberOfEpisodes.Text = _Series.NumberOfEpisodes.ToString();
-          
-            PbPercentageOfCompletion.Value = (int) Convert.ToSingle (clsSeries. GetSeriesPercentageCompletion(_Series.ID));
+
+            PbPercentageOfCompletion.Value = (int)Convert.ToSingle(clsSeries.GetSeriesPercentageCompletion(_Series.ID));
 
         }
 
@@ -102,16 +105,16 @@ namespace MediaProgressWindowsForms
             }
             else if (cbCategory.SelectedIndex == 3)
             {
-                
+
                 _Media.Save((clsMedia.enMode)_Mode);
-               
-                    
+
+
                 _Media.ID = clsMedia.getMediaIDByName(_Media.Name);
                 _Book.NumberOfPages = Convert.ToInt32(txtNumberOfPages.Text);
                 _Book.CurrentPage = Convert.ToInt32(txtCurrentPage.Text);
                 _Book.Author = txtAuthor.Text;
                 _Book.ISBN = txtISBN.Text;
-                if(_Mode == enMode.AddNew)
+                if (_Mode == enMode.AddNew)
                     _Book.SaveBook(_Media.ID, (clsMedia.enMode)_Mode);
                 else
                     _Book.SaveBook(_Media.ID, (clsMedia.enMode)_Mode);
@@ -147,7 +150,7 @@ namespace MediaProgressWindowsForms
                 case 0:
                     _Media.CategoryID = 1;
                     break;
-                    case 1:
+                case 1:
                     _Media.CategoryID = 2;
                     lblNumberOfSeasons.Visible = true;
                     txtNumberOfSeasons.Visible = true;
@@ -156,11 +159,11 @@ namespace MediaProgressWindowsForms
                     btnAddEpisodes.Visible = true;
 
                     break;
-                    case 2:
+                case 2:
                     _Media.CategoryID = 3;
                     break;
-                    case 3:
-                        _Media.CategoryID = 4;
+                case 3:
+                    _Media.CategoryID = 4;
                     lblNumberOfPages.Visible = true;
                     txtNumberOfPages.Visible = true;
                     lblCurrentPage.Visible = true;
@@ -347,14 +350,69 @@ namespace MediaProgressWindowsForms
             }
         }
 
-        //private void txtName_Leave(object sender, EventArgs e)
-        //{
-        //    _Media.Name = txtName.Text;
-        //    if (clsMedia.IsMediaExistInMain(_Media.Name))
-        //        _Mode = enMode.Update;
-        //        else
-        //            _Mode = enMode.AddNew;
+        private async void saveButton_Click(object sender, EventArgs e)
+        {
+            string searchTitle = txtName.Text;
 
-        //}
+            if (string.IsNullOrWhiteSpace(searchTitle))
+            {
+                MessageBox.Show("Please enter a title to search.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                saveButton.Enabled = false;
+                this.Cursor = Cursors.WaitCursor;
+
+                // 1. Search your LOCAL IMDb database for the title
+                OmdbApiResponse foundMedia = await clsMedia.SearchImdbOnlineAsync(searchTitle);
+
+                // 2. Check if the media was found
+                if (foundMedia != null)
+                {
+                   
+                    // Ask the user for confirmation
+                    var confirmResult = MessageBox.Show($"Found: {foundMedia.Title}\n\nDo you want to add this to your collection?",
+                                                        "Confirm Media",
+                                                        MessageBoxButtons.YesNo,
+                                                        MessageBoxIcon.Question);
+
+                    if (confirmResult == DialogResult.Yes)
+                    {
+
+                        // 3. If confirmed, INSERT the complete record in one step
+                        bool success = await clsMedia.AddNewMediaToMainAsync(foundMedia.Title, foundMedia.Tconst);
+                        if(!success)
+                        {
+                            MessageBox.Show("This media already exists in your collection.", "Duplicate Entry", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            await clsMedia.UpdateTconstInDatabaseAsync(foundMedia.Title, foundMedia.Tconst);
+                            return;
+                        }
+                        if (success)
+                        {
+                            MessageBox.Show($"'{foundMedia.Title}' was successfully added to your collection.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Failed to add the media to your collection.", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show($"No media matching '{searchTitle}' was found in your local IMDb database.", "Not Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                saveButton.Enabled = true;
+                this.Cursor = Cursors.Default;
+            }
+        }
     }
 }

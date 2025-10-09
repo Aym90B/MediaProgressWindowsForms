@@ -49,5 +49,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SeriesData.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>13.0.4</Version>
+    </PackageReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,7 +1,9 @@
-﻿using System;
+﻿using MediaProgressDataAccessLayer;
+using MediaProgressWindowsForms;
+using System;
 using System.Data;
+using System.Threading.Tasks;
 using System.Xml.Linq;
-using MediaProgressDataAccessLayer;
 
 namespace MediaProgressBusinessLayer
 {
@@ -139,6 +141,27 @@ namespace MediaProgressBusinessLayer
 
 
             return false;
+        }
+
+        public static async Task<OmdbApiResponse> SearchImdbOnlineAsync(string title)
+        {
+            return await OmdbApiResponse.SearchImdbOnlineAsync(title);
+        }
+
+        public static async Task<ImdbService> SearchLocalImdbDatabaseAsync(string title)
+        {
+            return await ImdbService.SearchLocalImdbDatabaseAsync(title);
+        }
+
+        public static  Task UpdateTconstInDatabaseAsync(string originalTitle, string tconst)
+        {
+            return  ImdbService.UpdateTconstInDatabaseAsync(originalTitle, tconst);
+        }
+
+
+        public static async Task<bool>  AddNewMediaToMainAsync(string title, string tconst)
+        {
+            return await clsMovieDataAccess.AddNewMediaToMainAsync(title, tconst);
         }
 
         public static DataTable GetAllMoviesWithinAvailableTime(int duration)

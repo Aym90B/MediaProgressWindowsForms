@@ -1,11 +1,61 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Threading.Tasks;
 
 namespace MediaProgressDataAccessLayer
 {
     public class clsMovieDataAccess
     {
+
+        // Add this method to DatabaseService.cs
+        public static async Task<bool> AddNewMediaToMainAsync(string title, string tconst)
+        {
+            var sqlQuery = "IF EXISTS (SELECT 1 FROM Basics WHERE tconst = @tconst)\r\nBEGIN\r\n  \r\n   update Basics set primaryTitle = @primaryTitle where tconst = @tconst;\r\nEND";
+
+            using (var connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            {
+                using (var command = new SqlCommand(sqlQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@primaryTitle", title);
+                    command.Parameters.AddWithValue("@tconst", tconst);
+
+                    await connection.OpenAsync();
+
+                    // ExecuteNonQueryAsync returns the number of rows affected.
+                    // We expect it to be 1 for a successful insert.
+                    int rowsAffected = await command.ExecuteNonQueryAsync();
+                    return rowsAffected > 0;
+                }
+            }
+        }
+
+        public static async Task<int> AddNewMovieAndGetIdAsync(string title)
+        {
+            // The SQL command inserts a new record and immediately retrieves its new primary key ID.
+            var sqlQuery = "INSERT INTO Main (Name) VALUES (@name); SELECT SCOPE_IDENTITY();";
+
+            using (var connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            {
+                using (var command = new SqlCommand(sqlQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@name", title);
+
+                    await connection.OpenAsync();
+
+                    // ExecuteScalarAsync is used here because we expect a single value back (the new ID).
+                    object result = await command.ExecuteScalarAsync();
+
+                    // Convert the result to an integer and return it.
+                    if (result != null && result != DBNull.Value)
+                    {
+                        return Convert.ToInt32(result);
+                    }
+                }
+            }
+            return 0; // Return 0 if the insert failed.
+        }
+
 
         public static int getMediaIDByName(string Name)
         {
@@ -674,7 +724,7 @@ ORDER BY
             DataTable dt = new DataTable();
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
 
-            string query = "SELECT TOP (200) Basics.tconst, Basics.titleType, Basics.primaryTitle, Basics.originalTitle, Basics.isAdult, Basics.startYear, Basics.endYear, Basics.runtimeMinutes, Basics.genres, Basics.Completed, Basics.whereToWatch, Basics.Category, Ratings.averageRating, Ratings.numVotes\r\n FROM  Basics INNER JOIN\r\n         Ratings ON Basics.tconst = Ratings.tconst AND Basics.tconst = Ratings.tconst -- join Episodes on Episodes.parentTconst = basics.tconst\r\nWHERE Basics.primaryTitle Like @Name and (Ratings.numVotes >= 10000)\r\nORDER BY Ratings.averageRating DESC";
+            string query = "SELECT TOP (200) Basics.tconst, Basics.titleType, Basics.primaryTitle, Basics.originalTitle, Basics.isAdult, Basics.startYear, Basics.endYear, Basics.runtimeMinutes, Basics.genres, Basics.Completed, Basics.whereToWatch, Basics.Category, Ratings.averageRating, Ratings.numVotes\r\n FROM  Basics INNER JOIN\r\n         Ratings ON Basics.tconst = Ratings.tconst AND Basics.tconst = Ratings.tconst -- join Episodes on Episodes.parentTconst = basics.tconst\r\nWHERE Basics.primaryTitle Like @Name \r\nORDER BY Ratings.averageRating DESC";
 
             SqlCommand command = new SqlCommand(query, connection);
 

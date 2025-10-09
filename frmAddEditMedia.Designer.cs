@@ -66,6 +66,7 @@
             this.lblISBN = new System.Windows.Forms.Label();
             this.txtISBN = new System.Windows.Forms.TextBox();
             this.ep1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.saveButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ep1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -411,11 +412,22 @@
             // 
             this.ep1.ContainerControl = this;
             // 
+            // saveButton
+            // 
+            this.saveButton.Location = new System.Drawing.Point(507, 190);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(210, 37);
+            this.saveButton.TabIndex = 36;
+            this.saveButton.Text = "Search in IMDB";
+            this.saveButton.UseVisualStyleBackColor = true;
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
+            // 
             // frmAddEditMedia
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(858, 573);
+            this.Controls.Add(this.saveButton);
             this.Controls.Add(this.txtISBN);
             this.Controls.Add(this.lblISBN);
             this.Controls.Add(this.txtAuthor);
@@ -500,5 +512,6 @@
         private System.Windows.Forms.Label lblISBN;
         private System.Windows.Forms.TextBox txtISBN;
         private System.Windows.Forms.ErrorProvider ep1;
+        private System.Windows.Forms.Button saveButton;
     }
 }

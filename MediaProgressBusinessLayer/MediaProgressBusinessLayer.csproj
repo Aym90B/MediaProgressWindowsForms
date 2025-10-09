@@ -44,6 +44,7 @@
     <Compile Include="Book.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="Episode.cs" />
+    <Compile Include="ImdbService.cs" />
     <Compile Include="Media.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Series.cs" />
@@ -53,6 +54,11 @@
       <Project>{0ce04b10-7265-4bee-904a-633c0e59b642}</Project>
       <Name>MediaProgressDataAccessLayer</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>13.0.4</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

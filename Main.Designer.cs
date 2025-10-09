@@ -243,7 +243,6 @@
             this.txtFind.Name = "txtFind";
             this.txtFind.Size = new System.Drawing.Size(221, 20);
             this.txtFind.TabIndex = 15;
-           
             // 
             // label6
             // 
@@ -257,7 +256,7 @@
             // 
             // btnFind
             // 
-            this.btnFind.Location = new System.Drawing.Point(1130, 35);
+            this.btnFind.Location = new System.Drawing.Point(1130, 29);
             this.btnFind.Margin = new System.Windows.Forms.Padding(1);
             this.btnFind.Name = "btnFind";
             this.btnFind.Size = new System.Drawing.Size(88, 21);
