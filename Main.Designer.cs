@@ -296,6 +296,7 @@
             this.btnShowGames.TabIndex = 20;
             this.btnShowGames.Text = "Show All Games";
             this.btnShowGames.UseVisualStyleBackColor = true;
+            this.btnShowGames.Click += new System.EventHandler(this.btnShowGames_Click);
             // 
             // btnShowBooks
             // 
@@ -306,6 +307,7 @@
             this.btnShowBooks.TabIndex = 21;
             this.btnShowBooks.Text = "Show All Books";
             this.btnShowBooks.UseVisualStyleBackColor = true;
+            this.btnShowBooks.Click += new System.EventHandler(this.btnShowBooks_Click);
             // 
             // label7
             // 

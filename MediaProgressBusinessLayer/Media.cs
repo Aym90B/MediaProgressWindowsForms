@@ -220,6 +220,15 @@ namespace MediaProgressBusinessLayer
             return clsMovieDataAccess.getMediaIDByName(Name);
         }
 
+        public static DataTable GetAllGames()
+        {
+            return clsMovieDataAccess.GetAllGames();
+        }
+
+        public static DataTable GetAllBooks()
+        {
+            return clsMovieDataAccess.GetAllBooks();
+        }
 
     }
 }

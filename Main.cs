@@ -40,6 +40,16 @@ namespace MediaProgressWindowsForms
             dgvAll.DataSource = clsSeries.GetAllSeriesFromIMDB();
         }
 
+        private void _RefreshGamesList()
+        {
+            dgvAll.DataSource = clsMedia.GetAllGames();
+        }
+
+        private void _RefreshBooksList()
+        {
+            dgvAll.DataSource = clsMedia.GetAllBooks();
+        }
+
         //private void _RefreshEpisodesList()
         //{
         //    dgvAll.DataSource = clsEpisode.GetAllEpisodes();
@@ -134,7 +144,8 @@ namespace MediaProgressWindowsForms
                     case 1:
                     _RefreshSeriesList();
                     break;
-
+                    _RefreshGamesList();
+                    break;
                 
                 
                     default:
@@ -227,6 +238,16 @@ namespace MediaProgressWindowsForms
 
         }
 
- 
+        private void btnShowGames_Click(object sender, EventArgs e)
+        {
+            _RefreshGamesList();
+            dgvAll.DataSource = clsMedia.GetAllGames();
+        }
+
+        private void btnShowBooks_Click(object sender, EventArgs e)
+        {
+            _RefreshBooksList();
+            dgvAll.DataSource = clsMedia.GetAllBooks();
+        }
     }
 }
