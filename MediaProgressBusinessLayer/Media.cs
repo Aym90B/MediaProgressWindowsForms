@@ -200,6 +200,11 @@ namespace MediaProgressBusinessLayer
             return clsMovieDataAccess.getAllMediaWithinAvailableTime(Duration);
         }
 
+        public static DataTable GetAllGamesWithinAvailableTime(int Duration)
+        {
+            return clsMovieDataAccess.GetAllGamesWithinAvailableTime(Duration);
+        }
+
         public static DataTable getAllMoviesWithinAvailableTime(int Duration)
         {
             return clsMovieDataAccess.getAllMoviesWithinAvailableTime(Duration);

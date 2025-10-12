@@ -339,7 +339,7 @@ namespace MediaProgressDataAccessLayer
             DataTable dt = new DataTable();
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
 
-            string query = "SELECT\r\nSeriesBasics.primaryTitle as SeriesName,\r\n\r\nRatings.averageRating,\r\n\r\nRatings.numVotes,\r\n\r\nSeriesBasics.whereToWatch, SeriesBasics.StartWatching, SeriesBasic.PercentageOfCompletion,\r\nSeriesBasics.runtimeMinutes,\r\nSeriesBasics.titleType\r\n\r\nFrom\r\nBasics as SeriesBasics\r\n\r\nJoin\r\nRatings on SeriesBasics.tconst = Ratings.tconst\r\n\r\nwhere\r\nRatings.averageRating >= 8.5 and Ratings.numVotes >= 5000 and SeriesBasics.titleType = 'tvSeries' \r\n\r\norder by\r\nRatings.averageRating desc";
+            string query = "SELECT\r\nSeriesBasics.primaryTitle as SeriesName,\r\n\r\nRatings.averageRating,\r\n\r\nRatings.numVotes,\r\n\r\nSeriesBasics.whereToWatch,\r\nSeriesBasics.runtimeMinutes,\r\nSeriesBasics.titleType,\r\nSeriesBasics.watchAgain\r\n\r\nFrom\r\nBasics as SeriesBasics\r\n\r\nJoin\r\nRatings on SeriesBasics.tconst = Ratings.tconst\r\n\r\nwhere\r\nRatings.averageRating >= 8.5 and Ratings.numVotes >= 100000 and SeriesBasics.titleType = 'tvSeries' \r\n\r\norder by\r\nRatings.averageRating desc";
 
             SqlCommand command = new SqlCommand(query, connection);
 
@@ -449,32 +449,32 @@ namespace MediaProgressDataAccessLayer
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
 
             string query = @"
-  SELECT
-SeriesBasics.primaryTitle as SeriesName,
+              SELECT
+            SeriesBasics.primaryTitle as SeriesName,
 
-Ratings.averageRating,
+            Ratings.averageRating,
 
-Ratings.numVotes,
+            Ratings.numVotes,
 
-SeriesBasics.whereToWatch,
-SeriesBasics.runtimeMinutes,
-SeriesBasics.titleType,
-SeriesBasics.watchAgain,
-SeriesBasics.StartWatching,
-SeriesBasics.PercentageOfCompletion
+            SeriesBasics.whereToWatch,
+            SeriesBasics.runtimeMinutes,
+            SeriesBasics.titleType,
+            SeriesBasics.watchAgain,
+            SeriesBasics.StartWatching,
+            SeriesBasics.PercentageOfCompletion
 
-From
-Basics as SeriesBasics
+            From
+            Basics as SeriesBasics
 
-Join
-Ratings on SeriesBasics.tconst = Ratings.tconst
+            Join
+            Ratings on SeriesBasics.tconst = Ratings.tconst
 
-where
-Ratings.averageRating >= 8.5 and Ratings.numVotes >= 5000 and SeriesBasics.titleType = 'tvSeries' 
+            where
+            Ratings.averageRating >= 8.5 and Ratings.numVotes >= 5000 and SeriesBasics.titleType = 'tvSeries' 
 
-order by
-Ratings.averageRating desc
-	";
+            order by
+            Ratings.averageRating desc
+	            ";
 
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@Duration", Duration);

@@ -81,6 +81,12 @@ namespace MediaProgressWindowsForms
                 case 3:
                     dgvAll.DataSource = clsEpisode.getAllEpisodesWithinAvailableTime(Duration);
                     break;
+                case 4: 
+                    dgvAll.DataSource = clsMedia.GetAllGamesWithinAvailableTime(Duration);
+                    break;
+                    case 5:
+                        dgvAll.DataSource = clsBook.GetAllBooksWithinAvailableTime(Duration);
+                        break;
 
                 default:
                     dgvAll.DataSource = clsMedia.getAllMediaWithinAvailableTime(Duration);

@@ -56,6 +56,36 @@ namespace MediaProgressDataAccessLayer
             return isFound;
         }
 
+        public static DataTable GetAllBooksWithinAvailableTime(int Duration)
+        {
+            DataTable dt = new DataTable();
+            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
+            string query = "select * from Main where CategoryID = 4 and Duration <= @Duration order by Rating";
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@Duration", Duration);
+            try
+            {
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    dt.Load(reader);
+                }
+                reader.Close();
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return dt;
+
+        }
+
         public static float GetBookPercentageCompletion(int ID)
         {
             float PercentageOfCompletion = 0;

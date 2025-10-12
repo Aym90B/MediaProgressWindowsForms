@@ -1,6 +1,7 @@
 ﻿using MediaProgressDataAccessLayer;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Security.Policy;
 using System.Text;
@@ -55,6 +56,11 @@ namespace MediaProgressBusinessLayer
 
             return clsBookDataAccess.UpdateBook(ID, this.NumberOfPages, this.CurrentPage, this.Author, this.ISBN);
 
+        }
+
+        public static DataTable GetAllBooksWithinAvailableTime(int Duration)
+        {
+             return clsBookDataAccess.GetAllBooksWithinAvailableTime(Duration);
         }
 
 
