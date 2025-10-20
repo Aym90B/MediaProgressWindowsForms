@@ -60,7 +60,7 @@ namespace MediaProgressDataAccessLayer
         {
             DataTable dt = new DataTable();
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
-            string query = "select * from Main where CategoryID = 4 and Duration <= @Duration order by Rating";
+            string query = "select * from Main where CategoryID = 4 order by Rating";
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@Duration", Duration);
             try

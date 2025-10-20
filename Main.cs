@@ -50,10 +50,7 @@ namespace MediaProgressWindowsForms
             dgvAll.DataSource = clsMedia.GetAllBooks();
         }
 
-        //private void _RefreshEpisodesList()
-        //{
-        //    dgvAll.DataSource = clsEpisode.GetAllEpisodes();
-        //}
+       
 
 
 
@@ -65,10 +62,18 @@ namespace MediaProgressWindowsForms
 
         private void btnShow_Click(object sender, EventArgs e)
         {
-            int Duration = Convert.ToInt32(hoursComboBox.Text) * 60 + (Convert.ToInt32(minutesComboBox.Text)); // Bug! validate if one of two comboboxes is not chosen
+            int Duration = Convert.ToInt32(hoursComboBox.Text) * 60 + (Convert.ToInt32(minutesComboBox.Text));
             dgvAll.AutoGenerateColumns = true;
+            if (Duration < 240)
+                categoryComboBox.Items.Remove("Games");
+            if (Duration < 60)
+                categoryComboBox.Items.Remove("Books");
+
             switch (categoryComboBox.SelectedIndex)
             {
+               
+            
+
                 case 0:
                     dgvAll.DataSource = clsMedia.getAllMediaWithinAvailableTime(Duration);
                     break;
@@ -81,20 +86,18 @@ namespace MediaProgressWindowsForms
                 case 3:
                     dgvAll.DataSource = clsEpisode.getAllEpisodesWithinAvailableTime(Duration);
                     break;
-                case 4: 
+                case 4:
                     dgvAll.DataSource = clsMedia.GetAllGamesWithinAvailableTime(Duration);
                     break;
-                    case 5:
-                        dgvAll.DataSource = clsBook.GetAllBooksWithinAvailableTime(Duration);
-                        break;
+                case 5:
+                    dgvAll.DataSource = clsBook.GetAllBooksWithinAvailableTime(Duration);
+                    break;
 
                 default:
                     dgvAll.DataSource = clsMedia.getAllMediaWithinAvailableTime(Duration);
                     break;
-            }
+                }
 
-            
-           
         }
 
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
@@ -103,7 +106,7 @@ namespace MediaProgressWindowsForms
             frm.ShowDialog();
 
 
-            _RefreshMoviesList();
+            //_RefreshMoviesList();
 
         }
 
@@ -133,12 +136,7 @@ namespace MediaProgressWindowsForms
             _RefreshMoviesList();
         }
 
-        //private void btnAddSeries_Click(object sender, EventArgs e)
-        //{
-        //    frmAddEditSeries frm = new frmAddEditSeries(-1);
-        //    frm.ShowDialog();
-        //    _RefreshSeriesList();
-        //}
+       
 
         private void categoryComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -150,6 +148,7 @@ namespace MediaProgressWindowsForms
                     case 1:
                     _RefreshSeriesList();
                     break;
+                    case 2:
                     _RefreshGamesList();
                     break;
                 
@@ -160,11 +159,7 @@ namespace MediaProgressWindowsForms
             }
         }
 
-        //private void btnAddEpisodes_Click(object sender, EventArgs e)
-        //{
-        //    FrmAddEditEpisodes frm = new FrmAddEditEpisodes(-1);
-        //    frm.ShowDialog();
-        //}
+       
 
         private void hoursComboBox_Validating(object sender, CancelEventArgs e)
         {

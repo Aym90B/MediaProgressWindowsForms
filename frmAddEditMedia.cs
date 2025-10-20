@@ -51,7 +51,12 @@ namespace MediaProgressWindowsForms
                 return;
             }
 
-            _Media = clsMedia.Find(_ID);
+            else
+            {
+                _Media = clsMedia.Find(_ID);
+            }
+
+             
 
             if (_Media == null)
             {
@@ -66,15 +71,15 @@ namespace MediaProgressWindowsForms
             txtName.Text = _Media.Name;
 
             txtRating.Text = _Media.Rating.ToString();
-            cbCategory.SelectedIndex = _Media.CategoryID;
+            cbCategory.SelectedIndex = _Media.CategoryID -1;
             txtDuration.Text = _Media.Duration.ToString();
             checkBoxCompleted.Checked = _Media.Completed;
             chkbxWatchAgain.Checked = _Media.WatchAgain;
             txtWhereToWatch.Text = _Media.WhereToWatch;
-            txtNumberOfSeasons.Text = _Series.NumberOfSeasons.ToString();
-            txtNumberOfEpisodes.Text = _Series.NumberOfEpisodes.ToString();
+            //txtNumberOfSeasons.Text = _Series.NumberOfSeasons.ToString();
+            //txtNumberOfEpisodes.Text = _Series.NumberOfEpisodes.ToString();
 
-            PbPercentageOfCompletion.Value = (int)Convert.ToSingle(clsSeries.GetSeriesPercentageCompletion(_Series.ID));
+            //PbPercentageOfCompletion.Value = (int)Convert.ToSingle(clsSeries.GetSeriesPercentageCompletion(_Series.ID));
 
         }
 
