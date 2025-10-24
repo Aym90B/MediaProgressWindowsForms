@@ -66,8 +66,7 @@ namespace MediaProgressWindowsForms
             dgvAll.AutoGenerateColumns = true;
             if (Duration < 240)
                 categoryComboBox.Items.Remove("Games");
-            if (Duration < 60)
-                categoryComboBox.Items.Remove("Books");
+          
 
             switch (categoryComboBox.SelectedIndex)
             {

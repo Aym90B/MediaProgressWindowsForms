@@ -14,31 +14,32 @@ namespace MediaProgressBusinessLayer
         public int BookID { set; get; }
         public int NumberOfPages { set; get; }
         public int CurrentPage { set; get; }
-        public bool StartReading { set; get; }
+     
 
         public string Author { set; get; }
         public string ISBN { set; get; }
 
 
-        public float PercentageOfCompletion { set; get; }
+     
         public clsBook()
         {
             this.BookID = -1;
             this.NumberOfPages = -1;
             this.CurrentPage = -1;
-            this.StartReading = false;
+           
             this.Author = "";
             this.ISBN = "";
-            this.PercentageOfCompletion = 0;
+         
             Mode = enMode.AddNew;
         }
-        private clsBook(int BookID, int NumberOfPages, int CurrentPage, bool startReading, float percentageOfCompletion)
+        private clsBook(int BookID, int NumberOfPages, int CurrentPage, string Author, string ISBN)
         {
             this.BookID = BookID;
             this.NumberOfPages = NumberOfPages;
             this.CurrentPage = CurrentPage;
-            this.StartReading = startReading;
-            this.PercentageOfCompletion = percentageOfCompletion;
+            this.Author = Author;
+            this.ISBN = ISBN;
+           
             Mode = enMode.Update;
         }
 
@@ -58,9 +59,32 @@ namespace MediaProgressBusinessLayer
 
         }
 
+
         public static DataTable GetAllBooksWithinAvailableTime(int Duration)
         {
              return clsBookDataAccess.GetAllBooksWithinAvailableTime(Duration);
+        }
+
+        public static clsBook FindBookByMediaID(int BookID)
+        {
+            
+            int NumberOfPages = 0;
+            int CurrentPage = 0;
+            string Author = "";
+            string ISBN = "";
+
+            if (clsBookDataAccess.GetBookInfoByID(BookID, ref NumberOfPages, ref CurrentPage,
+                          ref Author, ref ISBN))
+
+                return new clsBook(BookID, NumberOfPages, CurrentPage,
+                           Author, ISBN);
+            else
+                return null;
+        }
+
+        public static void UpdateBookCompletionPercentage()
+        {
+            clsBookDataAccess.UpdateBookCompletionPercentage();
         }
 
 

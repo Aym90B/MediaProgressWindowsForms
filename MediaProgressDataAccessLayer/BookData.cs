@@ -6,14 +6,14 @@ namespace MediaProgressDataAccessLayer
 {
     public class clsBookDataAccess
     {
-        public static bool GetBookInfoByID(int BookID, ref int NumberOfPages, ref int CurrentPage
+        public static bool GetBookInfoByID(int BookID, ref int NumberOfPages, ref int CurrentPage, ref string Author, ref string ISBN
            )
         {
             bool isFound = false;
 
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
 
-            string query = "SELECT * FROM Main WHERE BookID = @BookID";
+            string query = "SELECT * FROM Books WHERE BookID = @BookID";
 
             SqlCommand command = new SqlCommand(query, connection);
 
@@ -30,8 +30,21 @@ namespace MediaProgressDataAccessLayer
                     isFound = true;
 
                     NumberOfPages = (int)reader["NumberOfPages"];
-                   
-                    CurrentPage = (int)reader["CurrentPage"];
+
+                    if (CurrentPage != -1 && CurrentPage.ToString() != null)
+                        CurrentPage = (int)reader["CurrentPage"];
+                    else
+                        command.Parameters.AddWithValue("@CurrentPage", System.DBNull.Value);
+
+                    if (Author != null)
+                        Author = (string)reader["Author"];
+                    else
+                        Author = null;
+
+                    if (ISBN != "" && ISBN != null)
+                        ISBN = (string)reader["ISBN"];
+                    else
+                        ISBN = null;
                 }
                 else
                 {
@@ -249,8 +262,26 @@ namespace MediaProgressDataAccessLayer
             return ID;
         }
 
+        public static void UpdateBookCompletionPercentage()
+        {
+          
+
+            using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            {
+                using (SqlCommand command = new SqlCommand("UpdateBookCompletionPercentage", connection))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
         public static bool UpdateBook(int ID, int NumberOfPages, int CurrentPage, string Author, string ISBN)
         {
+
+            
 
             int rowsAffected = 0;
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
@@ -262,16 +293,14 @@ namespace MediaProgressDataAccessLayer
                                 Author = @Author,
                                 ISBN = @ISBN
                               
-                                where ID = @ID";
-          
+                                where BookID = @ID";
+
+           
+
 
             SqlCommand command = new SqlCommand(query, connection);
 
-            //command.Parameters.AddWithValue("@BookID", BookID);
-            //command.Parameters.AddWithValue("@NumberOfPages", NumberOfPages);
-            //command.Parameters.AddWithValue("@CurrentPage", CurrentPage);
-            //command.Parameters.AddWithValue("@Author", Author);
-            //command.Parameters.AddWithValue("@ISBN", ISBN);
+      
 
             if (ID != -1 && ID.ToString() != null)
                 command.Parameters.AddWithValue("@ID", ID);
@@ -297,6 +326,8 @@ namespace MediaProgressDataAccessLayer
                 command.Parameters.AddWithValue("@ISBN", ISBN);
             else
                 command.Parameters.AddWithValue("@ISBN", System.DBNull.Value);
+
+         
 
             try
             {
@@ -434,15 +465,15 @@ namespace MediaProgressDataAccessLayer
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
 
             string query = @"
-Select Main.Name as BookName,
-Main.Rating,
-Main.Duration,
-main.StartPlaying,
-Main.PercentageOfCompletion,
-Main.WhereToWatch,
-Books.NumberOfPages,
-Books.currentPage
-From Main join Books on Main.ID = Books.ID Where Main.Duration <= @Duration
+            Select Main.Name as BookName,
+            Main.Rating,
+            Main.Duration,
+            main.StartPlaying,
+            Main.PercentageOfCompletion,
+            Main.WhereToWatch,
+            Books.NumberOfPages,
+            Books.currentPage
+            From Main join Books on Main.ID = Books.ID Where Main.Duration <= @Duration
 	";
 
             SqlCommand command = new SqlCommand(query, connection);
@@ -473,5 +504,7 @@ From Main join Books on Main.ID = Books.ID Where Main.Duration <= @Duration
             return dt;
 
         }
+
+      
     }
 }

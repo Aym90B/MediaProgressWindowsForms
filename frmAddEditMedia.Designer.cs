@@ -338,6 +338,7 @@
             this.PbPercentageOfCompletion.Name = "PbPercentageOfCompletion";
             this.PbPercentageOfCompletion.Size = new System.Drawing.Size(240, 23);
             this.PbPercentageOfCompletion.TabIndex = 28;
+            this.PbPercentageOfCompletion.Click += new System.EventHandler(this.PbPercentageOfCompletion_Click);
             // 
             // btnAddEpisodes
             // 
@@ -368,6 +369,8 @@
             this.txtCurrentPage.Size = new System.Drawing.Size(100, 20);
             this.txtCurrentPage.TabIndex = 31;
             this.txtCurrentPage.Visible = false;
+            this.txtCurrentPage.TextChanged += new System.EventHandler(this.txtCurrentPage_TextChanged);
+            this.txtCurrentPage.MouseLeave += new System.EventHandler(this.txtCurrentPage_MouseLeave);
             this.txtCurrentPage.Validating += new System.ComponentModel.CancelEventHandler(this.txtCurrentPage_Validating);
             // 
             // lblAuthor

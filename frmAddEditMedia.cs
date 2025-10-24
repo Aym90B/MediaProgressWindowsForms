@@ -76,10 +76,24 @@ namespace MediaProgressWindowsForms
             checkBoxCompleted.Checked = _Media.Completed;
             chkbxWatchAgain.Checked = _Media.WatchAgain;
             txtWhereToWatch.Text = _Media.WhereToWatch;
-            //txtNumberOfSeasons.Text = _Series.NumberOfSeasons.ToString();
-            //txtNumberOfEpisodes.Text = _Series.NumberOfEpisodes.ToString();
+           
+            if(_Media.CategoryID == 4)
+            {
+                _Book = new clsBook();
+                _Book = clsBook.FindBookByMediaID(_ID);
+          
+              //Show all book information on Edit
+                txtNumberOfPages.Text = _Book.NumberOfPages.ToString();
+                txtCurrentPage.Text = _Book.CurrentPage.ToString();
+             
+                txtAuthor.Text = _Book.Author;
+                txtISBN.Text = _Book.ISBN;
+             
+                PbPercentageOfCompletion.Value = (int)Convert.ToSingle(clsSeries.GetSeriesPercentageCompletion(_ID));
+            }
+           
 
-            //PbPercentageOfCompletion.Value = (int)Convert.ToSingle(clsSeries.GetSeriesPercentageCompletion(_Series.ID));
+            
 
         }
 
@@ -418,6 +432,22 @@ namespace MediaProgressWindowsForms
                 saveButton.Enabled = true;
                 this.Cursor = Cursors.Default;
             }
+        }
+
+        private void PbPercentageOfCompletion_Click(object sender, EventArgs e)
+        {
+          
+
+        }
+
+        private void txtCurrentPage_TextChanged(object sender, EventArgs e)
+        {
+            clsBook.UpdateBookCompletionPercentage();
+        }
+
+        private void txtCurrentPage_MouseLeave(object sender, EventArgs e)
+        {
+            clsBook.UpdateBookCompletionPercentage();
         }
     }
 }
