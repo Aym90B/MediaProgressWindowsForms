@@ -53,17 +53,17 @@
             this.btnShowBooks = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.label7 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox14 = new System.Windows.Forms.CheckBox();
-            this.checkBox13 = new System.Windows.Forms.CheckBox();
-            this.checkBox12 = new System.Windows.Forms.CheckBox();
-            this.checkBox11 = new System.Windows.Forms.CheckBox();
-            this.checkBox10 = new System.Windows.Forms.CheckBox();
-            this.checkBox9 = new System.Windows.Forms.CheckBox();
-            this.checkBox8 = new System.Windows.Forms.CheckBox();
-            this.checkBox7 = new System.Windows.Forms.CheckBox();
-            this.checkBox6 = new System.Windows.Forms.CheckBox();
-            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.chkPS = new System.Windows.Forms.CheckBox();
+            this.chkOSN = new System.Windows.Forms.CheckBox();
+            this.chkTOD = new System.Windows.Forms.CheckBox();
+            this.chkShahid = new System.Windows.Forms.CheckBox();
+            this.chkDisney = new System.Windows.Forms.CheckBox();
+            this.chkStarzOn = new System.Windows.Forms.CheckBox();
+            this.chkThamanya = new System.Windows.Forms.CheckBox();
+            this.chkAJ = new System.Windows.Forms.CheckBox();
+            this.chkAlAraby = new System.Windows.Forms.CheckBox();
+            this.chkCrunchyRoll = new System.Windows.Forms.CheckBox();
+            this.chkNetflix = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAll)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -213,7 +213,7 @@
             // btnShow
             // 
             this.btnShow.Location = new System.Drawing.Point(444, 175);
-            this.btnShow.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnShow.Margin = new System.Windows.Forms.Padding(1);
             this.btnShow.Name = "btnShow";
             this.btnShow.Size = new System.Drawing.Size(310, 34);
             this.btnShow.TabIndex = 9;
@@ -224,7 +224,7 @@
             // btnAddMovies
             // 
             this.btnAddMovies.Location = new System.Drawing.Point(17, 175);
-            this.btnAddMovies.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnAddMovies.Margin = new System.Windows.Forms.Padding(1);
             this.btnAddMovies.Name = "btnAddMovies";
             this.btnAddMovies.Size = new System.Drawing.Size(388, 34);
             this.btnAddMovies.TabIndex = 10;
@@ -239,7 +239,7 @@
             // txtFind
             // 
             this.txtFind.Location = new System.Drawing.Point(902, 34);
-            this.txtFind.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.txtFind.Margin = new System.Windows.Forms.Padding(1);
             this.txtFind.Name = "txtFind";
             this.txtFind.Size = new System.Drawing.Size(221, 20);
             this.txtFind.TabIndex = 15;
@@ -256,8 +256,8 @@
             // 
             // btnFind
             // 
-            this.btnFind.Location = new System.Drawing.Point(1136, 31);
-            this.btnFind.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnFind.Location = new System.Drawing.Point(1135, 33);
+            this.btnFind.Margin = new System.Windows.Forms.Padding(1);
             this.btnFind.Name = "btnFind";
             this.btnFind.Size = new System.Drawing.Size(88, 21);
             this.btnFind.TabIndex = 17;
@@ -267,10 +267,10 @@
             // 
             // btnShowMovies
             // 
-            this.btnShowMovies.Location = new System.Drawing.Point(863, 87);
-            this.btnShowMovies.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnShowMovies.Location = new System.Drawing.Point(863, 71);
+            this.btnShowMovies.Margin = new System.Windows.Forms.Padding(1);
             this.btnShowMovies.Name = "btnShowMovies";
-            this.btnShowMovies.Size = new System.Drawing.Size(127, 41);
+            this.btnShowMovies.Size = new System.Drawing.Size(127, 68);
             this.btnShowMovies.TabIndex = 18;
             this.btnShowMovies.Text = "Show All Movies";
             this.btnShowMovies.UseVisualStyleBackColor = true;
@@ -278,10 +278,10 @@
             // 
             // btnShowSeries
             // 
-            this.btnShowSeries.Location = new System.Drawing.Point(1004, 87);
-            this.btnShowSeries.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnShowSeries.Location = new System.Drawing.Point(1004, 70);
+            this.btnShowSeries.Margin = new System.Windows.Forms.Padding(1);
             this.btnShowSeries.Name = "btnShowSeries";
-            this.btnShowSeries.Size = new System.Drawing.Size(119, 41);
+            this.btnShowSeries.Size = new System.Drawing.Size(119, 68);
             this.btnShowSeries.TabIndex = 19;
             this.btnShowSeries.Text = "Show All Series";
             this.btnShowSeries.UseVisualStyleBackColor = true;
@@ -289,10 +289,10 @@
             // 
             // btnShowGames
             // 
-            this.btnShowGames.Location = new System.Drawing.Point(863, 135);
-            this.btnShowGames.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnShowGames.Location = new System.Drawing.Point(863, 146);
+            this.btnShowGames.Margin = new System.Windows.Forms.Padding(1);
             this.btnShowGames.Name = "btnShowGames";
-            this.btnShowGames.Size = new System.Drawing.Size(127, 41);
+            this.btnShowGames.Size = new System.Drawing.Size(127, 63);
             this.btnShowGames.TabIndex = 20;
             this.btnShowGames.Text = "Show All Games";
             this.btnShowGames.UseVisualStyleBackColor = true;
@@ -300,10 +300,10 @@
             // 
             // btnShowBooks
             // 
-            this.btnShowBooks.Location = new System.Drawing.Point(1004, 135);
-            this.btnShowBooks.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.btnShowBooks.Location = new System.Drawing.Point(1004, 146);
+            this.btnShowBooks.Margin = new System.Windows.Forms.Padding(1);
             this.btnShowBooks.Name = "btnShowBooks";
-            this.btnShowBooks.Size = new System.Drawing.Size(119, 41);
+            this.btnShowBooks.Size = new System.Drawing.Size(119, 63);
             this.btnShowBooks.TabIndex = 21;
             this.btnShowBooks.Text = "Show All Books";
             this.btnShowBooks.UseVisualStyleBackColor = true;
@@ -318,143 +318,143 @@
             this.label7.TabIndex = 22;
             this.label7.Text = "Where To Watch";
             // 
-            // checkBox1
+            // chkPS
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(529, 120);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(46, 17);
-            this.checkBox1.TabIndex = 43;
-            this.checkBox1.Text = "PS+";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.chkPS.AutoSize = true;
+            this.chkPS.Location = new System.Drawing.Point(529, 120);
+            this.chkPS.Margin = new System.Windows.Forms.Padding(1);
+            this.chkPS.Name = "chkPS";
+            this.chkPS.Size = new System.Drawing.Size(46, 17);
+            this.chkPS.TabIndex = 43;
+            this.chkPS.Text = "PS+";
+            this.chkPS.UseVisualStyleBackColor = true;
             // 
-            // checkBox14
+            // chkOSN
             // 
-            this.checkBox14.AutoSize = true;
-            this.checkBox14.Location = new System.Drawing.Point(506, 46);
-            this.checkBox14.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
-            this.checkBox14.Name = "checkBox14";
-            this.checkBox14.Size = new System.Drawing.Size(55, 17);
-            this.checkBox14.TabIndex = 42;
-            this.checkBox14.Text = "OSN+";
-            this.checkBox14.UseVisualStyleBackColor = true;
+            this.chkOSN.AutoSize = true;
+            this.chkOSN.Location = new System.Drawing.Point(506, 46);
+            this.chkOSN.Margin = new System.Windows.Forms.Padding(1);
+            this.chkOSN.Name = "chkOSN";
+            this.chkOSN.Size = new System.Drawing.Size(55, 17);
+            this.chkOSN.TabIndex = 42;
+            this.chkOSN.Text = "OSN+";
+            this.chkOSN.UseVisualStyleBackColor = true;
             // 
-            // checkBox13
+            // chkTOD
             // 
-            this.checkBox13.AutoSize = true;
-            this.checkBox13.Location = new System.Drawing.Point(568, 46);
-            this.checkBox13.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
-            this.checkBox13.Name = "checkBox13";
-            this.checkBox13.Size = new System.Drawing.Size(47, 17);
-            this.checkBox13.TabIndex = 41;
-            this.checkBox13.Text = "TOD";
-            this.checkBox13.UseVisualStyleBackColor = true;
+            this.chkTOD.AutoSize = true;
+            this.chkTOD.Location = new System.Drawing.Point(568, 46);
+            this.chkTOD.Margin = new System.Windows.Forms.Padding(1);
+            this.chkTOD.Name = "chkTOD";
+            this.chkTOD.Size = new System.Drawing.Size(47, 17);
+            this.chkTOD.TabIndex = 41;
+            this.chkTOD.Text = "TOD";
+            this.chkTOD.UseVisualStyleBackColor = true;
             // 
-            // checkBox12
+            // chkShahid
             // 
-            this.checkBox12.AutoSize = true;
-            this.checkBox12.Location = new System.Drawing.Point(625, 46);
-            this.checkBox12.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
-            this.checkBox12.Name = "checkBox12";
-            this.checkBox12.Size = new System.Drawing.Size(58, 17);
-            this.checkBox12.TabIndex = 40;
-            this.checkBox12.Text = "Shahid";
-            this.checkBox12.UseVisualStyleBackColor = true;
+            this.chkShahid.AutoSize = true;
+            this.chkShahid.Location = new System.Drawing.Point(625, 46);
+            this.chkShahid.Margin = new System.Windows.Forms.Padding(1);
+            this.chkShahid.Name = "chkShahid";
+            this.chkShahid.Size = new System.Drawing.Size(58, 17);
+            this.chkShahid.TabIndex = 40;
+            this.chkShahid.Text = "Shahid";
+            this.chkShahid.UseVisualStyleBackColor = true;
             // 
-            // checkBox11
+            // chkDisney
             // 
-            this.checkBox11.AutoSize = true;
-            this.checkBox11.Location = new System.Drawing.Point(688, 46);
-            this.checkBox11.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
-            this.checkBox11.Name = "checkBox11";
-            this.checkBox11.Size = new System.Drawing.Size(66, 17);
-            this.checkBox11.TabIndex = 39;
-            this.checkBox11.Text = "Disney+";
-            this.checkBox11.UseVisualStyleBackColor = true;
+            this.chkDisney.AutoSize = true;
+            this.chkDisney.Location = new System.Drawing.Point(688, 46);
+            this.chkDisney.Margin = new System.Windows.Forms.Padding(1);
+            this.chkDisney.Name = "chkDisney";
+            this.chkDisney.Size = new System.Drawing.Size(66, 17);
+            this.chkDisney.TabIndex = 39;
+            this.chkDisney.Text = "Disney+";
+            this.chkDisney.UseVisualStyleBackColor = true;
             // 
-            // checkBox10
+            // chkStarzOn
             // 
-            this.checkBox10.AutoSize = true;
-            this.checkBox10.Location = new System.Drawing.Point(444, 84);
-            this.checkBox10.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
-            this.checkBox10.Name = "checkBox10";
-            this.checkBox10.Size = new System.Drawing.Size(65, 17);
-            this.checkBox10.TabIndex = 38;
-            this.checkBox10.Text = "StarzOn";
-            this.checkBox10.UseVisualStyleBackColor = true;
+            this.chkStarzOn.AutoSize = true;
+            this.chkStarzOn.Location = new System.Drawing.Point(444, 84);
+            this.chkStarzOn.Margin = new System.Windows.Forms.Padding(1);
+            this.chkStarzOn.Name = "chkStarzOn";
+            this.chkStarzOn.Size = new System.Drawing.Size(65, 17);
+            this.chkStarzOn.TabIndex = 38;
+            this.chkStarzOn.Text = "StarzOn";
+            this.chkStarzOn.UseVisualStyleBackColor = true;
             // 
-            // checkBox9
+            // chkThamanya
             // 
-            this.checkBox9.AutoSize = true;
-            this.checkBox9.Location = new System.Drawing.Point(511, 84);
-            this.checkBox9.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
-            this.checkBox9.Name = "checkBox9";
-            this.checkBox9.Size = new System.Drawing.Size(76, 17);
-            this.checkBox9.TabIndex = 37;
-            this.checkBox9.Text = "Thamanya";
-            this.checkBox9.UseVisualStyleBackColor = true;
+            this.chkThamanya.AutoSize = true;
+            this.chkThamanya.Location = new System.Drawing.Point(511, 84);
+            this.chkThamanya.Margin = new System.Windows.Forms.Padding(1);
+            this.chkThamanya.Name = "chkThamanya";
+            this.chkThamanya.Size = new System.Drawing.Size(76, 17);
+            this.chkThamanya.TabIndex = 37;
+            this.chkThamanya.Text = "Thamanya";
+            this.chkThamanya.UseVisualStyleBackColor = true;
             // 
-            // checkBox8
+            // chkAJ
             // 
-            this.checkBox8.AutoSize = true;
-            this.checkBox8.Location = new System.Drawing.Point(601, 84);
-            this.checkBox8.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
-            this.checkBox8.Name = "checkBox8";
-            this.checkBox8.Size = new System.Drawing.Size(79, 17);
-            this.checkBox8.TabIndex = 36;
-            this.checkBox8.Text = "Aljazeera+";
-            this.checkBox8.UseVisualStyleBackColor = true;
+            this.chkAJ.AutoSize = true;
+            this.chkAJ.Location = new System.Drawing.Point(601, 84);
+            this.chkAJ.Margin = new System.Windows.Forms.Padding(1);
+            this.chkAJ.Name = "chkAJ";
+            this.chkAJ.Size = new System.Drawing.Size(79, 17);
+            this.chkAJ.TabIndex = 36;
+            this.chkAJ.Text = "Aljazeera+";
+            this.chkAJ.UseVisualStyleBackColor = true;
             // 
-            // checkBox7
+            // chkAlAraby
             // 
-            this.checkBox7.AutoSize = true;
-            this.checkBox7.Location = new System.Drawing.Point(682, 84);
-            this.checkBox7.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
-            this.checkBox7.Name = "checkBox7";
-            this.checkBox7.Size = new System.Drawing.Size(72, 17);
-            this.checkBox7.TabIndex = 35;
-            this.checkBox7.Text = "AlAraby+";
-            this.checkBox7.UseVisualStyleBackColor = true;
+            this.chkAlAraby.AutoSize = true;
+            this.chkAlAraby.Location = new System.Drawing.Point(682, 84);
+            this.chkAlAraby.Margin = new System.Windows.Forms.Padding(1);
+            this.chkAlAraby.Name = "chkAlAraby";
+            this.chkAlAraby.Size = new System.Drawing.Size(72, 17);
+            this.chkAlAraby.TabIndex = 35;
+            this.chkAlAraby.Text = "AlAraby+";
+            this.chkAlAraby.UseVisualStyleBackColor = true;
             // 
-            // checkBox6
+            // chkCrunchyRoll
             // 
-            this.checkBox6.AutoSize = true;
-            this.checkBox6.Location = new System.Drawing.Point(444, 120);
-            this.checkBox6.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
-            this.checkBox6.Name = "checkBox6";
-            this.checkBox6.Size = new System.Drawing.Size(83, 17);
-            this.checkBox6.TabIndex = 34;
-            this.checkBox6.Text = "CrunchyRoll";
-            this.checkBox6.UseVisualStyleBackColor = true;
+            this.chkCrunchyRoll.AutoSize = true;
+            this.chkCrunchyRoll.Location = new System.Drawing.Point(444, 120);
+            this.chkCrunchyRoll.Margin = new System.Windows.Forms.Padding(1);
+            this.chkCrunchyRoll.Name = "chkCrunchyRoll";
+            this.chkCrunchyRoll.Size = new System.Drawing.Size(83, 17);
+            this.chkCrunchyRoll.TabIndex = 34;
+            this.chkCrunchyRoll.Text = "CrunchyRoll";
+            this.chkCrunchyRoll.UseVisualStyleBackColor = true;
             // 
-            // checkBox5
+            // chkNetflix
             // 
-            this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(444, 46);
-            this.checkBox5.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
-            this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(57, 17);
-            this.checkBox5.TabIndex = 33;
-            this.checkBox5.Text = "Netflix";
-            this.checkBox5.UseVisualStyleBackColor = true;
+            this.chkNetflix.AutoSize = true;
+            this.chkNetflix.Location = new System.Drawing.Point(444, 46);
+            this.chkNetflix.Margin = new System.Windows.Forms.Padding(1);
+            this.chkNetflix.Name = "chkNetflix";
+            this.chkNetflix.Size = new System.Drawing.Size(57, 17);
+            this.chkNetflix.TabIndex = 33;
+            this.chkNetflix.Text = "Netflix";
+            this.chkNetflix.UseVisualStyleBackColor = true;
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1250, 632);
-            this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.checkBox14);
-            this.Controls.Add(this.checkBox13);
-            this.Controls.Add(this.checkBox12);
-            this.Controls.Add(this.checkBox11);
-            this.Controls.Add(this.checkBox10);
-            this.Controls.Add(this.checkBox9);
-            this.Controls.Add(this.checkBox8);
-            this.Controls.Add(this.checkBox7);
-            this.Controls.Add(this.checkBox6);
-            this.Controls.Add(this.checkBox5);
+            this.Controls.Add(this.chkPS);
+            this.Controls.Add(this.chkOSN);
+            this.Controls.Add(this.chkTOD);
+            this.Controls.Add(this.chkShahid);
+            this.Controls.Add(this.chkDisney);
+            this.Controls.Add(this.chkStarzOn);
+            this.Controls.Add(this.chkThamanya);
+            this.Controls.Add(this.chkAJ);
+            this.Controls.Add(this.chkAlAraby);
+            this.Controls.Add(this.chkCrunchyRoll);
+            this.Controls.Add(this.chkNetflix);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.btnShowBooks);
             this.Controls.Add(this.btnShowGames);
@@ -511,16 +511,16 @@
         private System.Windows.Forms.Button btnShowSeries;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox checkBox14;
-        private System.Windows.Forms.CheckBox checkBox13;
-        private System.Windows.Forms.CheckBox checkBox12;
-        private System.Windows.Forms.CheckBox checkBox11;
-        private System.Windows.Forms.CheckBox checkBox10;
-        private System.Windows.Forms.CheckBox checkBox9;
-        private System.Windows.Forms.CheckBox checkBox8;
-        private System.Windows.Forms.CheckBox checkBox7;
-        private System.Windows.Forms.CheckBox checkBox6;
-        private System.Windows.Forms.CheckBox checkBox5;
+        private System.Windows.Forms.CheckBox chkPS;
+        private System.Windows.Forms.CheckBox chkOSN;
+        private System.Windows.Forms.CheckBox chkTOD;
+        private System.Windows.Forms.CheckBox chkShahid;
+        private System.Windows.Forms.CheckBox chkDisney;
+        private System.Windows.Forms.CheckBox chkStarzOn;
+        private System.Windows.Forms.CheckBox chkThamanya;
+        private System.Windows.Forms.CheckBox chkAJ;
+        private System.Windows.Forms.CheckBox chkAlAraby;
+        private System.Windows.Forms.CheckBox chkCrunchyRoll;
+        private System.Windows.Forms.CheckBox chkNetflix;
     }
 }

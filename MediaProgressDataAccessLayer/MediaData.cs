@@ -58,6 +58,11 @@ namespace MediaProgressDataAccessLayer
             return 0; // Return 0 if the insert failed.
         }
 
+        public static void PlatformsFilter(string chk) {
+
+           
+        }
+
 
         public static int getMediaIDByName(string Name)
         {
@@ -635,7 +640,7 @@ namespace MediaProgressDataAccessLayer
             return isFound;
         }
 
-        public static DataTable getAllMediaWithinAvailableTime(int Duration)
+        public static DataTable getAllMediaWithinAvailableTime(int Duration, string choices)
         {
 
 
@@ -643,48 +648,47 @@ namespace MediaProgressDataAccessLayer
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
 
             string query = @"
-     SELECT TOP 100
-    CASE 
-        WHEN mediaBasics.titleType = 'series' THEN seriesBasics.primaryTitle
-        ELSE mediaBasics.primaryTitle
-    END AS MediaName,
+  SELECT TOP 10
+    mediaBasics.primaryTitle AS MediaName,
+    seriesBasics.primaryTitle AS Series_Name, -- Name of the parent series (if it's an episode)
     Ratings.averageRating,
     Ratings.numVotes,
     mediaBasics.runtimeMinutes,
-    mediaBasics.whereToWatch,
     mediaBasics.titleType,
     Episodes.seasonNumber,
     Episodes.episodeNumber,
-	seriesBasics.primaryTitle as Series_Name,
-	mediaBasics.startYear,
-	Episodes.Completed as Episode_Completed,
-	mediaBasics.Completed as Media_Completed,
-    mediaBasics.WatchAgain as Media_Watch_Again
+    mediaBasics.startYear,
+    mediaBasics.whereToWatch,
+    mediaBasics.isAdult,
+    Episodes.Completed AS Episode_Completed,
+    mediaBasics.Completed AS Media_Completed,
+    mediaBasics.watchAgain AS Media_Watch_Again
 FROM
     Basics AS mediaBasics
+JOIN
+    Ratings ON mediaBasics.tconst = Ratings.tconst
 LEFT JOIN
     Episodes ON mediaBasics.tconst = Episodes.tconst
 LEFT JOIN
     Basics AS seriesBasics ON Episodes.parentTconst = seriesBasics.tconst
-JOIN
-    Ratings ON mediaBasics.tconst = Ratings.tconst
 WHERE
-    mediaBasics.runtimeMinutes <= @Duration AND 
-    Ratings.numVotes >= 5000 AND 
-    mediaBasics.Completed IS NULL AND
-    (
-        mediaBasics.titleType IN ('movie', 'series', 'tvMovie', 'tvShort', 'short', 'tvEpisode') OR
-        (mediaBasics.titleType = 'tvEpisode' AND Episodes.Completed IS NULL)
+    mediaBasics.runtimeMinutes <= @Duration
+    AND Ratings.numVotes >= 5000
+    AND mediaBasics.Completed IS NULL  -- Filter 1: The media itself isn't marked 'Completed'
+    AND Episodes.Completed IS NULL     -- Filter 2: EITHER it's not an episode, OR it's an episode that isn't 'Completed'
+    AND (
+        mediaBasics.titleType IN ('movie', 'series', 'tvMovie', 'tvShort', 'short', 'tvEpisode') 
+        OR mediaBasics.whereToWatch IN (@choices) -- Assuming @choices is a parameter/list
     )
 ORDER BY
- 
-    Episodes.seasonNumber ASC,
-    Episodes.episodeNumber ASC,
-	 Ratings.averageRating DESC
-	;";
+    Episodes.seasonNumber ASC,  -- Prioritize by season
+    Episodes.episodeNumber ASC, -- Then by episode
+    Ratings.averageRating DESC; -- Then by rating";
 
             SqlCommand command = new SqlCommand(query, connection);
+            command.CommandTimeout = 360;
             command.Parameters.AddWithValue("@Duration", Duration);
+            command.Parameters.AddWithValue("@choices", choices);
 
             try
             {
@@ -858,6 +862,27 @@ ORDER BY
             return dt;
 
         }
+
+
+
+public static DataTable GetTopMedia(int duration, string choices)
+    {
+      
+        using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
+        using (SqlCommand cmd = new SqlCommand("GetTopMediaRecommendations", conn))
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandTimeout = 120; // Increase timeout to 2 minutes
+            cmd.Parameters.AddWithValue("@Duration", duration);
+            cmd.Parameters.AddWithValue("@choices", choices); // e.g., "Netflix,Hulu,Prime"
+
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+            DataTable resultTable = new DataTable();
+            adapter.Fill(resultTable);
+            return resultTable;
+        }
     }
+
+}
 }
 

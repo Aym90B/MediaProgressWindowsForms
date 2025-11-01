@@ -339,7 +339,7 @@ namespace MediaProgressDataAccessLayer
             DataTable dt = new DataTable();
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
 
-            string query = "SELECT\r\nSeriesBasics.primaryTitle as SeriesName,\r\n\r\nRatings.averageRating,\r\n\r\nRatings.numVotes,\r\n\r\nSeriesBasics.whereToWatch,\r\nSeriesBasics.runtimeMinutes,\r\nSeriesBasics.titleType,\r\nSeriesBasics.watchAgain\r\n\r\nFrom\r\nBasics as SeriesBasics\r\n\r\nJoin\r\nRatings on SeriesBasics.tconst = Ratings.tconst\r\n\r\nwhere\r\nRatings.averageRating >= 8.5 and Ratings.numVotes >= 100000 and SeriesBasics.titleType = 'tvSeries' \r\n\r\norder by\r\nRatings.averageRating desc";
+            string query = "SELECT\r\nSeriesBasics.primaryTitle as SeriesName,\r\n\r\nRatings.averageRating,\r\n\r\nRatings.numVotes,\r\n\r\nSeriesBasics.whereToWatch,\r\nSeriesBasics.runtimeMinutes,\r\nSeriesBasics.titleType,SeriesBasics.PercentageOfCompletion,\r\nSeriesBasics.watchAgain\r\n\r\nFrom\r\nBasics as SeriesBasics\r\n\r\nJoin\r\nRatings on SeriesBasics.tconst = Ratings.tconst\r\n\r\nwhere\r\nRatings.averageRating >= 8.5 and Ratings.numVotes >= 100000 and SeriesBasics.titleType = 'tvSeries' \r\n\r\norder by\r\nRatings.averageRating desc";
 
             SqlCommand command = new SqlCommand(query, connection);
 

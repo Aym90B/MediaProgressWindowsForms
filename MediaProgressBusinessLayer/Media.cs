@@ -85,6 +85,11 @@ namespace MediaProgressBusinessLayer
 
         }
 
+        public static void PlatformsFilter(string chk)
+        {
+             clsMovieDataAccess.PlatformsFilter(chk);
+        }
+
         public static clsMedia Find(int ID)
         {
 
@@ -195,9 +200,14 @@ namespace MediaProgressBusinessLayer
             return clsMovieDataAccess.IsMediaExistInIMDB(ID);
         }
 
-        public static DataTable getAllMediaWithinAvailableTime(int Duration)
+        public static DataTable getAllMediaWithinAvailableTime(int Duration, string choices)
         {
-            return clsMovieDataAccess.getAllMediaWithinAvailableTime(Duration);
+            return clsMovieDataAccess.getAllMediaWithinAvailableTime(Duration, choices);
+        }
+
+        public static DataTable GetTopMedia(int duration, string choices)
+        {
+            return clsMovieDataAccess.GetTopMedia(duration, choices);
         }
 
         public static DataTable GetAllGamesWithinAvailableTime(int Duration)

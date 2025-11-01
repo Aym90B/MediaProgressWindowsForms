@@ -66,7 +66,106 @@ namespace MediaProgressWindowsForms
             dgvAll.AutoGenerateColumns = true;
             if (Duration < 240)
                 categoryComboBox.Items.Remove("Games");
-          
+
+            //string Choices = "";
+
+            //if (chkNetflix.Checked)
+            //{
+            //    Choices = "( 'Netflix' )";
+            //}
+
+            //if (chkOSN.Checked)
+            //{
+            //    if (Choices == "")
+            //        Choices = "( 'OSN' )";
+            //    else
+            //        Choices = Choices.Insert(Choices.Length - 1, ", 'OSN'");
+            //}
+
+            //if(chkTOD.Checked)
+            //{
+            //    if (Choices == "")
+            //        Choices = "( 'TOD' )";
+            //    else
+            //        Choices = Choices.Insert(Choices.Length - 1, ", 'TOD'");
+            //}
+
+            //if(chkShahid.Checked)
+            //{
+            //    if (Choices == "")
+            //        Choices = "( 'Shahid' )";
+            //    else
+            //        Choices = Choices.Insert(Choices.Length - 1, ", 'Shahid'");
+            //}
+
+            //if(chkDisney.Checked)
+            //    {
+            //    if (Choices == "")
+            //        Choices = "( 'Disney+' )";
+            //    else
+            //        Choices = Choices.Insert(Choices.Length - 1, ", 'Disney+'");
+            //}
+
+            //if (chkStarzOn.Checked)
+            //{
+            //    if( Choices == "")
+            //        Choices = "( 'StarzOn' )";
+            //    else
+            //        Choices = Choices.Insert(Choices.Length - 1, ", 'StarzOn'");
+            //}
+            //if (chkThamanya.Checked)
+            //{
+            //    if(Choices == "")
+            //        Choices = "( 'Thamanya' )";
+            //    else
+            //        Choices = Choices.Insert(Choices.Length - 1, ", 'Thamanya'");
+            //}
+            //if (chkAJ.Checked)
+            //{
+            //    if(Choices == "")
+            //        Choices = "( 'AJ+' )";
+            //    else
+            //        Choices = Choices.Insert(Choices.Length - 1, ", 'AJ+'");
+            //}
+            //if(chkAlAraby.Checked)
+            //{
+            //    if(Choices == "")
+            //        Choices = "( 'AlAraby' )";
+            //    else
+            //        Choices = Choices.Insert(Choices.Length - 1, ", 'AlAraby'");
+            //}
+            //if (chkCrunchyRoll.Checked) { 
+            //    if(Choices == "")
+            //        Choices = "( 'CrunchyRoll' )";
+            //    else
+            //        Choices = Choices.Insert(Choices.Length - 1, ", 'CrunchyRoll'");
+            //}
+            //if (chkPS.Checked) { 
+            //    if(Choices == "")
+            //        Choices = "( 'PlayStation' )";
+            //    else
+            //        Choices = Choices.Insert(Choices.Length - 1, ", 'PlayStation'");
+            //}
+
+            List<string> selectedPlatforms = new List<string>();
+
+            if (chkNetflix.Checked) selectedPlatforms.Add("Netflix");
+           
+            if (chkOSN.Checked) selectedPlatforms.Add("OSN");
+            if (chkTOD.Checked) selectedPlatforms.Add("TOD");
+            if (chkShahid.Checked) selectedPlatforms.Add("Shahid");
+            if (chkDisney.Checked) selectedPlatforms.Add("Disney+");
+            if (chkStarzOn.Checked) selectedPlatforms.Add("StarzOn");
+            if (chkThamanya.Checked) selectedPlatforms.Add("Thamanya");
+            if (chkAJ.Checked) selectedPlatforms.Add("AJ+");
+            if (chkAlAraby.Checked) selectedPlatforms.Add("AlAraby");
+            if (chkCrunchyRoll.Checked) selectedPlatforms.Add("CrunchyRoll");
+            if (chkPS.Checked) selectedPlatforms.Add("PlayStation");
+
+            string Choices = string.Join(",", selectedPlatforms);
+
+
+
 
             switch (categoryComboBox.SelectedIndex)
             {
@@ -74,7 +173,7 @@ namespace MediaProgressWindowsForms
             
 
                 case 0:
-                    dgvAll.DataSource = clsMedia.getAllMediaWithinAvailableTime(Duration);
+                    dgvAll.DataSource = clsMedia.getAllMediaWithinAvailableTime(Duration, Choices);
                     break;
                 case 1:
                     dgvAll.DataSource = clsMedia.getAllMoviesWithinAvailableTime(Duration);
@@ -93,7 +192,7 @@ namespace MediaProgressWindowsForms
                     break;
 
                 default:
-                    dgvAll.DataSource = clsMedia.getAllMediaWithinAvailableTime(Duration);
+                    dgvAll.DataSource = clsMedia.getAllMediaWithinAvailableTime(Duration,Choices);
                     break;
                 }
 

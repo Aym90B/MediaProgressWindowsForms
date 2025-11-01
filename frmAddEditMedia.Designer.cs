@@ -169,9 +169,9 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(603, 76);
+            this.btnClose.Location = new System.Drawing.Point(617, 76);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(75, 23);
+            this.btnClose.Size = new System.Drawing.Size(100, 23);
             this.btnClose.TabIndex = 11;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
@@ -181,7 +181,7 @@
             // 
             this.btnSave.Location = new System.Drawing.Point(507, 76);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.Size = new System.Drawing.Size(100, 23);
             this.btnSave.TabIndex = 12;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -345,7 +345,7 @@
             this.btnAddEpisodes.Location = new System.Drawing.Point(507, 116);
             this.btnAddEpisodes.Margin = new System.Windows.Forms.Padding(1);
             this.btnAddEpisodes.Name = "btnAddEpisodes";
-            this.btnAddEpisodes.Size = new System.Drawing.Size(171, 29);
+            this.btnAddEpisodes.Size = new System.Drawing.Size(210, 29);
             this.btnAddEpisodes.TabIndex = 29;
             this.btnAddEpisodes.Text = "Add Episodes";
             this.btnAddEpisodes.UseVisualStyleBackColor = true;
