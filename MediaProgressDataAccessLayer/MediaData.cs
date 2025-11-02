@@ -648,7 +648,7 @@ namespace MediaProgressDataAccessLayer
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
 
             string query = @"
-  SELECT TOP 10
+  SELECT TOP 100
     mediaBasics.primaryTitle AS MediaName,
     seriesBasics.primaryTitle AS Series_Name, -- Name of the parent series (if it's an episode)
     Ratings.averageRating,
@@ -674,6 +674,7 @@ LEFT JOIN
 WHERE
     mediaBasics.runtimeMinutes <= @Duration
     AND Ratings.numVotes >= 5000
+    
     AND mediaBasics.Completed IS NULL  -- Filter 1: The media itself isn't marked 'Completed'
     AND Episodes.Completed IS NULL     -- Filter 2: EITHER it's not an episode, OR it's an episode that isn't 'Completed'
     AND (

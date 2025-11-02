@@ -149,6 +149,8 @@ namespace MediaProgressWindowsForms
 
             List<string> selectedPlatforms = new List<string>();
 
+            string Choices = "NULL";
+
             if (chkNetflix.Checked) selectedPlatforms.Add("Netflix");
            
             if (chkOSN.Checked) selectedPlatforms.Add("OSN");
@@ -162,7 +164,7 @@ namespace MediaProgressWindowsForms
             if (chkCrunchyRoll.Checked) selectedPlatforms.Add("CrunchyRoll");
             if (chkPS.Checked) selectedPlatforms.Add("PlayStation");
 
-            string Choices = string.Join(",", selectedPlatforms);
+            Choices = string.Join(",", selectedPlatforms);
 
 
 
