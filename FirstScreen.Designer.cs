@@ -83,7 +83,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(430, 254);
+            this.label2.Location = new System.Drawing.Point(438, 235);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(233, 33);
@@ -93,7 +93,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(1455, 254);
+            this.label3.Location = new System.Drawing.Point(1462, 235);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(172, 33);
@@ -103,7 +103,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(430, 650);
+            this.label4.Location = new System.Drawing.Point(438, 639);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(104, 33);
@@ -113,7 +113,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(1455, 650);
+            this.label5.Location = new System.Drawing.Point(1462, 639);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(111, 33);
@@ -123,7 +123,7 @@
             // chkNetflix
             // 
             this.chkNetflix.AutoSize = true;
-            this.chkNetflix.Location = new System.Drawing.Point(1462, 320);
+            this.chkNetflix.Location = new System.Drawing.Point(1461, 303);
             this.chkNetflix.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.chkNetflix.Name = "chkNetflix";
             this.chkNetflix.Size = new System.Drawing.Size(128, 37);
@@ -134,7 +134,7 @@
             // chkCrunchyRoll
             // 
             this.chkCrunchyRoll.AutoSize = true;
-            this.chkCrunchyRoll.Location = new System.Drawing.Point(1462, 508);
+            this.chkCrunchyRoll.Location = new System.Drawing.Point(1461, 491);
             this.chkCrunchyRoll.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.chkCrunchyRoll.Name = "chkCrunchyRoll";
             this.chkCrunchyRoll.Size = new System.Drawing.Size(193, 37);
@@ -145,7 +145,7 @@
             // chkAlAraby
             // 
             this.chkAlAraby.AutoSize = true;
-            this.chkAlAraby.Location = new System.Drawing.Point(2058, 414);
+            this.chkAlAraby.Location = new System.Drawing.Point(2057, 397);
             this.chkAlAraby.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.chkAlAraby.Name = "chkAlAraby";
             this.chkAlAraby.Size = new System.Drawing.Size(163, 37);
@@ -156,7 +156,7 @@
             // chkAljazeera
             // 
             this.chkAljazeera.AutoSize = true;
-            this.chkAljazeera.Location = new System.Drawing.Point(1855, 414);
+            this.chkAljazeera.Location = new System.Drawing.Point(1854, 397);
             this.chkAljazeera.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.chkAljazeera.Name = "chkAljazeera";
             this.chkAljazeera.Size = new System.Drawing.Size(181, 37);
@@ -167,7 +167,7 @@
             // chkThamanya
             // 
             this.chkThamanya.AutoSize = true;
-            this.chkThamanya.Location = new System.Drawing.Point(1630, 414);
+            this.chkThamanya.Location = new System.Drawing.Point(1629, 397);
             this.chkThamanya.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.chkThamanya.Name = "chkThamanya";
             this.chkThamanya.Size = new System.Drawing.Size(177, 37);
@@ -178,7 +178,7 @@
             // chkStarzOn
             // 
             this.chkStarzOn.AutoSize = true;
-            this.chkStarzOn.Location = new System.Drawing.Point(1462, 414);
+            this.chkStarzOn.Location = new System.Drawing.Point(1461, 397);
             this.chkStarzOn.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.chkStarzOn.Name = "chkStarzOn";
             this.chkStarzOn.Size = new System.Drawing.Size(147, 37);
@@ -189,7 +189,7 @@
             // chkDisney
             // 
             this.chkDisney.AutoSize = true;
-            this.chkDisney.Location = new System.Drawing.Point(2072, 320);
+            this.chkDisney.Location = new System.Drawing.Point(2071, 303);
             this.chkDisney.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.chkDisney.Name = "chkDisney";
             this.chkDisney.Size = new System.Drawing.Size(151, 37);
@@ -200,7 +200,7 @@
             // chkShahid
             // 
             this.chkShahid.AutoSize = true;
-            this.chkShahid.Location = new System.Drawing.Point(1915, 320);
+            this.chkShahid.Location = new System.Drawing.Point(1914, 303);
             this.chkShahid.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.chkShahid.Name = "chkShahid";
             this.chkShahid.Size = new System.Drawing.Size(133, 37);
@@ -211,7 +211,7 @@
             // chkTOD
             // 
             this.chkTOD.AutoSize = true;
-            this.chkTOD.Location = new System.Drawing.Point(1770, 320);
+            this.chkTOD.Location = new System.Drawing.Point(1769, 303);
             this.chkTOD.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.chkTOD.Name = "chkTOD";
             this.chkTOD.Size = new System.Drawing.Size(106, 37);
@@ -222,7 +222,7 @@
             // chkOSN
             // 
             this.chkOSN.AutoSize = true;
-            this.chkOSN.Location = new System.Drawing.Point(1618, 320);
+            this.chkOSN.Location = new System.Drawing.Point(1617, 303);
             this.chkOSN.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.chkOSN.Name = "chkOSN";
             this.chkOSN.Size = new System.Drawing.Size(125, 37);
@@ -233,7 +233,7 @@
             // chkTV
             // 
             this.chkTV.AutoSize = true;
-            this.chkTV.Location = new System.Drawing.Point(436, 705);
+            this.chkTV.Location = new System.Drawing.Point(444, 685);
             this.chkTV.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.chkTV.Name = "chkTV";
             this.chkTV.Size = new System.Drawing.Size(85, 37);
@@ -244,7 +244,7 @@
             // chkPS4
             // 
             this.chkPS4.AutoSize = true;
-            this.chkPS4.Location = new System.Drawing.Point(546, 705);
+            this.chkPS4.Location = new System.Drawing.Point(554, 685);
             this.chkPS4.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.chkPS4.Name = "chkPS4";
             this.chkPS4.Size = new System.Drawing.Size(196, 37);
@@ -255,7 +255,7 @@
             // chkPC
             // 
             this.chkPC.AutoSize = true;
-            this.chkPC.Location = new System.Drawing.Point(770, 705);
+            this.chkPC.Location = new System.Drawing.Point(778, 685);
             this.chkPC.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.chkPC.Name = "chkPC";
             this.chkPC.Size = new System.Drawing.Size(84, 37);
@@ -266,7 +266,7 @@
             // chkIPhone
             // 
             this.chkIPhone.AutoSize = true;
-            this.chkIPhone.Location = new System.Drawing.Point(890, 705);
+            this.chkIPhone.Location = new System.Drawing.Point(898, 685);
             this.chkIPhone.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.chkIPhone.Name = "chkIPhone";
             this.chkIPhone.Size = new System.Drawing.Size(137, 37);
@@ -278,7 +278,7 @@
             // chkGiga
             // 
             this.chkGiga.AutoSize = true;
-            this.chkGiga.Location = new System.Drawing.Point(1462, 731);
+            this.chkGiga.Location = new System.Drawing.Point(1468, 685);
             this.chkGiga.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.chkGiga.Name = "chkGiga";
             this.chkGiga.Size = new System.Drawing.Size(106, 37);
@@ -289,7 +289,7 @@
             // chkWorkInternet
             // 
             this.chkWorkInternet.AutoSize = true;
-            this.chkWorkInternet.Location = new System.Drawing.Point(1618, 729);
+            this.chkWorkInternet.Location = new System.Drawing.Point(1624, 683);
             this.chkWorkInternet.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.chkWorkInternet.Name = "chkWorkInternet";
             this.chkWorkInternet.Size = new System.Drawing.Size(219, 37);
@@ -300,7 +300,7 @@
             // chkLTT
             // 
             this.chkLTT.AutoSize = true;
-            this.chkLTT.Location = new System.Drawing.Point(1870, 729);
+            this.chkLTT.Location = new System.Drawing.Point(1876, 683);
             this.chkLTT.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.chkLTT.Name = "chkLTT";
             this.chkLTT.Size = new System.Drawing.Size(98, 37);
@@ -311,7 +311,7 @@
             // chkMadar
             // 
             this.chkMadar.AutoSize = true;
-            this.chkMadar.Location = new System.Drawing.Point(1462, 822);
+            this.chkMadar.Location = new System.Drawing.Point(1468, 744);
             this.chkMadar.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.chkMadar.Name = "chkMadar";
             this.chkMadar.Size = new System.Drawing.Size(127, 37);
@@ -322,7 +322,7 @@
             // chkLibyana
             // 
             this.chkLibyana.AutoSize = true;
-            this.chkLibyana.Location = new System.Drawing.Point(1618, 822);
+            this.chkLibyana.Location = new System.Drawing.Point(1624, 744);
             this.chkLibyana.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.chkLibyana.Name = "chkLibyana";
             this.chkLibyana.Size = new System.Drawing.Size(143, 37);
@@ -333,7 +333,7 @@
             // radioHome
             // 
             this.radioHome.AutoSize = true;
-            this.radioHome.Location = new System.Drawing.Point(438, 320);
+            this.radioHome.Location = new System.Drawing.Point(444, 294);
             this.radioHome.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.radioHome.Name = "radioHome";
             this.radioHome.Size = new System.Drawing.Size(122, 37);
@@ -345,7 +345,7 @@
             // radioWork
             // 
             this.radioWork.AutoSize = true;
-            this.radioWork.Location = new System.Drawing.Point(438, 383);
+            this.radioWork.Location = new System.Drawing.Point(444, 357);
             this.radioWork.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.radioWork.Name = "radioWork";
             this.radioWork.Size = new System.Drawing.Size(114, 37);
@@ -357,7 +357,7 @@
             // radioHaiAlAndalos
             // 
             this.radioHaiAlAndalos.AutoSize = true;
-            this.radioHaiAlAndalos.Location = new System.Drawing.Point(438, 449);
+            this.radioHaiAlAndalos.Location = new System.Drawing.Point(444, 423);
             this.radioHaiAlAndalos.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.radioHaiAlAndalos.Name = "radioHaiAlAndalos";
             this.radioHaiAlAndalos.Size = new System.Drawing.Size(344, 37);
@@ -369,7 +369,7 @@
             // radioCaffe
             // 
             this.radioCaffe.AutoSize = true;
-            this.radioCaffe.Location = new System.Drawing.Point(438, 518);
+            this.radioCaffe.Location = new System.Drawing.Point(444, 492);
             this.radioCaffe.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.radioCaffe.Name = "radioCaffe";
             this.radioCaffe.Size = new System.Drawing.Size(114, 37);
@@ -381,7 +381,7 @@
             // chkPSPlus
             // 
             this.chkPSPlus.AutoSize = true;
-            this.chkPSPlus.Location = new System.Drawing.Point(1700, 508);
+            this.chkPSPlus.Location = new System.Drawing.Point(1699, 491);
             this.chkPSPlus.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.chkPSPlus.Name = "chkPSPlus";
             this.chkPSPlus.Size = new System.Drawing.Size(103, 37);
@@ -392,7 +392,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(438, 873);
+            this.label6.Location = new System.Drawing.Point(438, 782);
             this.label6.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(528, 33);
@@ -401,8 +401,8 @@
             // 
             // txtWorkTime
             // 
-            this.txtWorkTime.Location = new System.Drawing.Point(438, 937);
-            this.txtWorkTime.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.txtWorkTime.Location = new System.Drawing.Point(444, 839);
+            this.txtWorkTime.Margin = new System.Windows.Forms.Padding(8);
             this.txtWorkTime.Name = "txtWorkTime";
             this.txtWorkTime.Size = new System.Drawing.Size(356, 40);
             this.txtWorkTime.TabIndex = 34;
@@ -410,7 +410,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(430, 1092);
+            this.label7.Location = new System.Drawing.Point(438, 914);
             this.label7.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(520, 33);
@@ -419,8 +419,8 @@
             // 
             // txtTimeAvailable
             // 
-            this.txtTimeAvailable.Location = new System.Drawing.Point(438, 1155);
-            this.txtTimeAvailable.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.txtTimeAvailable.Location = new System.Drawing.Point(444, 965);
+            this.txtTimeAvailable.Margin = new System.Windows.Forms.Padding(8);
             this.txtTimeAvailable.Name = "txtTimeAvailable";
             this.txtTimeAvailable.Size = new System.Drawing.Size(356, 40);
             this.txtTimeAvailable.TabIndex = 36;
@@ -428,7 +428,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(1462, 937);
+            this.label8.Location = new System.Drawing.Point(1462, 839);
             this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(288, 33);
@@ -438,7 +438,7 @@
             // chkMovie
             // 
             this.chkMovie.AutoSize = true;
-            this.chkMovie.Location = new System.Drawing.Point(1468, 1023);
+            this.chkMovie.Location = new System.Drawing.Point(1468, 894);
             this.chkMovie.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.chkMovie.Name = "chkMovie";
             this.chkMovie.Size = new System.Drawing.Size(122, 37);
@@ -449,7 +449,7 @@
             // chkSeries
             // 
             this.chkSeries.AutoSize = true;
-            this.chkSeries.Location = new System.Drawing.Point(1620, 1023);
+            this.chkSeries.Location = new System.Drawing.Point(1620, 894);
             this.chkSeries.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.chkSeries.Name = "chkSeries";
             this.chkSeries.Size = new System.Drawing.Size(124, 37);
@@ -460,7 +460,7 @@
             // chkGame
             // 
             this.chkGame.AutoSize = true;
-            this.chkGame.Location = new System.Drawing.Point(1770, 1023);
+            this.chkGame.Location = new System.Drawing.Point(1770, 894);
             this.chkGame.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.chkGame.Name = "chkGame";
             this.chkGame.Size = new System.Drawing.Size(122, 37);
@@ -471,7 +471,7 @@
             // chkBook
             // 
             this.chkBook.AutoSize = true;
-            this.chkBook.Location = new System.Drawing.Point(1928, 1023);
+            this.chkBook.Location = new System.Drawing.Point(1928, 894);
             this.chkBook.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.chkBook.Name = "chkBook";
             this.chkBook.Size = new System.Drawing.Size(112, 37);
@@ -482,7 +482,7 @@
             // chkMiBox
             // 
             this.chkMiBox.AutoSize = true;
-            this.chkMiBox.Location = new System.Drawing.Point(1057, 705);
+            this.chkMiBox.Location = new System.Drawing.Point(1065, 685);
             this.chkMiBox.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.chkMiBox.Name = "chkMiBox";
             this.chkMiBox.Size = new System.Drawing.Size(124, 37);

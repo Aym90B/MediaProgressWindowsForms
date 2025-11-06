@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -350,5 +351,75 @@ namespace MediaProgressWindowsForms
             _RefreshBooksList();
             dgvAll.DataSource = clsMedia.GetAllBooks();
         }
+
+        // Commit checkbox edits immediately so CellValueChanged fires
+        private void dgvAll_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            if (dgvAll.IsCurrentCellDirty)
+            {
+                dgvAll.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            }
+        }
+
+        // Handle checkbox changes and push to DB
+        private void dgvAll_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
+                return;
+
+            // Only handle CheckBox columns
+            var col = dgvAll.Columns[e.ColumnIndex] as DataGridViewCheckBoxColumn;
+            if (col == null)
+                return;
+
+            // Read the new checkbox value safely
+            object cellObj = dgvAll.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+            bool isChecked = (cellObj != null && cellObj != DBNull.Value) && Convert.ToBoolean(cellObj);
+
+            // Get the ID for the row. Adjust if your ID column isn't the first column.
+            object idObj = dgvAll.Rows[e.RowIndex].Cells[0].Value;
+            if (idObj == null || idObj == DBNull.Value)
+                return;
+
+            if (!int.TryParse(idObj.ToString(), out int id))
+                return;
+
+            // Determine the DB column name to update:
+            // Prefer DataPropertyName (bound column), fall back to column Name
+            string columnName = !string.IsNullOrWhiteSpace(col.DataPropertyName) ? col.DataPropertyName : col.Name;
+
+            // If you don't have matching DB column names, set columnName explicitly here:
+            // columnName = "WatchAgain"; // example
+
+            string connectionString = "Data Source=LT-4312\\SQLEXPRESS;Initial Catalog=MovieData;Integrated Security=True";
+            string updateQuery = $"UPDATE Main SET [{columnName}] = @BitValue WHERE ID = @ID";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlCommand cmd = new SqlCommand(updateQuery, conn))
+                {
+                    cmd.Parameters.Add("@BitValue", SqlDbType.Bit).Value = isChecked;
+                    cmd.Parameters.Add("@ID", SqlDbType.Int).Value = id;
+
+                    conn.Open();
+                    int rows = cmd.ExecuteNonQuery();
+                    // Optionally show feedback if rows == 0
+                }
+
+                // Accept change in bound DataRow so the grid state is clean
+                if (dgvAll.Rows[e.RowIndex].DataBoundItem is DataRowView drv)
+                {
+                    drv.Row.AcceptChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error updating database: " + ex.Message);
+                // Optionally reload the row value from DB to undo the change in UI
+            }
+        }
     }
 }
+
+
