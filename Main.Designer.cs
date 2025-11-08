@@ -193,7 +193,7 @@
             this.dgvAll.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
             this.dgvAll.Name = "dgvAll";
             this.dgvAll.RowHeadersWidth = 102;
-            this.dgvAll.Size = new System.Drawing.Size(3548, 1462);
+            this.dgvAll.Size = new System.Drawing.Size(3811, 1462);
             this.dgvAll.TabIndex = 8;
             this.dgvAll.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAll_CellValueChanged);
             // 

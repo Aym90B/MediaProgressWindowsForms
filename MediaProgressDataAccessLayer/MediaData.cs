@@ -664,7 +664,8 @@ namespace MediaProgressDataAccessLayer
     mediaBasics.isAdult,
     Episodes.Completed AS Episode_Completed,
     mediaBasics.Completed AS Media_Completed,
-    mediaBasics.watchAgain AS Media_Watch_Again
+    mediaBasics.watchAgain AS Media_Watch_Again,
+    mediaBasics.screenResolution AS Media_Screen_Resolution
 FROM
     Basics AS mediaBasics
 JOIN
@@ -763,14 +764,11 @@ ORDER BY
     mediaBasics.runtimeMinutes,
     mediaBasics.whereToWatch,
     mediaBasics.titleType,
-   
-	
 	mediaBasics.startYear,
-	
 	mediaBasics.isAdult,
-	
 	mediaBasics.Completed as Media_Completed,
-    mediaBasics.WatchAgain as Media_Watch_Again
+    mediaBasics.WatchAgain as Media_Watch_Again,
+    mediaBasics.screenResolution
 FROM
     Basics AS mediaBasics
 LEFT JOIN

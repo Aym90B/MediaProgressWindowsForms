@@ -380,7 +380,7 @@ namespace MediaProgressDataAccessLayer
 
             //string query = "SELECT * FROM Episodes Where Duration <= @Duration and Watched = 0 order by EpisodeNumber asc";
 
-            string query = "SELECT\r\nseriesBasics.primaryTitle as seriesName,\r\nepisodeBasics.primaryTitle as episodeTitle,\r\nRatings.averageRating,\r\nEpisodes.seasonNumber,\r\nEpisodes.episodeNumber,\r\nRatings.numVotes,\r\nEpisodes.tconst,\r\nEpisodes.Completed as Episode_Completed,\r\nseriesBasics.Completed as Series_Completed,\r\nseriesBasics.whereToWatch,\r\nseriesBasics.runtimeMinutes " +
+            string query = "SELECT\r\nseriesBasics.primaryTitle as seriesName,\r\nepisodeBasics.primaryTitle as episodeTitle,\r\nRatings.averageRating,\r\nEpisodes.seasonNumber,\r\nEpisodes.episodeNumber,\r\nRatings.numVotes,\r\nEpisodes.tconst,\r\nEpisodes.Completed as Episode_Completed,\r\nseriesBasics.Completed as Series_Completed,\r\nseriesBasics.whereToWatch,\r\nseriesBasics.runtimeMinutes, seriesBasics.screenResolution " +
                 "From\r\nBasics as seriesBasics\r\n\r\nJoin\r\nEpisodes on seriesBasics.tconst = Episodes.parentTconst\r\n\r\njoin\r\nBasics as episodeBasics on Episodes.tconst = episodeBasics.tconst\r\n\r\nJoin\r\nRatings on Episodes.tconst = Ratings.tconst\r\n\r\nwhere\r\nRatings.averageRating >= 7 and Ratings.numVotes >= 5000 and seriesBasics.runtimeMinutes <= @duration and Episodes.Completed IS NULL and Episodes.episodeNumber = 1 and Episodes.seasonNumber = 1\r\n\r\norder by\r\nRatings.averageRating Desc";
 
             SqlCommand command = new SqlCommand(query, connection);

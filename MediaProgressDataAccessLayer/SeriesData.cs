@@ -461,7 +461,9 @@ namespace MediaProgressDataAccessLayer
             SeriesBasics.titleType,
             SeriesBasics.watchAgain,
             SeriesBasics.StartWatching,
-            SeriesBasics.PercentageOfCompletion
+            SeriesBasics.PercentageOfCompletion,
+            seriesBasics.hoursToComplete,
+            seriesBasics.screenResolution
 
             From
             Basics as SeriesBasics
