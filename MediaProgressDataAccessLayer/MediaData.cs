@@ -451,7 +451,6 @@ namespace MediaProgressDataAccessLayer
 
                 reader.Close();
 
-
             }
 
             catch (Exception ex)

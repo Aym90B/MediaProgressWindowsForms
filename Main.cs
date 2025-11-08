@@ -376,14 +376,6 @@ namespace MediaProgressWindowsForms
             object cellObj = dgvAll.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
             bool isChecked = (cellObj != null && cellObj != DBNull.Value) && Convert.ToBoolean(cellObj);
 
-            // Get the ID for the row. Adjust if your ID column isn't the first column.
-            object idObj = dgvAll.Rows[e.RowIndex].Cells[0].Value;
-            if (idObj == null || idObj == DBNull.Value)
-                return;
-
-            if (!int.TryParse(idObj.ToString(), out int id))
-                return;
-
             // Determine the DB column name to update:
             // Prefer DataPropertyName (bound column), fall back to column Name
             string columnName = !string.IsNullOrWhiteSpace(col.DataPropertyName) ? col.DataPropertyName : col.Name;
@@ -391,8 +383,34 @@ namespace MediaProgressWindowsForms
             // If you don't have matching DB column names, set columnName explicitly here:
             // columnName = "WatchAgain"; // example
 
+            // Find the Media_Name (or MediaName) column in the grid
+            DataGridViewColumn mediaCol = dgvAll.Columns
+                .Cast<DataGridViewColumn>()
+                .FirstOrDefault(c =>
+                    string.Equals(c.DataPropertyName, "seriesName", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(c.Name, "seriesName", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(c.DataPropertyName, "seriesName", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(c.Name, "seriesName", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(c.HeaderText, "seriesName", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(c.HeaderText, "seriesName", StringComparison.OrdinalIgnoreCase));
+
+            if (mediaCol == null)
+            {
+                // Can't find media name column; abort
+                MessageBox.Show("Media name column not found in grid. Update aborted.");
+                return;
+            }
+
+            object mediaNameObj = dgvAll.Rows[e.RowIndex].Cells[mediaCol.Index].Value;
+            if (mediaNameObj == null || mediaNameObj == DBNull.Value)
+                return;
+
+            string mediaName = mediaNameObj.ToString();
+
             string connectionString = "Data Source=LT-4312\\SQLEXPRESS;Initial Catalog=MovieData;Integrated Security=True";
-            string updateQuery = $"UPDATE Main SET [{columnName}] = @BitValue WHERE ID = @ID";
+
+            // Update by Media_Name column instead of ID
+            string updateQuery = $"UPDATE Basics SET [{columnName}] = @BitValue WHERE [seriesName] = @MediaName";
 
             try
             {
@@ -400,7 +418,7 @@ namespace MediaProgressWindowsForms
                 using (SqlCommand cmd = new SqlCommand(updateQuery, conn))
                 {
                     cmd.Parameters.Add("@BitValue", SqlDbType.Bit).Value = isChecked;
-                    cmd.Parameters.Add("@ID", SqlDbType.Int).Value = id;
+                    cmd.Parameters.Add("@MediaName", SqlDbType.NVarChar, 250).Value = mediaName;
 
                     conn.Open();
                     int rows = cmd.ExecuteNonQuery();
@@ -421,5 +439,3 @@ namespace MediaProgressWindowsForms
         }
     }
 }
-
-
