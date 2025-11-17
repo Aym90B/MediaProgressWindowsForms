@@ -349,7 +349,6 @@
             this.btnAddEpisodes.TabIndex = 29;
             this.btnAddEpisodes.Text = "Add Episodes";
             this.btnAddEpisodes.UseVisualStyleBackColor = true;
-            this.btnAddEpisodes.Visible = false;
             this.btnAddEpisodes.Click += new System.EventHandler(this.btnAddEpisodes_Click);
             // 
             // lblCurrentPage

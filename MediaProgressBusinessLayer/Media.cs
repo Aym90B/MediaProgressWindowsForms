@@ -247,6 +247,11 @@ namespace MediaProgressBusinessLayer
             return clsMovieDataAccess.GetAllBooks();
         }
 
+        public static DataTable GetAllStartedMedia(int duration)
+        {
+            return clsMovieDataAccess.GetAllStartedMedia(duration);
+        }
+
     }
 }
 

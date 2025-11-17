@@ -60,11 +60,11 @@ namespace MediaProgressDataAccessLayer
 
         public static void PlatformsFilter(string chk) {
 
-           
+
         }
 
 
-        
+
 
 
         public static int getMediaIDByName(string Name)
@@ -82,7 +82,7 @@ namespace MediaProgressDataAccessLayer
                 {
                     // The record was found
                     ID = (int)reader["ID"];
-                    
+
                 }
                 else
                 {
@@ -101,9 +101,9 @@ namespace MediaProgressDataAccessLayer
                 connection.Close();
             }
             return ID;
-        }  
+        }
 
-        public static bool GetMediaInfoByID(int ID, ref string Name, ref double Rating, ref int Duration, ref bool Completed,  ref int CategoryID, ref bool WatchAgain, ref string WhereToWatch, ref bool StartPlaying
+        public static bool GetMediaInfoByID(int ID, ref string Name, ref double Rating, ref int Duration, ref bool Completed, ref int CategoryID, ref bool WatchAgain, ref string WhereToWatch, ref bool StartPlaying
            )
         {
             bool isFound = false;
@@ -136,7 +136,7 @@ namespace MediaProgressDataAccessLayer
                     StartPlaying = (bool)reader["startPlaying"];
 
 
-               
+
 
                 }
                 else
@@ -164,7 +164,7 @@ namespace MediaProgressDataAccessLayer
 
 
         public static int AddNewMedia(string Name, double Rating,
-            int Duration, bool Completed,  int CategoryID, bool WatchAgain, string WhereToWatch, bool StartPlaying)
+            int Duration, bool Completed, int CategoryID, bool WatchAgain, string WhereToWatch, bool StartPlaying)
         {
             //this function will return the new contact id if succeeded and -1 if not.
             int ID = -1;
@@ -177,9 +177,9 @@ namespace MediaProgressDataAccessLayer
 
             SqlCommand command = new SqlCommand(query, connection);
 
-           
 
-            if(Name != "" && Name != null)
+
+            if (Name != "" && Name != null)
             {
                 command.Parameters.AddWithValue("@Name", Name);
             }
@@ -188,7 +188,7 @@ namespace MediaProgressDataAccessLayer
                 command.Parameters.AddWithValue("@Name", System.DBNull.Value);
             }
 
-            if(Rating != -1 && Rating.ToString() != null)
+            if (Rating != -1 && Rating.ToString() != null)
             {
                 command.Parameters.AddWithValue("@Rating", Rating);
             }
@@ -202,7 +202,7 @@ namespace MediaProgressDataAccessLayer
             else
                 command.Parameters.AddWithValue("@Duration", System.DBNull.Value);
 
-            if( Completed.ToString() != null)
+            if (Completed.ToString() != null)
             {
                 command.Parameters.AddWithValue("@Completed", Completed);
             }
@@ -210,7 +210,7 @@ namespace MediaProgressDataAccessLayer
             {
                 command.Parameters.AddWithValue("@Completed", System.DBNull.Value);
             }
-            if( CategoryID != -1 && CategoryID.ToString() != null)
+            if (CategoryID != -1 && CategoryID.ToString() != null)
             {
                 command.Parameters.AddWithValue("@CategoryID", CategoryID);
             }
@@ -218,7 +218,7 @@ namespace MediaProgressDataAccessLayer
             {
                 command.Parameters.AddWithValue("@CategoryID", System.DBNull.Value);
             }
-            if(WatchAgain.ToString() != null)
+            if (WatchAgain.ToString() != null)
             {
                 command.Parameters.AddWithValue("@WatchAgain", WatchAgain);
             }
@@ -226,7 +226,7 @@ namespace MediaProgressDataAccessLayer
             {
                 command.Parameters.AddWithValue("@WatchAgain", System.DBNull.Value);
             }
-            if(WhereToWatch != "" && WhereToWatch != null)
+            if (WhereToWatch != "" && WhereToWatch != null)
             {
                 command.Parameters.AddWithValue("@WhereToWatch", WhereToWatch);
             }
@@ -274,8 +274,8 @@ namespace MediaProgressDataAccessLayer
             return ID;
         }
 
-        public static bool UpdateMedia(int ID, string Name, double Rating, 
-            int Duration, bool Completed,  int CategoryID, bool WatchAgain, string WhereToWatch, bool StartPlaying)
+        public static bool UpdateMedia(int ID, string Name, double Rating,
+            int Duration, bool Completed, int CategoryID, bool WatchAgain, string WhereToWatch, bool StartPlaying)
         {
 
             int rowsAffected = 0;
@@ -298,7 +298,7 @@ namespace MediaProgressDataAccessLayer
 
             SqlCommand command = new SqlCommand(query, connection);
 
-  
+
 
             if (Name != "" && Name != null)
             {
@@ -646,77 +646,19 @@ namespace MediaProgressDataAccessLayer
         {
 
 
-            DataTable dt = new DataTable();
-            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
-
-            string query = @"
-  SELECT TOP 100
-    mediaBasics.primaryTitle AS MediaName,
-    seriesBasics.primaryTitle AS Series_Name, -- Name of the parent series (if it's an episode)
-    Ratings.averageRating,
-    Ratings.numVotes,
-    mediaBasics.runtimeMinutes,
-    mediaBasics.titleType,
-    Episodes.seasonNumber,
-    Episodes.episodeNumber,
-    mediaBasics.startYear,
-    mediaBasics.whereToWatch,
-    mediaBasics.isAdult,
-    Episodes.Completed AS Episode_Completed,
-    mediaBasics.Completed AS Media_Completed,
-    mediaBasics.watchAgain AS Media_Watch_Again,
-    mediaBasics.screenResolution AS Media_Screen_Resolution
-FROM
-    Basics AS mediaBasics
-JOIN
-    Ratings ON mediaBasics.tconst = Ratings.tconst
-LEFT JOIN
-    Episodes ON mediaBasics.tconst = Episodes.tconst
-LEFT JOIN
-    Basics AS seriesBasics ON Episodes.parentTconst = seriesBasics.tconst
-WHERE
-    mediaBasics.runtimeMinutes <= @Duration
-    AND Ratings.numVotes >= 5000
-    
-    AND mediaBasics.Completed IS NULL  -- Filter 1: The media itself isn't marked 'Completed'
-    AND Episodes.Completed IS NULL     -- Filter 2: EITHER it's not an episode, OR it's an episode that isn't 'Completed'
-    AND (
-        mediaBasics.titleType IN ('movie', 'series', 'tvMovie', 'tvShort', 'short', 'tvEpisode') 
-        OR mediaBasics.whereToWatch IN (@choices) -- Assuming @choices is a parameter/list
-    )
-ORDER BY
-    Episodes.seasonNumber ASC,  -- Prioritize by season
-    Episodes.episodeNumber ASC, -- Then by episode
-    Ratings.averageRating DESC; -- Then by rating";
-
-            SqlCommand command = new SqlCommand(query, connection);
-            command.CommandTimeout = 360;
-            command.Parameters.AddWithValue("@Duration", Duration);
-            command.Parameters.AddWithValue("@choices", choices);
-
-            try
+            using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            using (SqlCommand cmd = new SqlCommand("GetTopMediaRecommendations", conn))
             {
-                connection.Open();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandTimeout = 120; // Increase timeout to 2 minutes
+                cmd.Parameters.AddWithValue("@Duration", Duration);
+                cmd.Parameters.AddWithValue("@choices", choices); // e.g., "Netflix,Hulu,Prime"
 
-                SqlDataReader reader = command.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    dt.Load(reader);
-                }
-
-                reader.Close();
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable resultTable = new DataTable();
+                adapter.Fill(resultTable);
+                return resultTable;
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error: " + ex.Message);
-            }
-            finally
-            {
-                connection.Close();
-            }
-
-            return dt;
         }
 
         public static DataTable GetAllGamesWithinAvailableTime(int Duration)
@@ -745,7 +687,7 @@ ORDER BY
             {
                 connection.Close();
             }
-           return dt;
+            return dt;
         }
 
         public static DataTable getAllMoviesWithinAvailableTime(int Duration)
@@ -866,24 +808,52 @@ ORDER BY
 
 
 
-public static DataTable GetTopMedia(int duration, string choices)
-    {
-      
-        using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
-        using (SqlCommand cmd = new SqlCommand("GetTopMediaRecommendations", conn))
+        public static DataTable GetTopMedia(int duration, string choices)
         {
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandTimeout = 120; // Increase timeout to 2 minutes
-            cmd.Parameters.AddWithValue("@Duration", duration);
-            cmd.Parameters.AddWithValue("@choices", choices); // e.g., "Netflix,Hulu,Prime"
 
-            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-            DataTable resultTable = new DataTable();
-            adapter.Fill(resultTable);
-            return resultTable;
+            using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            using (SqlCommand cmd = new SqlCommand("GetTopMediaRecommendations", conn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandTimeout = 120; // Increase timeout to 2 minutes
+                cmd.Parameters.AddWithValue("@Duration", duration);
+                cmd.Parameters.AddWithValue("@choices", choices); // e.g., "Netflix,Hulu,Prime"
+
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable resultTable = new DataTable();
+                adapter.Fill(resultTable);
+                return resultTable;
+            }
         }
-    }
 
-}
-}
+        public static DataTable GetAllStartedMedia(int Duration)
+        {
+            DataTable dt = new DataTable();
+            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
+            string query = "select * from Main where StartPlaying = 1 and Duration >= @Duration order by Rating";
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@Duration", Duration);
+            try
+            {
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    dt.Load(reader);
+                }
+                reader.Close();
+
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return dt;
+        }           
+    } }
 

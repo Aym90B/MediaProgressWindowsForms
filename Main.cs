@@ -164,10 +164,11 @@ namespace MediaProgressWindowsForms
             if (chkAlAraby.Checked) selectedPlatforms.Add("AlAraby");
             if (chkCrunchyRoll.Checked) selectedPlatforms.Add("CrunchyRoll");
             if (chkPS.Checked) selectedPlatforms.Add("PlayStation");
+            if(chkPC.Checked) selectedPlatforms.Add("PC");
 
             Choices = string.Join(",", selectedPlatforms);
 
-
+           
 
 
             switch (categoryComboBox.SelectedIndex)
@@ -436,6 +437,12 @@ namespace MediaProgressWindowsForms
                 MessageBox.Show("Error updating database: " + ex.Message);
                 // Optionally reload the row value from DB to undo the change in UI
             }
+        }
+
+        private void btnStarted_Click(object sender, EventArgs e)
+        {
+            int Duration = Convert.ToInt32(hoursComboBox.Text) * 60 + (Convert.ToInt32(minutesComboBox.Text));
+            dgvAll.DataSource = clsMedia.GetAllStartedMedia(Duration);
         }
     }
 }
