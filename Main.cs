@@ -444,5 +444,36 @@ namespace MediaProgressWindowsForms
             int Duration = Convert.ToInt32(hoursComboBox.Text) * 60 + (Convert.ToInt32(minutesComboBox.Text));
             dgvAll.DataSource = clsMedia.GetAllStartedMedia(Duration);
         }
+
+        private void btnEpisodes25_Click(object sender, EventArgs e)
+        {
+
+            int Duration = Convert.ToInt32(hoursComboBox.Text) * 60 + (Convert.ToInt32(minutesComboBox.Text));
+            dgvAll.AutoGenerateColumns = true;
+            if (Duration < 240)
+                categoryComboBox.Items.Remove("Games");
+            List<string> selectedPlatforms = new List<string>();
+
+            string Choices = "NULL";
+
+            if (chkNetflix.Checked) selectedPlatforms.Add("Netflix");
+
+            if (chkOSN.Checked) selectedPlatforms.Add("OSN");
+            if (chkTOD.Checked) selectedPlatforms.Add("TOD");
+            if (chkShahid.Checked) selectedPlatforms.Add("Shahid");
+            if (chkDisney.Checked) selectedPlatforms.Add("Disney+");
+            if (chkStarzOn.Checked) selectedPlatforms.Add("StarzOn");
+            if (chkThamanya.Checked) selectedPlatforms.Add("Thamanya");
+            if (chkAJ.Checked) selectedPlatforms.Add("AJ+");
+            if (chkAlAraby.Checked) selectedPlatforms.Add("AlAraby");
+            if (chkCrunchyRoll.Checked) selectedPlatforms.Add("CrunchyRoll");
+            if (chkPS.Checked) selectedPlatforms.Add("PlayStation");
+            if (chkPC.Checked) selectedPlatforms.Add("PC");
+
+            Choices = string.Join(",", selectedPlatforms);
+
+
+            dgvAll.DataSource = clsEpisode.GetAllEpisodes2025(Duration, Choices);
+        }
     }
 }

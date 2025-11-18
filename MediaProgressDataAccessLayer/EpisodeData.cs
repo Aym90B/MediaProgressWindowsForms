@@ -390,5 +390,21 @@ namespace MediaProgressDataAccessLayer
             }
 
         }
+
+        public static DataTable GetAllEpisodes2025(int Duration, string Choices) {
+            using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            using (SqlCommand cmd = new SqlCommand("GetNextEpisodePerSeries_New", conn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandTimeout = 120; // Increase timeout to 2 minutes
+                cmd.Parameters.AddWithValue("@Duration", Duration);
+                cmd.Parameters.AddWithValue("@choices", Choices); // e.g., "Netflix,Hulu,Prime"
+
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable resultTable = new DataTable();
+                adapter.Fill(resultTable);
+                return resultTable;
+            }
+        }
     }
 }

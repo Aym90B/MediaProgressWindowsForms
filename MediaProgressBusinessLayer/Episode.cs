@@ -157,5 +157,9 @@ namespace MediaProgressBusinessLayer
             return clsEpisodeDataAccess.getAllEpisodesWithinAvailableTime(Duration, Choices);
         }
 
+        public static DataTable GetAllEpisodes2025(int Duration, string Choices)
+        {
+            return clsEpisodeDataAccess.GetAllEpisodes2025(Duration, Choices);
+        }
     }
 }

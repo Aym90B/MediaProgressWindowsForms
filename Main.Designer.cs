@@ -65,7 +65,7 @@
             this.chkCrunchyRoll = new System.Windows.Forms.CheckBox();
             this.chkNetflix = new System.Windows.Forms.CheckBox();
             this.btnStarted = new System.Windows.Forms.Button();
-            this.btnSeries25 = new System.Windows.Forms.Button();
+            this.btnEpisodes25 = new System.Windows.Forms.Button();
             this.btnMovies25 = new System.Windows.Forms.Button();
             this.chkPC = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAll)).BeginInit();
@@ -455,14 +455,15 @@
             this.btnStarted.UseVisualStyleBackColor = true;
             this.btnStarted.Click += new System.EventHandler(this.btnStarted_Click);
             // 
-            // btnSeries25
+            // btnEpisodes25
             // 
-            this.btnSeries25.Location = new System.Drawing.Point(1096, 70);
-            this.btnSeries25.Name = "btnSeries25";
-            this.btnSeries25.Size = new System.Drawing.Size(103, 69);
-            this.btnSeries25.TabIndex = 45;
-            this.btnSeries25.Text = "Series 2025";
-            this.btnSeries25.UseVisualStyleBackColor = true;
+            this.btnEpisodes25.Location = new System.Drawing.Point(1096, 70);
+            this.btnEpisodes25.Name = "btnEpisodes25";
+            this.btnEpisodes25.Size = new System.Drawing.Size(103, 69);
+            this.btnEpisodes25.TabIndex = 45;
+            this.btnEpisodes25.Text = "Episodes 2025";
+            this.btnEpisodes25.UseVisualStyleBackColor = true;
+            this.btnEpisodes25.Click += new System.EventHandler(this.btnEpisodes25_Click);
             // 
             // btnMovies25
             // 
@@ -491,7 +492,7 @@
             this.ClientSize = new System.Drawing.Size(1250, 632);
             this.Controls.Add(this.chkPC);
             this.Controls.Add(this.btnMovies25);
-            this.Controls.Add(this.btnSeries25);
+            this.Controls.Add(this.btnEpisodes25);
             this.Controls.Add(this.btnStarted);
             this.Controls.Add(this.chkPS);
             this.Controls.Add(this.chkOSN);
@@ -573,7 +574,7 @@
         private System.Windows.Forms.CheckBox chkNetflix;
         private System.Windows.Forms.Button btnStarted;
         private System.Windows.Forms.Button btnMovies25;
-        private System.Windows.Forms.Button btnSeries25;
+        private System.Windows.Forms.Button btnEpisodes25;
         private System.Windows.Forms.CheckBox chkPC;
     }
 }
