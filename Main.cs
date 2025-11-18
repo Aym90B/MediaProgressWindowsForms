@@ -186,7 +186,7 @@ namespace MediaProgressWindowsForms
                     dgvAll.DataSource = clsSeries.getAllSeriesWithinAvailableTime(Duration);
                     break;
                 case 3:
-                    dgvAll.DataSource = clsEpisode.getAllEpisodesWithinAvailableTime(Duration);
+                    dgvAll.DataSource = clsEpisode.getAllEpisodesWithinAvailableTime(Duration, Choices);
                     break;
                 case 4:
                     dgvAll.DataSource = clsMedia.GetAllGamesWithinAvailableTime(Duration);

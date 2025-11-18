@@ -647,7 +647,7 @@ namespace MediaProgressDataAccessLayer
 
 
             using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
-            using (SqlCommand cmd = new SqlCommand("GetTopMediaRecommendations", conn))
+            using (SqlCommand cmd = new SqlCommand("GetNextEpisodePerSeries", conn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandTimeout = 120; // Increase timeout to 2 minutes

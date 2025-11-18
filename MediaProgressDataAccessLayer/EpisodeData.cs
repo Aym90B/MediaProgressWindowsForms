@@ -373,48 +373,21 @@ namespace MediaProgressDataAccessLayer
         }
 
         //Get All Episodes With Available Time
-        public static DataTable getAllEpisodesWithinAvailableTime(int Duration)
+        public static DataTable getAllEpisodesWithinAvailableTime(int Duration, string Choices)
         {
-            DataTable dt = new DataTable();
-            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
-
-            //string query = "SELECT * FROM Episodes Where Duration <= @Duration and Watched = 0 order by EpisodeNumber asc";
-
-            string query = "SELECT\r\nseriesBasics.primaryTitle as seriesName,\r\nepisodeBasics.primaryTitle as episodeTitle,\r\nRatings.averageRating,\r\nEpisodes.seasonNumber,\r\nEpisodes.episodeNumber,\r\nRatings.numVotes,\r\nEpisodes.tconst,\r\nEpisodes.Completed as Episode_Completed,\r\nseriesBasics.Completed as Series_Completed,\r\nseriesBasics.whereToWatch,\r\nseriesBasics.runtimeMinutes, seriesBasics.screenResolution " +
-                "From\r\nBasics as seriesBasics\r\n\r\nJoin\r\nEpisodes on seriesBasics.tconst = Episodes.parentTconst\r\n\r\njoin\r\nBasics as episodeBasics on Episodes.tconst = episodeBasics.tconst\r\n\r\nJoin\r\nRatings on Episodes.tconst = Ratings.tconst\r\n\r\nwhere\r\n seriesBasics.runtimeMinutes <= @duration and Episodes.Completed IS NULL AND seriesBasics.StartWatching = 1 \r\n\r\norder by\r\n  Episodes.seasonNumber ASC,\r\n    Episodes.episodeNumber ASC,\r\n\tRatings.averageRating DESC;";
-
-            SqlCommand command = new SqlCommand(query, connection);
-
-            command.Parameters.AddWithValue("@Duration", Duration);
-
-            try
+            using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            using (SqlCommand cmd = new SqlCommand("GetNextEpisodePerSeries", conn))
             {
-                connection.Open();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandTimeout = 120; // Increase timeout to 2 minutes
+                cmd.Parameters.AddWithValue("@Duration", Duration);
+                cmd.Parameters.AddWithValue("@choices", Choices); // e.g., "Netflix,Hulu,Prime"
 
-                SqlDataReader reader = command.ExecuteReader();
-
-                if (reader.HasRows)
-
-                {
-                    dt.Load(reader);
-                }
-
-                reader.Close();
-
-
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable resultTable = new DataTable();
+                adapter.Fill(resultTable);
+                return resultTable;
             }
-
-            catch (Exception ex)
-            {
-                // Console.WriteLine("Error: " + ex.Message);
-            }
-            finally
-            {
-                connection.Close();
-            }
-
-            return dt;
-
 
         }
     }
