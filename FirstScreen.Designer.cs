@@ -67,66 +67,67 @@
             this.chkGame = new System.Windows.Forms.CheckBox();
             this.chkBook = new System.Windows.Forms.CheckBox();
             this.chkMiBox = new System.Windows.Forms.CheckBox();
+            this.chkTorrent = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Tahoma", 24F);
-            this.label1.Location = new System.Drawing.Point(1040, 61);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(416, 24);
+            this.label1.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(363, 97);
+            this.label1.Size = new System.Drawing.Size(146, 39);
             this.label1.TabIndex = 0;
             this.label1.Text = "Welcome";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(438, 235);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Location = new System.Drawing.Point(175, 93);
+            this.label2.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(233, 33);
+            this.label2.Size = new System.Drawing.Size(97, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "Where are you at?";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(1462, 235);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Location = new System.Drawing.Point(585, 93);
+            this.label3.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(172, 33);
+            this.label3.Size = new System.Drawing.Size(70, 13);
             this.label3.TabIndex = 2;
             this.label3.Text = "Subscriptions";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(438, 639);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Location = new System.Drawing.Point(175, 252);
+            this.label4.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(104, 33);
+            this.label4.Size = new System.Drawing.Size(44, 13);
             this.label4.TabIndex = 3;
             this.label4.Text = "Devices";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(1462, 639);
-            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Location = new System.Drawing.Point(585, 252);
+            this.label5.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(111, 33);
+            this.label5.Size = new System.Drawing.Size(47, 13);
             this.label5.TabIndex = 4;
             this.label5.Text = "Internet";
             // 
             // chkNetflix
             // 
             this.chkNetflix.AutoSize = true;
-            this.chkNetflix.Location = new System.Drawing.Point(1461, 303);
-            this.chkNetflix.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.chkNetflix.Location = new System.Drawing.Point(584, 119);
+            this.chkNetflix.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.chkNetflix.Name = "chkNetflix";
-            this.chkNetflix.Size = new System.Drawing.Size(128, 37);
+            this.chkNetflix.Size = new System.Drawing.Size(57, 17);
             this.chkNetflix.TabIndex = 9;
             this.chkNetflix.Text = "Netflix";
             this.chkNetflix.UseVisualStyleBackColor = true;
@@ -134,10 +135,10 @@
             // chkCrunchyRoll
             // 
             this.chkCrunchyRoll.AutoSize = true;
-            this.chkCrunchyRoll.Location = new System.Drawing.Point(1461, 491);
-            this.chkCrunchyRoll.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.chkCrunchyRoll.Location = new System.Drawing.Point(584, 193);
+            this.chkCrunchyRoll.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.chkCrunchyRoll.Name = "chkCrunchyRoll";
-            this.chkCrunchyRoll.Size = new System.Drawing.Size(193, 37);
+            this.chkCrunchyRoll.Size = new System.Drawing.Size(83, 17);
             this.chkCrunchyRoll.TabIndex = 10;
             this.chkCrunchyRoll.Text = "CrunchyRoll";
             this.chkCrunchyRoll.UseVisualStyleBackColor = true;
@@ -145,10 +146,10 @@
             // chkAlAraby
             // 
             this.chkAlAraby.AutoSize = true;
-            this.chkAlAraby.Location = new System.Drawing.Point(2057, 397);
-            this.chkAlAraby.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.chkAlAraby.Location = new System.Drawing.Point(823, 156);
+            this.chkAlAraby.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.chkAlAraby.Name = "chkAlAraby";
-            this.chkAlAraby.Size = new System.Drawing.Size(163, 37);
+            this.chkAlAraby.Size = new System.Drawing.Size(72, 17);
             this.chkAlAraby.TabIndex = 11;
             this.chkAlAraby.Text = "AlAraby+";
             this.chkAlAraby.UseVisualStyleBackColor = true;
@@ -156,10 +157,10 @@
             // chkAljazeera
             // 
             this.chkAljazeera.AutoSize = true;
-            this.chkAljazeera.Location = new System.Drawing.Point(1854, 397);
-            this.chkAljazeera.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.chkAljazeera.Location = new System.Drawing.Point(742, 156);
+            this.chkAljazeera.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.chkAljazeera.Name = "chkAljazeera";
-            this.chkAljazeera.Size = new System.Drawing.Size(181, 37);
+            this.chkAljazeera.Size = new System.Drawing.Size(79, 17);
             this.chkAljazeera.TabIndex = 12;
             this.chkAljazeera.Text = "Aljazeera+";
             this.chkAljazeera.UseVisualStyleBackColor = true;
@@ -167,10 +168,10 @@
             // chkThamanya
             // 
             this.chkThamanya.AutoSize = true;
-            this.chkThamanya.Location = new System.Drawing.Point(1629, 397);
-            this.chkThamanya.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.chkThamanya.Location = new System.Drawing.Point(652, 156);
+            this.chkThamanya.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.chkThamanya.Name = "chkThamanya";
-            this.chkThamanya.Size = new System.Drawing.Size(177, 37);
+            this.chkThamanya.Size = new System.Drawing.Size(76, 17);
             this.chkThamanya.TabIndex = 13;
             this.chkThamanya.Text = "Thamanya";
             this.chkThamanya.UseVisualStyleBackColor = true;
@@ -178,10 +179,10 @@
             // chkStarzOn
             // 
             this.chkStarzOn.AutoSize = true;
-            this.chkStarzOn.Location = new System.Drawing.Point(1461, 397);
-            this.chkStarzOn.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.chkStarzOn.Location = new System.Drawing.Point(584, 156);
+            this.chkStarzOn.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.chkStarzOn.Name = "chkStarzOn";
-            this.chkStarzOn.Size = new System.Drawing.Size(147, 37);
+            this.chkStarzOn.Size = new System.Drawing.Size(65, 17);
             this.chkStarzOn.TabIndex = 14;
             this.chkStarzOn.Text = "StarzOn";
             this.chkStarzOn.UseVisualStyleBackColor = true;
@@ -189,10 +190,10 @@
             // chkDisney
             // 
             this.chkDisney.AutoSize = true;
-            this.chkDisney.Location = new System.Drawing.Point(2071, 303);
-            this.chkDisney.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.chkDisney.Location = new System.Drawing.Point(828, 119);
+            this.chkDisney.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.chkDisney.Name = "chkDisney";
-            this.chkDisney.Size = new System.Drawing.Size(151, 37);
+            this.chkDisney.Size = new System.Drawing.Size(66, 17);
             this.chkDisney.TabIndex = 15;
             this.chkDisney.Text = "Disney+";
             this.chkDisney.UseVisualStyleBackColor = true;
@@ -200,10 +201,10 @@
             // chkShahid
             // 
             this.chkShahid.AutoSize = true;
-            this.chkShahid.Location = new System.Drawing.Point(1914, 303);
-            this.chkShahid.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.chkShahid.Location = new System.Drawing.Point(766, 119);
+            this.chkShahid.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.chkShahid.Name = "chkShahid";
-            this.chkShahid.Size = new System.Drawing.Size(133, 37);
+            this.chkShahid.Size = new System.Drawing.Size(58, 17);
             this.chkShahid.TabIndex = 16;
             this.chkShahid.Text = "Shahid";
             this.chkShahid.UseVisualStyleBackColor = true;
@@ -211,10 +212,10 @@
             // chkTOD
             // 
             this.chkTOD.AutoSize = true;
-            this.chkTOD.Location = new System.Drawing.Point(1769, 303);
-            this.chkTOD.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.chkTOD.Location = new System.Drawing.Point(708, 119);
+            this.chkTOD.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.chkTOD.Name = "chkTOD";
-            this.chkTOD.Size = new System.Drawing.Size(106, 37);
+            this.chkTOD.Size = new System.Drawing.Size(47, 17);
             this.chkTOD.TabIndex = 17;
             this.chkTOD.Text = "TOD";
             this.chkTOD.UseVisualStyleBackColor = true;
@@ -222,10 +223,10 @@
             // chkOSN
             // 
             this.chkOSN.AutoSize = true;
-            this.chkOSN.Location = new System.Drawing.Point(1617, 303);
-            this.chkOSN.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.chkOSN.Location = new System.Drawing.Point(647, 119);
+            this.chkOSN.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.chkOSN.Name = "chkOSN";
-            this.chkOSN.Size = new System.Drawing.Size(125, 37);
+            this.chkOSN.Size = new System.Drawing.Size(55, 17);
             this.chkOSN.TabIndex = 18;
             this.chkOSN.Text = "OSN+";
             this.chkOSN.UseVisualStyleBackColor = true;
@@ -233,10 +234,10 @@
             // chkTV
             // 
             this.chkTV.AutoSize = true;
-            this.chkTV.Location = new System.Drawing.Point(444, 685);
-            this.chkTV.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.chkTV.Location = new System.Drawing.Point(178, 270);
+            this.chkTV.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.chkTV.Name = "chkTV";
-            this.chkTV.Size = new System.Drawing.Size(85, 37);
+            this.chkTV.Size = new System.Drawing.Size(38, 17);
             this.chkTV.TabIndex = 19;
             this.chkTV.Text = "TV";
             this.chkTV.UseVisualStyleBackColor = true;
@@ -244,10 +245,10 @@
             // chkPS4
             // 
             this.chkPS4.AutoSize = true;
-            this.chkPS4.Location = new System.Drawing.Point(554, 685);
-            this.chkPS4.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.chkPS4.Location = new System.Drawing.Point(222, 270);
+            this.chkPS4.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.chkPS4.Name = "chkPS4";
-            this.chkPS4.Size = new System.Drawing.Size(196, 37);
+            this.chkPS4.Size = new System.Drawing.Size(85, 17);
             this.chkPS4.TabIndex = 20;
             this.chkPS4.Text = "Playstation4";
             this.chkPS4.UseVisualStyleBackColor = true;
@@ -255,10 +256,10 @@
             // chkPC
             // 
             this.chkPC.AutoSize = true;
-            this.chkPC.Location = new System.Drawing.Point(778, 685);
-            this.chkPC.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.chkPC.Location = new System.Drawing.Point(311, 270);
+            this.chkPC.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.chkPC.Name = "chkPC";
-            this.chkPC.Size = new System.Drawing.Size(84, 37);
+            this.chkPC.Size = new System.Drawing.Size(39, 17);
             this.chkPC.TabIndex = 21;
             this.chkPC.Text = "PC";
             this.chkPC.UseVisualStyleBackColor = true;
@@ -266,10 +267,10 @@
             // chkIPhone
             // 
             this.chkIPhone.AutoSize = true;
-            this.chkIPhone.Location = new System.Drawing.Point(898, 685);
-            this.chkIPhone.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.chkIPhone.Location = new System.Drawing.Point(359, 270);
+            this.chkIPhone.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.chkIPhone.Name = "chkIPhone";
-            this.chkIPhone.Size = new System.Drawing.Size(137, 37);
+            this.chkIPhone.Size = new System.Drawing.Size(60, 17);
             this.chkIPhone.TabIndex = 22;
             this.chkIPhone.Text = "IPhone";
             this.chkIPhone.UseVisualStyleBackColor = true;
@@ -278,10 +279,10 @@
             // chkGiga
             // 
             this.chkGiga.AutoSize = true;
-            this.chkGiga.Location = new System.Drawing.Point(1468, 685);
-            this.chkGiga.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.chkGiga.Location = new System.Drawing.Point(587, 270);
+            this.chkGiga.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.chkGiga.Name = "chkGiga";
-            this.chkGiga.Size = new System.Drawing.Size(106, 37);
+            this.chkGiga.Size = new System.Drawing.Size(47, 17);
             this.chkGiga.TabIndex = 23;
             this.chkGiga.Text = "Giga";
             this.chkGiga.UseVisualStyleBackColor = true;
@@ -289,10 +290,10 @@
             // chkWorkInternet
             // 
             this.chkWorkInternet.AutoSize = true;
-            this.chkWorkInternet.Location = new System.Drawing.Point(1624, 683);
-            this.chkWorkInternet.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.chkWorkInternet.Location = new System.Drawing.Point(650, 269);
+            this.chkWorkInternet.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.chkWorkInternet.Name = "chkWorkInternet";
-            this.chkWorkInternet.Size = new System.Drawing.Size(219, 37);
+            this.chkWorkInternet.Size = new System.Drawing.Size(94, 17);
             this.chkWorkInternet.TabIndex = 24;
             this.chkWorkInternet.Text = "Work Internet";
             this.chkWorkInternet.UseVisualStyleBackColor = true;
@@ -300,10 +301,10 @@
             // chkLTT
             // 
             this.chkLTT.AutoSize = true;
-            this.chkLTT.Location = new System.Drawing.Point(1876, 683);
-            this.chkLTT.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.chkLTT.Location = new System.Drawing.Point(750, 269);
+            this.chkLTT.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.chkLTT.Name = "chkLTT";
-            this.chkLTT.Size = new System.Drawing.Size(98, 37);
+            this.chkLTT.Size = new System.Drawing.Size(43, 17);
             this.chkLTT.TabIndex = 25;
             this.chkLTT.Text = "LTT";
             this.chkLTT.UseVisualStyleBackColor = true;
@@ -311,10 +312,10 @@
             // chkMadar
             // 
             this.chkMadar.AutoSize = true;
-            this.chkMadar.Location = new System.Drawing.Point(1468, 744);
-            this.chkMadar.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.chkMadar.Location = new System.Drawing.Point(587, 293);
+            this.chkMadar.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.chkMadar.Name = "chkMadar";
-            this.chkMadar.Size = new System.Drawing.Size(127, 37);
+            this.chkMadar.Size = new System.Drawing.Size(56, 17);
             this.chkMadar.TabIndex = 26;
             this.chkMadar.Text = "Madar";
             this.chkMadar.UseVisualStyleBackColor = true;
@@ -322,10 +323,10 @@
             // chkLibyana
             // 
             this.chkLibyana.AutoSize = true;
-            this.chkLibyana.Location = new System.Drawing.Point(1624, 744);
-            this.chkLibyana.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.chkLibyana.Location = new System.Drawing.Point(650, 293);
+            this.chkLibyana.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.chkLibyana.Name = "chkLibyana";
-            this.chkLibyana.Size = new System.Drawing.Size(143, 37);
+            this.chkLibyana.Size = new System.Drawing.Size(63, 17);
             this.chkLibyana.TabIndex = 27;
             this.chkLibyana.Text = "Libyana";
             this.chkLibyana.UseVisualStyleBackColor = true;
@@ -333,10 +334,10 @@
             // radioHome
             // 
             this.radioHome.AutoSize = true;
-            this.radioHome.Location = new System.Drawing.Point(444, 294);
-            this.radioHome.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.radioHome.Location = new System.Drawing.Point(178, 116);
+            this.radioHome.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.radioHome.Name = "radioHome";
-            this.radioHome.Size = new System.Drawing.Size(122, 37);
+            this.radioHome.Size = new System.Drawing.Size(52, 17);
             this.radioHome.TabIndex = 28;
             this.radioHome.TabStop = true;
             this.radioHome.Text = "Home";
@@ -345,10 +346,10 @@
             // radioWork
             // 
             this.radioWork.AutoSize = true;
-            this.radioWork.Location = new System.Drawing.Point(444, 357);
-            this.radioWork.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.radioWork.Location = new System.Drawing.Point(178, 141);
+            this.radioWork.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.radioWork.Name = "radioWork";
-            this.radioWork.Size = new System.Drawing.Size(114, 37);
+            this.radioWork.Size = new System.Drawing.Size(50, 17);
             this.radioWork.TabIndex = 29;
             this.radioWork.TabStop = true;
             this.radioWork.Text = "Work";
@@ -357,10 +358,10 @@
             // radioHaiAlAndalos
             // 
             this.radioHaiAlAndalos.AutoSize = true;
-            this.radioHaiAlAndalos.Location = new System.Drawing.Point(444, 423);
-            this.radioHaiAlAndalos.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.radioHaiAlAndalos.Location = new System.Drawing.Point(178, 167);
+            this.radioHaiAlAndalos.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.radioHaiAlAndalos.Name = "radioHaiAlAndalos";
-            this.radioHaiAlAndalos.Size = new System.Drawing.Size(344, 37);
+            this.radioHaiAlAndalos.Size = new System.Drawing.Size(141, 17);
             this.radioHaiAlAndalos.TabIndex = 30;
             this.radioHaiAlAndalos.TabStop = true;
             this.radioHaiAlAndalos.Text = "Home-2 (Hai Al Andalos)";
@@ -369,10 +370,10 @@
             // radioCaffe
             // 
             this.radioCaffe.AutoSize = true;
-            this.radioCaffe.Location = new System.Drawing.Point(444, 492);
-            this.radioCaffe.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.radioCaffe.Location = new System.Drawing.Point(178, 194);
+            this.radioCaffe.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.radioCaffe.Name = "radioCaffe";
-            this.radioCaffe.Size = new System.Drawing.Size(114, 37);
+            this.radioCaffe.Size = new System.Drawing.Size(52, 17);
             this.radioCaffe.TabIndex = 31;
             this.radioCaffe.TabStop = true;
             this.radioCaffe.Text = "Caffe";
@@ -381,10 +382,10 @@
             // chkPSPlus
             // 
             this.chkPSPlus.AutoSize = true;
-            this.chkPSPlus.Location = new System.Drawing.Point(1699, 491);
-            this.chkPSPlus.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.chkPSPlus.Location = new System.Drawing.Point(682, 193);
+            this.chkPSPlus.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.chkPSPlus.Name = "chkPSPlus";
-            this.chkPSPlus.Size = new System.Drawing.Size(103, 37);
+            this.chkPSPlus.Size = new System.Drawing.Size(46, 17);
             this.chkPSPlus.TabIndex = 32;
             this.chkPSPlus.Text = "PS+";
             this.chkPSPlus.UseVisualStyleBackColor = true;
@@ -392,56 +393,52 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(438, 782);
-            this.label6.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.label6.Location = new System.Drawing.Point(175, 308);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(528, 33);
+            this.label6.Size = new System.Drawing.Size(209, 13);
             this.label6.TabIndex = 33;
             this.label6.Text = "How much time did you work? (In Minutes)";
             // 
             // txtWorkTime
             // 
-            this.txtWorkTime.Location = new System.Drawing.Point(444, 839);
-            this.txtWorkTime.Margin = new System.Windows.Forms.Padding(8);
+            this.txtWorkTime.Location = new System.Drawing.Point(178, 331);
             this.txtWorkTime.Name = "txtWorkTime";
-            this.txtWorkTime.Size = new System.Drawing.Size(356, 40);
+            this.txtWorkTime.Size = new System.Drawing.Size(145, 20);
             this.txtWorkTime.TabIndex = 34;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(438, 914);
-            this.label7.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.label7.Location = new System.Drawing.Point(175, 360);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(520, 33);
+            this.label7.Size = new System.Drawing.Size(208, 13);
             this.label7.TabIndex = 35;
             this.label7.Text = "How much time do you have? (In Minutes)";
             // 
             // txtTimeAvailable
             // 
-            this.txtTimeAvailable.Location = new System.Drawing.Point(444, 965);
-            this.txtTimeAvailable.Margin = new System.Windows.Forms.Padding(8);
+            this.txtTimeAvailable.Location = new System.Drawing.Point(178, 380);
             this.txtTimeAvailable.Name = "txtTimeAvailable";
-            this.txtTimeAvailable.Size = new System.Drawing.Size(356, 40);
+            this.txtTimeAvailable.Size = new System.Drawing.Size(145, 20);
             this.txtTimeAvailable.TabIndex = 36;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(1462, 839);
-            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label8.Location = new System.Drawing.Point(585, 331);
+            this.label8.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(288, 33);
+            this.label8.Size = new System.Drawing.Size(116, 13);
             this.label8.TabIndex = 37;
             this.label8.Text = "Are you in a mood for?";
             // 
             // chkMovie
             // 
             this.chkMovie.AutoSize = true;
-            this.chkMovie.Location = new System.Drawing.Point(1468, 894);
-            this.chkMovie.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.chkMovie.Location = new System.Drawing.Point(587, 352);
+            this.chkMovie.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.chkMovie.Name = "chkMovie";
-            this.chkMovie.Size = new System.Drawing.Size(122, 37);
+            this.chkMovie.Size = new System.Drawing.Size(54, 17);
             this.chkMovie.TabIndex = 38;
             this.chkMovie.Text = "Movie";
             this.chkMovie.UseVisualStyleBackColor = true;
@@ -449,10 +446,10 @@
             // chkSeries
             // 
             this.chkSeries.AutoSize = true;
-            this.chkSeries.Location = new System.Drawing.Point(1620, 894);
-            this.chkSeries.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.chkSeries.Location = new System.Drawing.Point(648, 352);
+            this.chkSeries.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.chkSeries.Name = "chkSeries";
-            this.chkSeries.Size = new System.Drawing.Size(124, 37);
+            this.chkSeries.Size = new System.Drawing.Size(55, 17);
             this.chkSeries.TabIndex = 39;
             this.chkSeries.Text = "Series";
             this.chkSeries.UseVisualStyleBackColor = true;
@@ -460,10 +457,10 @@
             // chkGame
             // 
             this.chkGame.AutoSize = true;
-            this.chkGame.Location = new System.Drawing.Point(1770, 894);
-            this.chkGame.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.chkGame.Location = new System.Drawing.Point(708, 352);
+            this.chkGame.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.chkGame.Name = "chkGame";
-            this.chkGame.Size = new System.Drawing.Size(122, 37);
+            this.chkGame.Size = new System.Drawing.Size(53, 17);
             this.chkGame.TabIndex = 40;
             this.chkGame.Text = "Game";
             this.chkGame.UseVisualStyleBackColor = true;
@@ -471,10 +468,10 @@
             // chkBook
             // 
             this.chkBook.AutoSize = true;
-            this.chkBook.Location = new System.Drawing.Point(1928, 894);
-            this.chkBook.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.chkBook.Location = new System.Drawing.Point(771, 352);
+            this.chkBook.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.chkBook.Name = "chkBook";
-            this.chkBook.Size = new System.Drawing.Size(112, 37);
+            this.chkBook.Size = new System.Drawing.Size(49, 17);
             this.chkBook.TabIndex = 41;
             this.chkBook.Text = "Book";
             this.chkBook.UseVisualStyleBackColor = true;
@@ -482,19 +479,31 @@
             // chkMiBox
             // 
             this.chkMiBox.AutoSize = true;
-            this.chkMiBox.Location = new System.Drawing.Point(1065, 685);
-            this.chkMiBox.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.chkMiBox.Location = new System.Drawing.Point(426, 270);
+            this.chkMiBox.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.chkMiBox.Name = "chkMiBox";
-            this.chkMiBox.Size = new System.Drawing.Size(124, 37);
+            this.chkMiBox.Size = new System.Drawing.Size(54, 17);
             this.chkMiBox.TabIndex = 42;
             this.chkMiBox.Text = "MiBox";
             this.chkMiBox.UseVisualStyleBackColor = true;
             // 
+            // chkTorrent
+            // 
+            this.chkTorrent.AutoSize = true;
+            this.chkTorrent.Location = new System.Drawing.Point(742, 193);
+            this.chkTorrent.Margin = new System.Windows.Forms.Padding(1);
+            this.chkTorrent.Name = "chkTorrent";
+            this.chkTorrent.Size = new System.Drawing.Size(62, 17);
+            this.chkTorrent.TabIndex = 43;
+            this.chkTorrent.Text = "Torrent";
+            this.chkTorrent.UseVisualStyleBackColor = true;
+            // 
             // FirstScreen
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 33F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(2562, 1345);
+            this.ClientSize = new System.Drawing.Size(1025, 530);
+            this.Controls.Add(this.chkTorrent);
             this.Controls.Add(this.chkMiBox);
             this.Controls.Add(this.chkBook);
             this.Controls.Add(this.chkGame);
@@ -534,7 +543,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.Name = "FirstScreen";
             this.Text = "First Screen";
             this.ResumeLayout(false);
@@ -583,5 +592,6 @@
         private System.Windows.Forms.CheckBox chkGame;
         private System.Windows.Forms.CheckBox chkBook;
         private System.Windows.Forms.CheckBox chkMiBox;
+        private System.Windows.Forms.CheckBox chkTorrent;
     }
 }

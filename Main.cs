@@ -168,14 +168,21 @@ namespace MediaProgressWindowsForms
 
             Choices = string.Join(",", selectedPlatforms);
 
-           
+            List<string> selectedScreenResolution = new List<string>();
+
+            string screenResolution = "NULL";
+
+            if (chkHD.Checked) selectedScreenResolution.Add("HD");
+            if (chk4K.Checked) selectedScreenResolution.Add("4K");
+
+            screenResolution = string.Join(",", selectedScreenResolution);
+
+
 
 
             switch (categoryComboBox.SelectedIndex)
             {
                
-            
-
                 case 0:
                     dgvAll.DataSource = clsMedia.getAllMediaWithinAvailableTime(Duration, Choices);
                     break;
@@ -186,7 +193,7 @@ namespace MediaProgressWindowsForms
                     dgvAll.DataSource = clsSeries.getAllSeriesWithinAvailableTime(Duration);
                     break;
                 case 3:
-                    dgvAll.DataSource = clsEpisode.getAllEpisodesWithinAvailableTime(Duration, Choices);
+                    dgvAll.DataSource = clsEpisode.getAllEpisodesWithinAvailableTime(Duration, Choices, screenResolution);
                     break;
                 case 4:
                     dgvAll.DataSource = clsMedia.GetAllGamesWithinAvailableTime(Duration);
@@ -474,6 +481,12 @@ namespace MediaProgressWindowsForms
 
 
             dgvAll.DataSource = clsEpisode.GetAllEpisodes2025(Duration, Choices);
+        }
+
+        private void btnCompleted_Click(object sender, EventArgs e)
+        {
+            MarkCompletedEpisode frm = new MarkCompletedEpisode(-1);
+            frm.ShowDialog();
         }
     }
 }

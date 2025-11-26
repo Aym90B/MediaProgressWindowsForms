@@ -68,6 +68,9 @@
             this.btnEpisodes25 = new System.Windows.Forms.Button();
             this.btnMovies25 = new System.Windows.Forms.Button();
             this.chkPC = new System.Windows.Forms.CheckBox();
+            this.chkHD = new System.Windows.Forms.CheckBox();
+            this.chk4K = new System.Windows.Forms.CheckBox();
+            this.btnCompleted = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAll)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -217,10 +220,10 @@
             // 
             // btnShow
             // 
-            this.btnShow.Location = new System.Drawing.Point(265, 175);
+            this.btnShow.Location = new System.Drawing.Point(169, 175);
             this.btnShow.Margin = new System.Windows.Forms.Padding(1);
             this.btnShow.Name = "btnShow";
-            this.btnShow.Size = new System.Drawing.Size(236, 34);
+            this.btnShow.Size = new System.Drawing.Size(148, 34);
             this.btnShow.TabIndex = 9;
             this.btnShow.Text = "Show";
             this.btnShow.UseVisualStyleBackColor = true;
@@ -231,7 +234,7 @@
             this.btnAddMovies.Location = new System.Drawing.Point(17, 175);
             this.btnAddMovies.Margin = new System.Windows.Forms.Padding(1);
             this.btnAddMovies.Name = "btnAddMovies";
-            this.btnAddMovies.Size = new System.Drawing.Size(234, 34);
+            this.btnAddMovies.Size = new System.Drawing.Size(137, 34);
             this.btnAddMovies.TabIndex = 10;
             this.btnAddMovies.Text = "Add Media";
             this.btnAddMovies.UseVisualStyleBackColor = true;
@@ -446,10 +449,10 @@
             // 
             // btnStarted
             // 
-            this.btnStarted.Location = new System.Drawing.Point(511, 175);
+            this.btnStarted.Location = new System.Drawing.Point(332, 175);
             this.btnStarted.Margin = new System.Windows.Forms.Padding(1);
             this.btnStarted.Name = "btnStarted";
-            this.btnStarted.Size = new System.Drawing.Size(236, 34);
+            this.btnStarted.Size = new System.Drawing.Size(151, 34);
             this.btnStarted.TabIndex = 44;
             this.btnStarted.Text = "Already Started";
             this.btnStarted.UseVisualStyleBackColor = true;
@@ -485,11 +488,47 @@
             this.chkPC.Text = "PC";
             this.chkPC.UseVisualStyleBackColor = true;
             // 
+            // chkHD
+            // 
+            this.chkHD.AutoSize = true;
+            this.chkHD.Location = new System.Drawing.Point(277, 24);
+            this.chkHD.Margin = new System.Windows.Forms.Padding(1);
+            this.chkHD.Name = "chkHD";
+            this.chkHD.Size = new System.Drawing.Size(40, 17);
+            this.chkHD.TabIndex = 48;
+            this.chkHD.Text = "HD";
+            this.chkHD.UseVisualStyleBackColor = true;
+            // 
+            // chk4K
+            // 
+            this.chk4K.AutoSize = true;
+            this.chk4K.Location = new System.Drawing.Point(332, 24);
+            this.chk4K.Margin = new System.Windows.Forms.Padding(1);
+            this.chk4K.Name = "chk4K";
+            this.chk4K.Size = new System.Drawing.Size(38, 17);
+            this.chk4K.TabIndex = 49;
+            this.chk4K.Text = "4K";
+            this.chk4K.UseVisualStyleBackColor = true;
+            // 
+            // btnCompleted
+            // 
+            this.btnCompleted.Location = new System.Drawing.Point(506, 175);
+            this.btnCompleted.Margin = new System.Windows.Forms.Padding(1);
+            this.btnCompleted.Name = "btnCompleted";
+            this.btnCompleted.Size = new System.Drawing.Size(151, 34);
+            this.btnCompleted.TabIndex = 50;
+            this.btnCompleted.Text = "Mark as Completed";
+            this.btnCompleted.UseVisualStyleBackColor = true;
+            this.btnCompleted.Click += new System.EventHandler(this.btnCompleted_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1250, 632);
+            this.Controls.Add(this.btnCompleted);
+            this.Controls.Add(this.chk4K);
+            this.Controls.Add(this.chkHD);
             this.Controls.Add(this.chkPC);
             this.Controls.Add(this.btnMovies25);
             this.Controls.Add(this.btnEpisodes25);
@@ -576,5 +615,8 @@
         private System.Windows.Forms.Button btnMovies25;
         private System.Windows.Forms.Button btnEpisodes25;
         private System.Windows.Forms.CheckBox chkPC;
+        private System.Windows.Forms.CheckBox chkHD;
+        private System.Windows.Forms.CheckBox chk4K;
+        private System.Windows.Forms.Button btnCompleted;
     }
 }

@@ -152,14 +152,19 @@ namespace MediaProgressBusinessLayer
             return clsEpisodeDataAccess.IsEpisodeExist(Name);
         }
 
-        public static DataTable getAllEpisodesWithinAvailableTime(int Duration, string Choices)
+        public static DataTable getAllEpisodesWithinAvailableTime(int Duration, string Choices, string ScreenResolution)
         {
-            return clsEpisodeDataAccess.getAllEpisodesWithinAvailableTime(Duration, Choices);
+            return clsEpisodeDataAccess.getAllEpisodesWithinAvailableTime(Duration, Choices, ScreenResolution);
         }
 
         public static DataTable GetAllEpisodes2025(int Duration, string Choices)
         {
             return clsEpisodeDataAccess.GetAllEpisodes2025(Duration, Choices);
         }
-    }
+
+        public static bool MarkEpisodeAsCompleted(string SeriesName, int Season, int EpisodeNumber)
+        {
+            return clsEpisodeDataAccess.MarkEpisodeAsCompleted(SeriesName, Season, EpisodeNumber);
+        }
+        }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Xml.Linq;
 
 namespace MediaProgressDataAccessLayer
 {
@@ -173,21 +174,21 @@ namespace MediaProgressDataAccessLayer
             int rowsAffected = 0;
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
 
-            string query = @"Update  Episodes  
+            string query = @"Update  NewEpisodes  
                             set SeriesID = @SeriesID, 
                                 Season = @Season,
                                 EpisodeNumber = @EpisodeNumber, 
-                                Name = @Name, 
+                               
                                 Rating = @Rating,
                                 Duration = @Duration,
                                 Completed = @Completed,
                                 WatchAgain = @WatchAgain
                               
-                                where EpisodeID = @EpisodeID";
+                                where EpisodeName = @Name";
 
             SqlCommand command = new SqlCommand(query, connection);
 
-            command.Parameters.AddWithValue("@EpisodeID", EpisodeID);
+            command.Parameters.AddWithValue("@ID", EpisodeID);
             command.Parameters.AddWithValue("@SeriesID", SeriesID);
             command.Parameters.AddWithValue("@Season", Season);
             command.Parameters.AddWithValue("@EpisodeNumber", EpisodeNumber);
@@ -373,7 +374,7 @@ namespace MediaProgressDataAccessLayer
         }
 
         //Get All Episodes With Available Time
-        public static DataTable getAllEpisodesWithinAvailableTime(int Duration, string Choices)
+        public static DataTable getAllEpisodesWithinAvailableTime(int Duration, string Choices, string ScreenResolution)
         {
             using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
             using (SqlCommand cmd = new SqlCommand("GetNextEpisodePerSeries", conn))
@@ -382,6 +383,7 @@ namespace MediaProgressDataAccessLayer
                 cmd.CommandTimeout = 120; // Increase timeout to 2 minutes
                 cmd.Parameters.AddWithValue("@Duration", Duration);
                 cmd.Parameters.AddWithValue("@choices", Choices); // e.g., "Netflix,Hulu,Prime"
+                cmd.Parameters.AddWithValue("@screenResolution", ScreenResolution);
 
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable resultTable = new DataTable();
@@ -405,6 +407,77 @@ namespace MediaProgressDataAccessLayer
                 adapter.Fill(resultTable);
                 return resultTable;
             }
+
+
+        }
+
+        // Need to be fixed
+        public static bool MarkEpisodeAsCompleted(string SeriesName, int Season, int EpisodeNumber)
+        {
+            int rowsAffected = 0;
+            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
+
+            string query = @" UPDATE Episodes
+    SET Episodes.Completed = 1
+    FROM Episodes
+    INNER JOIN Basics AS seriesBasics 
+        ON Episodes.parentTconst = seriesBasics.tconst
+    INNER JOIN Basics AS episodeBasics 
+        ON Episodes.tconst = episodeBasics.tconst
+    INNER JOIN Ratings 
+        ON Episodes.tconst = Ratings.tconst
+    WHERE Episodes.seasonNumber = @SeasonNumber
+      AND Episodes.episodeNumber = @EpisodeNumber
+      AND seriesBasics.primaryTitle = @ShowName;";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+
+
+            if (SeriesName != "" && SeriesName != null)
+            {
+                command.Parameters.AddWithValue("@ShowName", SeriesName);
+            }
+            else
+            {
+                command.Parameters.AddWithValue("@Name", System.DBNull.Value);
+            }
+
+            if (Season != -1 && Season.ToString() != null)
+            {
+                command.Parameters.AddWithValue("@SeasonNumber", Season);
+            }
+            else
+            {
+                command.Parameters.AddWithValue("@SeasonNumber", System.DBNull.Value);
+            }
+
+            if (EpisodeNumber != -1 && EpisodeNumber.ToString() != null)
+                command.Parameters.AddWithValue("@EpisodeNumber", EpisodeNumber);
+            else
+                command.Parameters.AddWithValue("@EpisodeNumber", System.DBNull.Value);
+
+          
+
+
+            try
+            {
+                connection.Open();
+                rowsAffected = command.ExecuteNonQuery();
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+                return false;
+            }
+
+            finally
+            {
+                connection.Close();
+            }
+
+            return (rowsAffected > 0);
         }
     }
 }
