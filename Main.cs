@@ -1,15 +1,15 @@
 ﻿using MediaProgressBusinessLayer;
-
+using System.Data;
+using System.Data.OleDb;
+using System.Drawing;
+using System.Windows.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MediaProgressWindowsForms
 {
@@ -25,6 +25,9 @@ namespace MediaProgressWindowsForms
         {
             InitializeComponent();
         }
+
+     
+       
 
         private void _RefreshAllMediaList()
         {
@@ -64,89 +67,12 @@ namespace MediaProgressWindowsForms
         private void btnShow_Click(object sender, EventArgs e)
         {
             int Duration = Convert.ToInt32(hoursComboBox.Text) * 60 + (Convert.ToInt32(minutesComboBox.Text));
+            char Difficulty = DifficultyComboBox.Text.ToString()[0];
             dgvAll.AutoGenerateColumns = true;
             if (Duration < 240)
                 categoryComboBox.Items.Remove("Games");
 
-            //string Choices = "";
-
-            //if (chkNetflix.Checked)
-            //{
-            //    Choices = "( 'Netflix' )";
-            //}
-
-            //if (chkOSN.Checked)
-            //{
-            //    if (Choices == "")
-            //        Choices = "( 'OSN' )";
-            //    else
-            //        Choices = Choices.Insert(Choices.Length - 1, ", 'OSN'");
-            //}
-
-            //if(chkTOD.Checked)
-            //{
-            //    if (Choices == "")
-            //        Choices = "( 'TOD' )";
-            //    else
-            //        Choices = Choices.Insert(Choices.Length - 1, ", 'TOD'");
-            //}
-
-            //if(chkShahid.Checked)
-            //{
-            //    if (Choices == "")
-            //        Choices = "( 'Shahid' )";
-            //    else
-            //        Choices = Choices.Insert(Choices.Length - 1, ", 'Shahid'");
-            //}
-
-            //if(chkDisney.Checked)
-            //    {
-            //    if (Choices == "")
-            //        Choices = "( 'Disney+' )";
-            //    else
-            //        Choices = Choices.Insert(Choices.Length - 1, ", 'Disney+'");
-            //}
-
-            //if (chkStarzOn.Checked)
-            //{
-            //    if( Choices == "")
-            //        Choices = "( 'StarzOn' )";
-            //    else
-            //        Choices = Choices.Insert(Choices.Length - 1, ", 'StarzOn'");
-            //}
-            //if (chkThamanya.Checked)
-            //{
-            //    if(Choices == "")
-            //        Choices = "( 'Thamanya' )";
-            //    else
-            //        Choices = Choices.Insert(Choices.Length - 1, ", 'Thamanya'");
-            //}
-            //if (chkAJ.Checked)
-            //{
-            //    if(Choices == "")
-            //        Choices = "( 'AJ+' )";
-            //    else
-            //        Choices = Choices.Insert(Choices.Length - 1, ", 'AJ+'");
-            //}
-            //if(chkAlAraby.Checked)
-            //{
-            //    if(Choices == "")
-            //        Choices = "( 'AlAraby' )";
-            //    else
-            //        Choices = Choices.Insert(Choices.Length - 1, ", 'AlAraby'");
-            //}
-            //if (chkCrunchyRoll.Checked) { 
-            //    if(Choices == "")
-            //        Choices = "( 'CrunchyRoll' )";
-            //    else
-            //        Choices = Choices.Insert(Choices.Length - 1, ", 'CrunchyRoll'");
-            //}
-            //if (chkPS.Checked) { 
-            //    if(Choices == "")
-            //        Choices = "( 'PlayStation' )";
-            //    else
-            //        Choices = Choices.Insert(Choices.Length - 1, ", 'PlayStation'");
-            //}
+           
 
             List<string> selectedPlatforms = new List<string>();
 
@@ -184,7 +110,7 @@ namespace MediaProgressWindowsForms
             {
                
                 case 0:
-                    dgvAll.DataSource = clsMedia.getAllMediaWithinAvailableTime(Duration, Choices);
+                    dgvAll.DataSource = clsMedia.getAllMediaWithinAvailableTime(Duration, Choices, Difficulty);
                     break;
                 case 1:
                     dgvAll.DataSource = clsMedia.getAllMoviesWithinAvailableTime(Duration);
@@ -193,17 +119,17 @@ namespace MediaProgressWindowsForms
                     dgvAll.DataSource = clsSeries.getAllSeriesWithinAvailableTime(Duration);
                     break;
                 case 3:
-                    dgvAll.DataSource = clsEpisode.getAllEpisodesWithinAvailableTime(Duration, Choices, screenResolution);
+                    dgvAll.DataSource = clsEpisode.getAllEpisodesWithinAvailableTime(Duration, Choices, screenResolution, Difficulty);
                     break;
                 case 4:
-                    dgvAll.DataSource = clsMedia.GetAllGamesWithinAvailableTime(Duration);
+                    dgvAll.DataSource = clsMedia.GetAllGamesWithinAvailableTime(Duration, Difficulty);
                     break;
                 case 5:
-                    dgvAll.DataSource = clsBook.GetAllBooksWithinAvailableTime(Duration);
+                    dgvAll.DataSource = clsBook.GetAllBooksWithinAvailableTime(Duration, Difficulty);
                     break;
 
                 default:
-                    dgvAll.DataSource = clsMedia.getAllMediaWithinAvailableTime(Duration,Choices);
+                    dgvAll.DataSource = clsMedia.getAllMediaWithinAvailableTime(Duration,Choices, Difficulty);
                     break;
                 }
 
@@ -488,5 +414,12 @@ namespace MediaProgressWindowsForms
             MarkCompletedEpisode frm = new MarkCompletedEpisode(-1);
             frm.ShowDialog();
         }
+
+        private void dgvAll_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        
     }
 }

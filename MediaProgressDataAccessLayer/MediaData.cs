@@ -642,7 +642,7 @@ namespace MediaProgressDataAccessLayer
             return isFound;
         }
 
-        public static DataTable getAllMediaWithinAvailableTime(int Duration, string choices)
+        public static DataTable getAllMediaWithinAvailableTime(int Duration, string choices, char Difficulty)
         {
 
 
@@ -653,6 +653,7 @@ namespace MediaProgressDataAccessLayer
                 cmd.CommandTimeout = 120; // Increase timeout to 2 minutes
                 cmd.Parameters.AddWithValue("@Duration", Duration);
                 cmd.Parameters.AddWithValue("@choices", choices); // e.g., "Netflix,Hulu,Prime"
+                cmd.Parameters.AddWithValue("@Difficulty", Difficulty);
 
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable resultTable = new DataTable();
@@ -661,13 +662,14 @@ namespace MediaProgressDataAccessLayer
             }
         }
 
-        public static DataTable GetAllGamesWithinAvailableTime(int Duration)
+        public static DataTable GetAllGamesWithinAvailableTime(int Duration, char Difficulty)
         {
             DataTable dt = new DataTable();
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
             string query = "select * from Main where CategoryID = 3 order by Rating";
             SqlCommand command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@Duration", Duration);
+            command.Parameters.AddWithValue("@Difficulty", Difficulty);
             try
             {
                 connection.Open();

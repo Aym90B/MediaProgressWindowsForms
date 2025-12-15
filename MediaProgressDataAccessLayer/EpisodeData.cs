@@ -374,7 +374,7 @@ namespace MediaProgressDataAccessLayer
         }
 
         //Get All Episodes With Available Time
-        public static DataTable getAllEpisodesWithinAvailableTime(int Duration, string Choices, string ScreenResolution)
+        public static DataTable getAllEpisodesWithinAvailableTime(int Duration, string Choices, string ScreenResolution, char Difficulty)
         {
             using (SqlConnection conn = new SqlConnection(clsDataAccessSettings.ConnectionString))
             using (SqlCommand cmd = new SqlCommand("GetNextEpisodePerSeries", conn))
@@ -384,6 +384,7 @@ namespace MediaProgressDataAccessLayer
                 cmd.Parameters.AddWithValue("@Duration", Duration);
                 cmd.Parameters.AddWithValue("@choices", Choices); // e.g., "Netflix,Hulu,Prime"
                 cmd.Parameters.AddWithValue("@screenResolution", ScreenResolution);
+                cmd.Parameters.AddWithValue("@Difficulty", Difficulty);
 
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable resultTable = new DataTable();

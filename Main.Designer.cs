@@ -71,6 +71,8 @@
             this.chkHD = new System.Windows.Forms.CheckBox();
             this.chk4K = new System.Windows.Forms.CheckBox();
             this.btnCompleted = new System.Windows.Forms.Button();
+            this.lblDifficulty = new System.Windows.Forms.Label();
+            this.DifficultyComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAll)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -80,36 +82,40 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Tahoma", 24F);
-            this.label1.Location = new System.Drawing.Point(18, 13);
+            this.label1.Location = new System.Drawing.Point(45, 33);
+            this.label1.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(233, 39);
+            this.label1.Size = new System.Drawing.Size(578, 97);
             this.label1.TabIndex = 0;
             this.label1.Text = "Media Progress";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(22, 59);
+            this.label2.Location = new System.Drawing.Point(55, 150);
+            this.label2.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(147, 13);
+            this.label2.Size = new System.Drawing.Size(367, 33);
             this.label2.TabIndex = 1;
             this.label2.Text = "How much time do you have?";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 115);
+            this.label3.Location = new System.Drawing.Point(35, 292);
+            this.label3.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 13);
+            this.label3.Size = new System.Drawing.Size(85, 33);
             this.label3.TabIndex = 2;
             this.label3.Text = "Hours";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(147, 115);
+            this.label4.Location = new System.Drawing.Point(230, 292);
+            this.label4.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(44, 13);
+            this.label4.Size = new System.Drawing.Size(107, 33);
             this.label4.TabIndex = 3;
             this.label4.Text = "Minutes";
             // 
@@ -134,9 +140,10 @@
             "14",
             "15",
             "16"});
-            this.hoursComboBox.Location = new System.Drawing.Point(17, 135);
+            this.hoursComboBox.Location = new System.Drawing.Point(42, 343);
+            this.hoursComboBox.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
             this.hoursComboBox.Name = "hoursComboBox";
-            this.hoursComboBox.Size = new System.Drawing.Size(121, 21);
+            this.hoursComboBox.Size = new System.Drawing.Size(154, 41);
             this.hoursComboBox.TabIndex = 4;
             this.hoursComboBox.SelectedIndexChanged += new System.EventHandler(this.hoursComboBox_SelectedIndexChanged);
             this.hoursComboBox.Validating += new System.ComponentModel.CancelEventHandler(this.hoursComboBox_Validating);
@@ -149,18 +156,20 @@
             "15",
             "30",
             "45"});
-            this.minutesComboBox.Location = new System.Drawing.Point(150, 135);
+            this.minutesComboBox.Location = new System.Drawing.Point(238, 343);
+            this.minutesComboBox.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
             this.minutesComboBox.Name = "minutesComboBox";
-            this.minutesComboBox.Size = new System.Drawing.Size(121, 21);
+            this.minutesComboBox.Size = new System.Drawing.Size(204, 41);
             this.minutesComboBox.TabIndex = 5;
             this.minutesComboBox.Validating += new System.ComponentModel.CancelEventHandler(this.minutesComboBox_Validating);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(282, 115);
+            this.label5.Location = new System.Drawing.Point(470, 292);
+            this.label5.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(52, 13);
+            this.label5.Size = new System.Drawing.Size(121, 33);
             this.label5.TabIndex = 6;
             this.label5.Text = "Category";
             // 
@@ -174,9 +183,10 @@
             "Episodes",
             "Games",
             "Books"});
-            this.categoryComboBox.Location = new System.Drawing.Point(284, 135);
+            this.categoryComboBox.Location = new System.Drawing.Point(478, 343);
+            this.categoryComboBox.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
             this.categoryComboBox.Name = "categoryComboBox";
-            this.categoryComboBox.Size = new System.Drawing.Size(121, 21);
+            this.categoryComboBox.Size = new System.Drawing.Size(199, 41);
             this.categoryComboBox.TabIndex = 7;
             this.categoryComboBox.SelectedIndexChanged += new System.EventHandler(this.categoryComboBox_SelectedIndexChanged);
             this.categoryComboBox.Validating += new System.ComponentModel.CancelEventHandler(this.categoryComboBox_Validating);
@@ -188,11 +198,13 @@
             this.dgvAll.AllowUserToOrderColumns = true;
             this.dgvAll.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAll.ContextMenuStrip = this.contextMenuStrip1;
-            this.dgvAll.Location = new System.Drawing.Point(-2, 231);
+            this.dgvAll.Location = new System.Drawing.Point(-5, 586);
+            this.dgvAll.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
             this.dgvAll.Name = "dgvAll";
             this.dgvAll.RowHeadersWidth = 102;
-            this.dgvAll.Size = new System.Drawing.Size(1524, 576);
+            this.dgvAll.Size = new System.Drawing.Size(3810, 1462);
             this.dgvAll.TabIndex = 8;
+            this.dgvAll.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAll_CellContentClick);
             this.dgvAll.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAll_CellValueChanged);
             // 
             // contextMenuStrip1
@@ -202,28 +214,28 @@
             this.editToolStripMenuItem,
             this.deleteToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(108, 48);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(183, 100);
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(182, 48);
             this.editToolStripMenuItem.Text = "Edit";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(182, 48);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // btnShow
             // 
-            this.btnShow.Location = new System.Drawing.Point(169, 175);
-            this.btnShow.Margin = new System.Windows.Forms.Padding(1);
+            this.btnShow.Location = new System.Drawing.Point(422, 444);
+            this.btnShow.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnShow.Name = "btnShow";
-            this.btnShow.Size = new System.Drawing.Size(148, 34);
+            this.btnShow.Size = new System.Drawing.Size(370, 86);
             this.btnShow.TabIndex = 9;
             this.btnShow.Text = "Show";
             this.btnShow.UseVisualStyleBackColor = true;
@@ -231,10 +243,10 @@
             // 
             // btnAddMovies
             // 
-            this.btnAddMovies.Location = new System.Drawing.Point(17, 175);
-            this.btnAddMovies.Margin = new System.Windows.Forms.Padding(1);
+            this.btnAddMovies.Location = new System.Drawing.Point(42, 444);
+            this.btnAddMovies.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnAddMovies.Name = "btnAddMovies";
-            this.btnAddMovies.Size = new System.Drawing.Size(137, 34);
+            this.btnAddMovies.Size = new System.Drawing.Size(342, 86);
             this.btnAddMovies.TabIndex = 10;
             this.btnAddMovies.Text = "Add Media";
             this.btnAddMovies.UseVisualStyleBackColor = true;
@@ -246,28 +258,28 @@
             // 
             // txtFind
             // 
-            this.txtFind.Location = new System.Drawing.Point(863, 34);
-            this.txtFind.Margin = new System.Windows.Forms.Padding(1);
+            this.txtFind.Location = new System.Drawing.Point(2158, 86);
+            this.txtFind.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.txtFind.Name = "txtFind";
-            this.txtFind.Size = new System.Drawing.Size(221, 20);
+            this.txtFind.Size = new System.Drawing.Size(546, 40);
             this.txtFind.TabIndex = 15;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(821, 39);
-            this.label6.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
+            this.label6.Location = new System.Drawing.Point(2052, 99);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(40, 13);
+            this.label6.Size = new System.Drawing.Size(95, 33);
             this.label6.TabIndex = 16;
             this.label6.Text = "Search";
             // 
             // btnFind
             // 
-            this.btnFind.Location = new System.Drawing.Point(1096, 33);
-            this.btnFind.Margin = new System.Windows.Forms.Padding(1);
+            this.btnFind.Location = new System.Drawing.Point(2740, 84);
+            this.btnFind.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnFind.Name = "btnFind";
-            this.btnFind.Size = new System.Drawing.Size(103, 21);
+            this.btnFind.Size = new System.Drawing.Size(258, 53);
             this.btnFind.TabIndex = 17;
             this.btnFind.Text = "Find";
             this.btnFind.UseVisualStyleBackColor = true;
@@ -275,10 +287,10 @@
             // 
             // btnShowMovies
             // 
-            this.btnShowMovies.Location = new System.Drawing.Point(824, 71);
-            this.btnShowMovies.Margin = new System.Windows.Forms.Padding(1);
+            this.btnShowMovies.Location = new System.Drawing.Point(2060, 180);
+            this.btnShowMovies.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnShowMovies.Name = "btnShowMovies";
-            this.btnShowMovies.Size = new System.Drawing.Size(127, 68);
+            this.btnShowMovies.Size = new System.Drawing.Size(318, 173);
             this.btnShowMovies.TabIndex = 18;
             this.btnShowMovies.Text = "Show All Movies";
             this.btnShowMovies.UseVisualStyleBackColor = true;
@@ -286,10 +298,10 @@
             // 
             // btnShowSeries
             // 
-            this.btnShowSeries.Location = new System.Drawing.Point(965, 70);
-            this.btnShowSeries.Margin = new System.Windows.Forms.Padding(1);
+            this.btnShowSeries.Location = new System.Drawing.Point(2412, 178);
+            this.btnShowSeries.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnShowSeries.Name = "btnShowSeries";
-            this.btnShowSeries.Size = new System.Drawing.Size(119, 68);
+            this.btnShowSeries.Size = new System.Drawing.Size(298, 173);
             this.btnShowSeries.TabIndex = 19;
             this.btnShowSeries.Text = "Show All Series";
             this.btnShowSeries.UseVisualStyleBackColor = true;
@@ -297,10 +309,10 @@
             // 
             // btnShowGames
             // 
-            this.btnShowGames.Location = new System.Drawing.Point(824, 146);
-            this.btnShowGames.Margin = new System.Windows.Forms.Padding(1);
+            this.btnShowGames.Location = new System.Drawing.Point(2060, 371);
+            this.btnShowGames.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnShowGames.Name = "btnShowGames";
-            this.btnShowGames.Size = new System.Drawing.Size(127, 63);
+            this.btnShowGames.Size = new System.Drawing.Size(318, 160);
             this.btnShowGames.TabIndex = 20;
             this.btnShowGames.Text = "Show All Games";
             this.btnShowGames.UseVisualStyleBackColor = true;
@@ -308,10 +320,10 @@
             // 
             // btnShowBooks
             // 
-            this.btnShowBooks.Location = new System.Drawing.Point(965, 146);
-            this.btnShowBooks.Margin = new System.Windows.Forms.Padding(1);
+            this.btnShowBooks.Location = new System.Drawing.Point(2412, 371);
+            this.btnShowBooks.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnShowBooks.Name = "btnShowBooks";
-            this.btnShowBooks.Size = new System.Drawing.Size(119, 63);
+            this.btnShowBooks.Size = new System.Drawing.Size(298, 160);
             this.btnShowBooks.TabIndex = 21;
             this.btnShowBooks.Text = "Show All Books";
             this.btnShowBooks.UseVisualStyleBackColor = true;
@@ -320,19 +332,20 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(442, 13);
+            this.label7.Location = new System.Drawing.Point(1105, 33);
+            this.label7.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(88, 13);
+            this.label7.Size = new System.Drawing.Size(213, 33);
             this.label7.TabIndex = 22;
             this.label7.Text = "Where To Watch";
             // 
             // chkPS
             // 
             this.chkPS.AutoSize = true;
-            this.chkPS.Location = new System.Drawing.Point(529, 120);
-            this.chkPS.Margin = new System.Windows.Forms.Padding(1);
+            this.chkPS.Location = new System.Drawing.Point(1322, 305);
+            this.chkPS.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.chkPS.Name = "chkPS";
-            this.chkPS.Size = new System.Drawing.Size(46, 17);
+            this.chkPS.Size = new System.Drawing.Size(103, 37);
             this.chkPS.TabIndex = 43;
             this.chkPS.Text = "PS+";
             this.chkPS.UseVisualStyleBackColor = true;
@@ -340,10 +353,10 @@
             // chkOSN
             // 
             this.chkOSN.AutoSize = true;
-            this.chkOSN.Location = new System.Drawing.Point(506, 46);
-            this.chkOSN.Margin = new System.Windows.Forms.Padding(1);
+            this.chkOSN.Location = new System.Drawing.Point(1265, 117);
+            this.chkOSN.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.chkOSN.Name = "chkOSN";
-            this.chkOSN.Size = new System.Drawing.Size(55, 17);
+            this.chkOSN.Size = new System.Drawing.Size(125, 37);
             this.chkOSN.TabIndex = 42;
             this.chkOSN.Text = "OSN+";
             this.chkOSN.UseVisualStyleBackColor = true;
@@ -351,10 +364,10 @@
             // chkTOD
             // 
             this.chkTOD.AutoSize = true;
-            this.chkTOD.Location = new System.Drawing.Point(568, 46);
-            this.chkTOD.Margin = new System.Windows.Forms.Padding(1);
+            this.chkTOD.Location = new System.Drawing.Point(1420, 117);
+            this.chkTOD.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.chkTOD.Name = "chkTOD";
-            this.chkTOD.Size = new System.Drawing.Size(47, 17);
+            this.chkTOD.Size = new System.Drawing.Size(106, 37);
             this.chkTOD.TabIndex = 41;
             this.chkTOD.Text = "TOD";
             this.chkTOD.UseVisualStyleBackColor = true;
@@ -362,10 +375,10 @@
             // chkShahid
             // 
             this.chkShahid.AutoSize = true;
-            this.chkShahid.Location = new System.Drawing.Point(625, 46);
-            this.chkShahid.Margin = new System.Windows.Forms.Padding(1);
+            this.chkShahid.Location = new System.Drawing.Point(1562, 117);
+            this.chkShahid.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.chkShahid.Name = "chkShahid";
-            this.chkShahid.Size = new System.Drawing.Size(58, 17);
+            this.chkShahid.Size = new System.Drawing.Size(133, 37);
             this.chkShahid.TabIndex = 40;
             this.chkShahid.Text = "Shahid";
             this.chkShahid.UseVisualStyleBackColor = true;
@@ -373,10 +386,10 @@
             // chkDisney
             // 
             this.chkDisney.AutoSize = true;
-            this.chkDisney.Location = new System.Drawing.Point(688, 46);
-            this.chkDisney.Margin = new System.Windows.Forms.Padding(1);
+            this.chkDisney.Location = new System.Drawing.Point(1720, 117);
+            this.chkDisney.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.chkDisney.Name = "chkDisney";
-            this.chkDisney.Size = new System.Drawing.Size(66, 17);
+            this.chkDisney.Size = new System.Drawing.Size(151, 37);
             this.chkDisney.TabIndex = 39;
             this.chkDisney.Text = "Disney+";
             this.chkDisney.UseVisualStyleBackColor = true;
@@ -384,10 +397,10 @@
             // chkStarzOn
             // 
             this.chkStarzOn.AutoSize = true;
-            this.chkStarzOn.Location = new System.Drawing.Point(444, 84);
-            this.chkStarzOn.Margin = new System.Windows.Forms.Padding(1);
+            this.chkStarzOn.Location = new System.Drawing.Point(1110, 213);
+            this.chkStarzOn.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.chkStarzOn.Name = "chkStarzOn";
-            this.chkStarzOn.Size = new System.Drawing.Size(65, 17);
+            this.chkStarzOn.Size = new System.Drawing.Size(147, 37);
             this.chkStarzOn.TabIndex = 38;
             this.chkStarzOn.Text = "StarzOn";
             this.chkStarzOn.UseVisualStyleBackColor = true;
@@ -395,10 +408,10 @@
             // chkThamanya
             // 
             this.chkThamanya.AutoSize = true;
-            this.chkThamanya.Location = new System.Drawing.Point(511, 84);
-            this.chkThamanya.Margin = new System.Windows.Forms.Padding(1);
+            this.chkThamanya.Location = new System.Drawing.Point(1278, 213);
+            this.chkThamanya.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.chkThamanya.Name = "chkThamanya";
-            this.chkThamanya.Size = new System.Drawing.Size(76, 17);
+            this.chkThamanya.Size = new System.Drawing.Size(177, 37);
             this.chkThamanya.TabIndex = 37;
             this.chkThamanya.Text = "Thamanya";
             this.chkThamanya.UseVisualStyleBackColor = true;
@@ -406,10 +419,10 @@
             // chkAJ
             // 
             this.chkAJ.AutoSize = true;
-            this.chkAJ.Location = new System.Drawing.Point(601, 84);
-            this.chkAJ.Margin = new System.Windows.Forms.Padding(1);
+            this.chkAJ.Location = new System.Drawing.Point(1502, 213);
+            this.chkAJ.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.chkAJ.Name = "chkAJ";
-            this.chkAJ.Size = new System.Drawing.Size(79, 17);
+            this.chkAJ.Size = new System.Drawing.Size(181, 37);
             this.chkAJ.TabIndex = 36;
             this.chkAJ.Text = "Aljazeera+";
             this.chkAJ.UseVisualStyleBackColor = true;
@@ -417,10 +430,10 @@
             // chkAlAraby
             // 
             this.chkAlAraby.AutoSize = true;
-            this.chkAlAraby.Location = new System.Drawing.Point(682, 84);
-            this.chkAlAraby.Margin = new System.Windows.Forms.Padding(1);
+            this.chkAlAraby.Location = new System.Drawing.Point(1705, 213);
+            this.chkAlAraby.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.chkAlAraby.Name = "chkAlAraby";
-            this.chkAlAraby.Size = new System.Drawing.Size(72, 17);
+            this.chkAlAraby.Size = new System.Drawing.Size(163, 37);
             this.chkAlAraby.TabIndex = 35;
             this.chkAlAraby.Text = "AlAraby+";
             this.chkAlAraby.UseVisualStyleBackColor = true;
@@ -428,10 +441,10 @@
             // chkCrunchyRoll
             // 
             this.chkCrunchyRoll.AutoSize = true;
-            this.chkCrunchyRoll.Location = new System.Drawing.Point(444, 120);
-            this.chkCrunchyRoll.Margin = new System.Windows.Forms.Padding(1);
+            this.chkCrunchyRoll.Location = new System.Drawing.Point(1110, 305);
+            this.chkCrunchyRoll.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.chkCrunchyRoll.Name = "chkCrunchyRoll";
-            this.chkCrunchyRoll.Size = new System.Drawing.Size(83, 17);
+            this.chkCrunchyRoll.Size = new System.Drawing.Size(193, 37);
             this.chkCrunchyRoll.TabIndex = 34;
             this.chkCrunchyRoll.Text = "CrunchyRoll";
             this.chkCrunchyRoll.UseVisualStyleBackColor = true;
@@ -439,20 +452,20 @@
             // chkNetflix
             // 
             this.chkNetflix.AutoSize = true;
-            this.chkNetflix.Location = new System.Drawing.Point(444, 46);
-            this.chkNetflix.Margin = new System.Windows.Forms.Padding(1);
+            this.chkNetflix.Location = new System.Drawing.Point(1110, 117);
+            this.chkNetflix.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.chkNetflix.Name = "chkNetflix";
-            this.chkNetflix.Size = new System.Drawing.Size(57, 17);
+            this.chkNetflix.Size = new System.Drawing.Size(128, 37);
             this.chkNetflix.TabIndex = 33;
             this.chkNetflix.Text = "Netflix";
             this.chkNetflix.UseVisualStyleBackColor = true;
             // 
             // btnStarted
             // 
-            this.btnStarted.Location = new System.Drawing.Point(332, 175);
-            this.btnStarted.Margin = new System.Windows.Forms.Padding(1);
+            this.btnStarted.Location = new System.Drawing.Point(830, 444);
+            this.btnStarted.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnStarted.Name = "btnStarted";
-            this.btnStarted.Size = new System.Drawing.Size(151, 34);
+            this.btnStarted.Size = new System.Drawing.Size(378, 86);
             this.btnStarted.TabIndex = 44;
             this.btnStarted.Text = "Already Started";
             this.btnStarted.UseVisualStyleBackColor = true;
@@ -460,9 +473,10 @@
             // 
             // btnEpisodes25
             // 
-            this.btnEpisodes25.Location = new System.Drawing.Point(1096, 70);
+            this.btnEpisodes25.Location = new System.Drawing.Point(2740, 178);
+            this.btnEpisodes25.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
             this.btnEpisodes25.Name = "btnEpisodes25";
-            this.btnEpisodes25.Size = new System.Drawing.Size(103, 69);
+            this.btnEpisodes25.Size = new System.Drawing.Size(258, 175);
             this.btnEpisodes25.TabIndex = 45;
             this.btnEpisodes25.Text = "Episodes 2025";
             this.btnEpisodes25.UseVisualStyleBackColor = true;
@@ -470,9 +484,10 @@
             // 
             // btnMovies25
             // 
-            this.btnMovies25.Location = new System.Drawing.Point(1096, 145);
+            this.btnMovies25.Location = new System.Drawing.Point(2740, 368);
+            this.btnMovies25.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
             this.btnMovies25.Name = "btnMovies25";
-            this.btnMovies25.Size = new System.Drawing.Size(103, 64);
+            this.btnMovies25.Size = new System.Drawing.Size(258, 162);
             this.btnMovies25.TabIndex = 46;
             this.btnMovies25.Text = "Movies 2025";
             this.btnMovies25.UseVisualStyleBackColor = true;
@@ -480,10 +495,10 @@
             // chkPC
             // 
             this.chkPC.AutoSize = true;
-            this.chkPC.Location = new System.Drawing.Point(577, 120);
-            this.chkPC.Margin = new System.Windows.Forms.Padding(1);
+            this.chkPC.Location = new System.Drawing.Point(1442, 305);
+            this.chkPC.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.chkPC.Name = "chkPC";
-            this.chkPC.Size = new System.Drawing.Size(39, 17);
+            this.chkPC.Size = new System.Drawing.Size(84, 37);
             this.chkPC.TabIndex = 47;
             this.chkPC.Text = "PC";
             this.chkPC.UseVisualStyleBackColor = true;
@@ -491,10 +506,10 @@
             // chkHD
             // 
             this.chkHD.AutoSize = true;
-            this.chkHD.Location = new System.Drawing.Point(277, 24);
-            this.chkHD.Margin = new System.Windows.Forms.Padding(1);
+            this.chkHD.Location = new System.Drawing.Point(712, 61);
+            this.chkHD.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.chkHD.Name = "chkHD";
-            this.chkHD.Size = new System.Drawing.Size(40, 17);
+            this.chkHD.Size = new System.Drawing.Size(89, 37);
             this.chkHD.TabIndex = 48;
             this.chkHD.Text = "HD";
             this.chkHD.UseVisualStyleBackColor = true;
@@ -502,30 +517,57 @@
             // chk4K
             // 
             this.chk4K.AutoSize = true;
-            this.chk4K.Location = new System.Drawing.Point(332, 24);
-            this.chk4K.Margin = new System.Windows.Forms.Padding(1);
+            this.chk4K.Location = new System.Drawing.Point(830, 61);
+            this.chk4K.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.chk4K.Name = "chk4K";
-            this.chk4K.Size = new System.Drawing.Size(38, 17);
+            this.chk4K.Size = new System.Drawing.Size(84, 37);
             this.chk4K.TabIndex = 49;
             this.chk4K.Text = "4K";
             this.chk4K.UseVisualStyleBackColor = true;
             // 
             // btnCompleted
             // 
-            this.btnCompleted.Location = new System.Drawing.Point(506, 175);
-            this.btnCompleted.Margin = new System.Windows.Forms.Padding(1);
+            this.btnCompleted.Location = new System.Drawing.Point(1238, 444);
+            this.btnCompleted.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnCompleted.Name = "btnCompleted";
-            this.btnCompleted.Size = new System.Drawing.Size(151, 34);
+            this.btnCompleted.Size = new System.Drawing.Size(378, 86);
             this.btnCompleted.TabIndex = 50;
             this.btnCompleted.Text = "Mark as Completed";
             this.btnCompleted.UseVisualStyleBackColor = true;
             this.btnCompleted.Click += new System.EventHandler(this.btnCompleted_Click);
             // 
+            // lblDifficulty
+            // 
+            this.lblDifficulty.AutoSize = true;
+            this.lblDifficulty.Location = new System.Drawing.Point(705, 292);
+            this.lblDifficulty.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.lblDifficulty.Name = "lblDifficulty";
+            this.lblDifficulty.Size = new System.Drawing.Size(118, 33);
+            this.lblDifficulty.TabIndex = 51;
+            this.lblDifficulty.Text = "Difficulty";
+            // 
+            // DifficultyComboBox
+            // 
+            this.DifficultyComboBox.FormattingEnabled = true;
+            this.DifficultyComboBox.Items.AddRange(new object[] {
+            "A",
+            "B",
+            "C",
+            "D",
+            "E"});
+            this.DifficultyComboBox.Location = new System.Drawing.Point(712, 343);
+            this.DifficultyComboBox.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.DifficultyComboBox.Name = "DifficultyComboBox";
+            this.DifficultyComboBox.Size = new System.Drawing.Size(206, 41);
+            this.DifficultyComboBox.TabIndex = 52;
+            // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 33F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1250, 632);
+            this.ClientSize = new System.Drawing.Size(3125, 1604);
+            this.Controls.Add(this.DifficultyComboBox);
+            this.Controls.Add(this.lblDifficulty);
             this.Controls.Add(this.btnCompleted);
             this.Controls.Add(this.chk4K);
             this.Controls.Add(this.chkHD);
@@ -563,6 +605,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
             this.Name = "Main";
             this.Text = "Main";
             this.Load += new System.EventHandler(this.Main_Load);
@@ -618,5 +661,7 @@
         private System.Windows.Forms.CheckBox chkHD;
         private System.Windows.Forms.CheckBox chk4K;
         private System.Windows.Forms.Button btnCompleted;
+        private System.Windows.Forms.ComboBox DifficultyComboBox;
+        private System.Windows.Forms.Label lblDifficulty;
     }
 }

@@ -202,9 +202,9 @@ namespace MediaProgressBusinessLayer
             return clsMovieDataAccess.IsMediaExistInIMDB(ID);
         }
 
-        public static DataTable getAllMediaWithinAvailableTime(int Duration, string choices)
+        public static DataTable getAllMediaWithinAvailableTime(int Duration, string choices, char Difficulty)
         {
-            return clsMovieDataAccess.getAllMediaWithinAvailableTime(Duration, choices);
+            return clsMovieDataAccess.getAllMediaWithinAvailableTime(Duration, choices, Difficulty);
         }
 
         public static DataTable GetTopMedia(int duration, string choices)
@@ -212,9 +212,9 @@ namespace MediaProgressBusinessLayer
             return clsMovieDataAccess.GetTopMedia(duration, choices);
         }
 
-        public static DataTable GetAllGamesWithinAvailableTime(int Duration)
+        public static DataTable GetAllGamesWithinAvailableTime(int Duration, char Difficulty)
         {
-            return clsMovieDataAccess.GetAllGamesWithinAvailableTime(Duration);
+            return clsMovieDataAccess.GetAllGamesWithinAvailableTime(Duration, Difficulty);
         }
 
         public static DataTable getAllMoviesWithinAvailableTime(int Duration)

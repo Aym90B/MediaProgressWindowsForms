@@ -32,16 +32,8 @@ namespace MediaProgressDataAccessLayer
                     isFound = true;
 
                     NumberOfSeasons = (int)reader["NumberOfSeasons"];
-                    NumberOfEpisodes = (int)reader["NumberOfEpisodes"];
-                    
-                
-                   
+                    NumberOfEpisodes = (int)reader["NumberOfEpisodes"];             
                     WatchedEpisodes = (int)reader["WatchedEpisodes"];
-
-
-
-
-
                 }
                 else
                 {

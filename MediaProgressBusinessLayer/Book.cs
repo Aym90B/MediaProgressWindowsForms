@@ -60,9 +60,9 @@ namespace MediaProgressBusinessLayer
         }
 
 
-        public static DataTable GetAllBooksWithinAvailableTime(int Duration)
+        public static DataTable GetAllBooksWithinAvailableTime(int Duration, char Difficulty)
         {
-             return clsBookDataAccess.GetAllBooksWithinAvailableTime(Duration);
+             return clsBookDataAccess.GetAllBooksWithinAvailableTime(Duration, Difficulty);
         }
 
         public static clsBook FindBookByMediaID(int BookID)
