@@ -4,19 +4,19 @@ First off, thank you for considering contributing to MediaProgress! It’s peopl
 🏗 Architectural Rules
 To maintain the integrity of the 3-Tier Architecture, all contributors must follow these structural rules:
 
-Presentation Layer (MediaProgress.UI): - No direct SQL queries.
+Presentation Layer (MediaProgressWindowsForms): - No direct SQL queries.
 
 No business logic or calculations.
 
 Role: Handle user input and display data received from the BLL.
 
-Business Logic Layer (MediaProgress.BLL): - This is where the "Complexity" and "Time-based" filters live.
+Business Logic Layer (MediaProgressBusinessLayer): - This is where the "Complexity" and "Time-based" filters live.
 
 All data validation must happen here.
 
 Role: Act as a bridge between the UI and the DAL.
 
-Data Access Layer (MediaProgress.DAL): - Use ADO.NET (SqlConnection, SqlCommand).
+Data Access Layer (MediaProgressDataAccessLayer): - Use ADO.NET (SqlConnection, SqlCommand).
 
 Role: Execute queries and return DataTables or Lists to the BLL.
 
