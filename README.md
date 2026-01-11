@@ -110,22 +110,30 @@ Add screenshots or a short GIF to this section (place images in /docs or /assets
 - Run unit tests: (add commands here if you have tests)
 - To debug BLL/DAL, set the Startup Project to the UI and attach debugger.
 
-## Roadmap
-Planned features:
-- Video Games module
-- Books & literature tracking
-- Extended export/import (CSV/JSON)
-- CI with Windows-based builds and release artifacts
+🚀 Future Roadmap & Vision
+MediaProgress is designed to be a universal consumption tracker. Future updates will include:
 
-If you have suggestions, open an issue with the feature proposal.
+Video Games Module: Full database integration for gaming libraries and platform tracking.
 
-## Contributing
-Contributions are welcome. Please:
-1. Fork the repository
-2. Create a feature branch
-3. Open a pull request describing your changes
+Books & Literature: Support for reading progress, authors, and genre-based complexity.
 
-Add a CONTRIBUTING.md and CODE_OF_CONDUCT.md to guide contributors.
+Automated Data Sync: Currently, the project requires manual importing of IMDb TSV files. I am looking to implement an automated sync service.
+
+🤝 How to Contribute
+I am actively looking for developers to help expand the ecosystem. Specifically, I am seeking contributions for:
+
+⚡ The "Delta Update" Challenge
+Current Gap: The project currently lacks an automated way to fetch and merge newly created media from the daily IMDb dataset updates into the existing local SQL database without re-importing everything.
+
+We (since we now) need help with:
+
+Incremental Sync Logic: A C# or SQL service that identifies only the new records in the .tsv files.
+
+Web Scraper/API Integration: Exploring ways to fetch real-time updates for specific titles using the IMDb ID.
+
+Data Mapping: Improving the "Complexity/Difficulty" algorithm using community-driven data.
+
+If you have ideas for new metrics, platform integrations, or UI enhancements, please open an issue or submit a pull request!
 
 ## License
 This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
