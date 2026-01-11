@@ -361,3 +361,36 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+## --- Visual Studio & .NET Framework ---
+# Build results
+[Bb]in/
+[Obj]/
+# Visual Studio 2022/2019 private settings
+.vs/
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## --- Database & SQL Server ---
+# Do NOT upload your local database files
+*.mdf
+*.ldf
+*.sdf
+# Backup files
+*.bak
+
+## --- IMDb Data Files (Copyright Protection) ---
+# Ignore raw data downloads
+*.tsv
+*.tsv.gz
+*.csv
+# Data folder if you have one
+/Data/
+
+## --- Configuration & Secrets ---
+# Ignore your actual App.config if it contains your server name
+# (Keep App.config.example tracked instead)
+MediaProgress.UI/App.config
