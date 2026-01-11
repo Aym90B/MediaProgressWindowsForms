@@ -67,7 +67,12 @@ namespace MediaProgressWindowsForms
         private void btnShow_Click(object sender, EventArgs e)
         {
             int Duration = Convert.ToInt32(hoursComboBox.Text) * 60 + (Convert.ToInt32(minutesComboBox.Text));
-            char Difficulty = DifficultyComboBox.Text.ToString()[0];
+            char Difficulty = ' '; // Default value
+
+            if (!string.IsNullOrEmpty(DifficultyComboBox.Text))
+            {
+                Difficulty = DifficultyComboBox.Text[0];
+            }
             dgvAll.AutoGenerateColumns = true;
             if (Duration < 240)
                 categoryComboBox.Items.Remove("Games");

@@ -384,7 +384,16 @@ namespace MediaProgressDataAccessLayer
                 cmd.Parameters.AddWithValue("@Duration", Duration);
                 cmd.Parameters.AddWithValue("@choices", Choices); // e.g., "Netflix,Hulu,Prime"
                 cmd.Parameters.AddWithValue("@screenResolution", ScreenResolution);
-                cmd.Parameters.AddWithValue("@Difficulty", Difficulty);
+
+                if (!char.IsWhiteSpace(Difficulty))
+                {
+                    cmd.Parameters.AddWithValue("@Difficulty", Difficulty);
+                } else
+                {
+                    cmd.Parameters.AddWithValue("@Difficulty", DBNull.Value);
+                }
+
+
 
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable resultTable = new DataTable();

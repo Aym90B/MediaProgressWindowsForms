@@ -712,7 +712,8 @@ namespace MediaProgressDataAccessLayer
 	mediaBasics.isAdult,
 	mediaBasics.Completed as Media_Completed,
     mediaBasics.WatchAgain as Media_Watch_Again,
-    mediaBasics.screenResolution
+    mediaBasics.screenResolution,
+    mediaBasics.difficulty
 FROM
     Basics AS mediaBasics
 LEFT JOIN
@@ -723,7 +724,7 @@ JOIN
     Ratings ON mediaBasics.tconst = Ratings.tconst
 WHERE
 
-    mediaBasics.runtimeMinutes <= 120 AND 
+    mediaBasics.runtimeMinutes <= @Duration AND 
     Ratings.numVotes >= 5000 AND 
     mediaBasics.Completed IS NULL AND
     (
