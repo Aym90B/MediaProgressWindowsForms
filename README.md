@@ -1,86 +1,84 @@
-MediaProgress
-A Full-Stack .NET application for tracking personal media consumption using IMDB metadata.
+MediaProgress (WinForms Edition)
+A Professional 3-Tier Desktop Application for Media Lifecycle Management.
 
-!
+📝 Project Overview
+MediaProgress is an enterprise-style desktop solution designed to streamline how users organize, track, and discover media content. By leveraging a local instance of the IMDb database, the application provides a high-performance environment to manage vast libraries of movies and TV shows.
 
-📌 Project Overview
-MediaProgress is a management tool designed to help users track their progress through movies and TV series. It leverages official IMDB datasets to provide accurate metadata while allowing users to log status, ratings, and completion dates.
+🌟 Key Features
+Intelligent Media Cataloging: Seamlessly search and archive titles from a local SQL database containing millions of IMDb records.
 
-This project showcases:
+Simplified Progress Tracking: Focused tracking allowing users to set a "Watching" status for series and a "Completed" status for all categories (Movies, Series, and Episodes).
 
-Backend: ASP.NET Core MVC with Entity Framework Core.
+Time-Optimized Filtering: Filter content based on available time, ensuring the right content is selected for your current session.
 
-Database: Relational design in Microsoft SQL Server (T-SQL).
+Cognitive Load & Mood Filtering: A unique "Script Complexity" filter that categorizes media by difficulty. This allows users to choose "Light" content for relaxation or "Heavy/Complex" scripts for deep following, based on their current mood.
 
-Data Handling: Custom ETL logic for processing large TSV datasets.
+Smart Sorting: Automatically prioritize unwatched media by IMDb Average Rating, focusing on high-quality content first.
 
-🚀 Technical Stack
-Language: C#
+🏗 System Architecture
+The project is built using a strict 3-Tier Architecture to ensure modularity:
 
-Framework: .NET 8.0 (ASP.NET Core MVC)
+Presentation Layer (WinForms): An intuitive C# interface for efficient user interaction.
 
-ORM: Entity Framework Core / ADO.NET
+Business Logic Layer (BLL): Handles state transitions, time-based calculations, and the logic for the "Mood/Complexity" filtering.
 
-Database: Microsoft SQL Server
-
-Frontend: HTML5, CSS3, JavaScript, Bootstrap
-
-Reporting: Power BI (Production Dashboards)
-
-📂 Database Schema
-The database is built on a relational model designed for high performance and data integrity.
-
-Key Tables: Users, MediaTitles, UserProgress, Genres, Ratings.
-
-Design: Normalized to 3NF with optimized indexing on TitleID.
+Data Access Layer (DAL): High-performance ADO.NET layer for rapid data retrieval from large SQL Server datasets.
 
 ⚙️ Setup & Installation
-1. Prerequisites
-Visual Studio 2022
+1. Database Configuration
+To remain compliant with IMDb Copyrights, raw data files are not hosted here.
 
-SQL Server Express
+Download official .tsv datasets from IMDb Interfaces.
 
-.NET 8.0 SDK
+Execute the provided script in /Database/Schema.sql to generate the structure.
 
-2. Clone the Repository
-Bash
+Use the SQL Server Import Wizard to map files to your local tables.
 
-git clone https://github.com/Aym90B/MediaProgress.git
-cd MediaProgress
-3. Data & Copyrights (IMDB)
-To comply with IMDB's Terms of Use, this repository does not include raw data files.
+2. Connection Configuration
+Update your local App.config file in the UI project:
 
-Download the datasets from the Official IMDB Datasets Page.
+XML
 
-Recommended files: title.basics.tsv.gz and title.ratings.tsv.gz.
+<connectionStrings>
+  <add name="MediaDbConn" 
+       connectionString="Data Source=YOUR_LOCAL_SERVER;Initial Catalog=MediaProgress;Integrated Security=True" 
+       providerName="System.Data.SqlClient" />
+</connectionStrings>
+🚀 Future Roadmap & Vision
+MediaProgress is designed to be a universal consumption tracker. Future updates will include:
 
-Use the DataImporter tool in the /Tools directory to populate your local database.
+Video Games Module: Full database integration for gaming libraries and platform tracking.
 
-4. Configuration
-Update the ConnectionStrings in appsettings.json:
+Books & Literature: Support for reading progress, authors, and genre-based complexity.
 
-JSON
+Open to Suggestions: I am actively looking for ways to expand this project. If you have ideas for new metrics, platform integrations, or UI enhancements, please open an issue!
 
-"ConnectionStrings": {
-  "DefaultConnection": "Server=YOUR_SERVER;Database=MediaProgress;Trusted_Connection=True;"
-}
-🤝 Contributing
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create.
+👨‍💻 Author & Contact Information
+Ayman Bahih Full-Stack Developer & System Administrator
 
-Fork the Project.
+📍 Location: Tripoli, Libya
 
-Create your Feature Branch (git checkout -b feature/NewFeature).
+📞 Mobile: +218 91 963 8519
 
-Commit your Changes (git commit -m 'Add NewFeature').
+📧 Email: aymanbahih@gmail.com
 
-Push to the Branch (git push origin feature/NewFeature).
+🔗 LinkedIn: linkedin.com/in/ayman-bahih
 
-Open a Pull Request.
+💻 GitHub: github.com/Aym90B
 
-⚖️ License
-Distributed under the MIT License. See LICENSE for more information.
+⚖️ License & Legal
+Code License: MIT License.
 
-📧 Contact
-Ayman Bahih - aymanbahih@gmail.com
+Data Source: Metadata is sourced from IMDb. Intended for personal, non-commercial use only.
 
-Project Link: https://github.com/Aym90B/MediaProgress
+How to implement the "Complexity" SQL:
+Since "Difficulty" isn't a standard IMDb field, you can explain that your BLL calculates this or uses a custom table. Here is a suggested SQL structure for your /Database/Schema.sql:
+
+SQL
+
+CREATE TABLE MediaComplexity (
+    TitleID VARCHAR(20) PRIMARY KEY,
+    ComplexityLevel INT, -- 1 (Light) to 5 (Heavy)
+    NarrativeType VARCHAR(50),
+    FOREIGN KEY (TitleID) REFERENCES MediaTitles(TitleID)
+);
