@@ -32,6 +32,8 @@ MediaProgress helps users catalogue and track their media consumption with advan
 - "Script Complexity" filter (custom complexity rating per title)
 - Smart sorting prioritizing unwatched high-rated titles
 - 3-tier architecture: WinForms UI, BLL, DAL for modularity and maintainability
+- Prioritize the next to watch episode based on time availability and IMDB user ratings.
+- Filter media based on the platform (Netflix, OSN+, HBO, Crunchyroll etc..) 
 
 ## Architecture
 - Presentation Layer: WinForms C# GUI
