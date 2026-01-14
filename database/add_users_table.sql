@@ -1,0 +1,32 @@
+USE [MovieData]
+GO
+
+/****** Object:  Table [dbo].[Users] ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Users]') AND type in (N'U'))
+BEGIN
+    CREATE TABLE [dbo].[Users](
+        [UserID] [int] IDENTITY(1,1) NOT NULL,
+        [Username] [nvarchar](50) NOT NULL UNIQUE,
+        [PasswordHash] [nvarchar](256) NOT NULL,
+        [Salt] [nvarchar](100) NOT NULL,
+        CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED ([UserID] ASC)
+    )
+END
+GO
+
+-- Insert default user "Ayman" with password "12345"
+-- Salt:  "h8x9p2k1m4" (random example string)
+-- Hash:  SHA256("12345" + "h8x9p2k1m4") = 2a2b75344837599c26e11894a4e12e84704383427189736465451927756f7168
+-- Please regenerate this in production!
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Users] WHERE Username = 'Ayman')
+BEGIN
+    INSERT INTO [dbo].[Users] (Username, PasswordHash, Salt)
+    VALUES ('Ayman', '2a2b75344837599c26e11894a4e12e84704383427189736465451927756f7168', 'h8x9p2k1m4')
+END
+GO
