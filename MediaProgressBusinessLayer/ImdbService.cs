@@ -8,115 +8,30 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-
-
 namespace MediaProgressWindowsForms
 {
-    // A simple class to hold the data retrieved from your local IMDb 'Basics' table
     public class ImdbService
     {
         public string Tconst { get; set; }
         public string Title { get; set; }
         public string Genres { get; set; }
         public int? RuntimeMinutes { get; set; }
+        public string Type { get; set; }
+        public string Year { get; set; }
+        public string ImdbRating { get; set; }
+        public bool IsAdult { get; set; }
 
-
-// Add this new search method to your DatabaseService.cs file
-public static async Task<ImdbService> SearchLocalImdbDatabaseAsync(string title)
-        {
-            string ConnectionString = "Data Source=LT-4312\\SQLEXPRESS;Initial Catalog=MovieData;Integrated Security=True";
-            // Using 'LIKE' allows for more flexible matching
-            var sqlQuery = "SELECT TOP 1 tconst, primaryTitle, genres, runtimeMinutes FROM Basics WHERE primaryTitle LIKE @title;";
-
-            using (var connection = new SqlConnection(ConnectionString))
-            {
-                using (var command = new SqlCommand(sqlQuery, connection))
-                {
-                    // The '%' are wildcards, so a search for "Dune" will match "Dune: Part Two"
-                    command.Parameters.AddWithValue("@title", $"%{title}%");
-
-                    await connection.OpenAsync();
-
-                    using (var reader = await command.ExecuteReaderAsync())
-                    {
-                        if (await reader.ReadAsync())
-                        {
-                            // If a record was found, populate our object
-                            return new ImdbService
-                            {
-                                Tconst = reader["tconst"] as string,
-                                Title = reader["primaryTitle"] as string,
-                                Genres = reader["genres"] as string,
-                                // Handle potential null values from the database
-                                RuntimeMinutes = reader["runtimeMinutes"] as int?
-                            };
-                        }
-                    }
-                }
-            }
-            return null; // Return null if no match was found
-        }
-
-        private const string ConnectionString = "Data Source=LT-4312\\SQLEXPRESS;Initial Catalog=MovieData;Integrated Security=True";
-
-        public static async Task UpdateTconstInDatabaseAsync(string originalTitle, string tconst)
-        {
-            // The SQL command to update the record
-            var sqlQuery = "UPDATE Basics SET originalTitle = @originalTitle WHERE tconst = @tconst;";
-
-            // 'using' statements ensure the connection is properly closed even if errors occur
-            using (var connection = new SqlConnection(ConnectionString))
-            {
-                using (var command = new SqlCommand(sqlQuery, connection))
-                {
-                    // Add parameters to prevent SQL injection
-                    command.Parameters.AddWithValue("@tconst", tconst);
-                    command.Parameters.AddWithValue("@originalTitle", originalTitle);
-
-                    try
-                    {
-                        await connection.OpenAsync();
-                        int rowsAffected = await command.ExecuteNonQueryAsync();
-                        Console.WriteLine($"Database updated. Rows affected: {rowsAffected}");
-                    }
-                    catch (SqlException e)
-                    {
-                        Console.WriteLine($"A database error occurred: {e.Message}");
-                    }
-                }
-            }
-        }
-
-
-    }
-    // Reminder: This is the class for the API response
-    public class OmdbApiResponse
-    {
-        [JsonProperty("Title")]
-        public string Title { get; set; }
-
-        [JsonProperty("imdbID")]
-        public string Tconst { get; set; }
-
-        [JsonProperty("isAdult")]
-        public bool isAdult { get; set; }
-
-        [JsonProperty("runtimeMinutes")]
-        public int runtimeMinutes { get; set; }
-
-        [JsonProperty("Response")]
-        public string Response { get; set; }
-
-        [JsonProperty("Error")]
-        public string Error { get; set; }
-
-
-        private static readonly HttpClient httpClient = new HttpClient();
         private const string ApiKey = "944c9115"; // 🔑 Your OMDb API key
+        private static readonly HttpClient httpClient = new HttpClient();
 
-        public static async Task<OmdbApiResponse> SearchImdbOnlineAsync(string title)
+        // Refactored to use the centralized connection string
+        private static string ConnectionString => clsDataAccessSettings.ConnectionString;
+
+        public static async Task<List<ImdbService>> GetNewMediaByYearAsync(int year, string type, string searchTerm = "a", int page = 1)
         {
-            var requestUrl = $"http://www.omdbapi.com/?t={title}&apikey={ApiKey}";
+            // OMDb Search API: ?s={searchTerm}&y={year}&type={type}&page={page}
+            // Note: OMDb requires a search term. We use a generic one if not provided, but specificity helps.
+            var requestUrl = $"http://www.omdbapi.com/?s={searchTerm}&y={year}&type={type}&page={page}&apikey={ApiKey}";
 
             try
             {
@@ -124,17 +39,89 @@ public static async Task<ImdbService> SearchLocalImdbDatabaseAsync(string title)
                 response.EnsureSuccessStatusCode();
 
                 string jsonResponse = await response.Content.ReadAsStringAsync();
-                var apiResponse = JsonConvert.DeserializeObject<OmdbApiResponse>(jsonResponse);
+                var searchResult = JsonConvert.DeserializeObject<OmdbSearchResult>(jsonResponse);
 
-                // Return the entire response object
-                return apiResponse;
+                if (searchResult.Response == "True" && searchResult.Search != null)
+                {
+                    return searchResult.Search.Select(m => new ImdbService
+                    {
+                        Title = m.Title,
+                        Year = m.Year,
+                        Tconst = m.imdbID,
+                        Type = m.Type
+                    }).ToList();
+                }
             }
-            catch (HttpRequestException e)
+            catch (Exception ex)
             {
-                Console.WriteLine($"An error occurred with the API request: {e.Message}");
-                return null;
+                Console.WriteLine($"Error fetching data from OMDb: {ex.Message}");
             }
+
+            return new List<ImdbService>();
+        }
+
+        public static async Task<ImdbService> GetMediaDetailsAsync(string tconst)
+        {
+            var requestUrl = $"http://www.omdbapi.com/?i={tconst}&apikey={ApiKey}";
+
+            try
+            {
+                HttpResponseMessage response = await httpClient.GetAsync(requestUrl);
+                response.EnsureSuccessStatusCode();
+
+                string jsonResponse = await response.Content.ReadAsStringAsync();
+                var details = JsonConvert.DeserializeObject<OmdbDetailsResponse>(jsonResponse);
+
+                if (details.Response == "True")
+                {
+                    int.TryParse(details.Runtime?.Split(' ')[0], out int runtime);
+                    
+                    return new ImdbService
+                    {
+                        Title = details.Title,
+                        Year = details.Year,
+                        Tconst = details.imdbID,
+                        Type = details.Type,
+                        Genres = details.Genre,
+                        ImdbRating = details.imdbRating,
+                        RuntimeMinutes = runtime,
+                        IsAdult = false // OMDb doesn't strictly provide isAdult in the free tier usually, defaulting to false or need another logic
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching details: {ex.Message}");
+            }
+            return null;
+        }
+        
+        // Helper classes for OMDb JSON deserialization
+        public class OmdbSearchResult
+        {
+            public List<OmdbApplyItem> Search { get; set; }
+            public string totalResults { get; set; }
+            public string Response { get; set; }
+        }
+
+        public class OmdbApplyItem
+        {
+            public string Title { get; set; }
+            public string Year { get; set; }
+            public string imdbID { get; set; }
+            public string Type { get; set; }
+        }
+
+        public class OmdbDetailsResponse
+        {
+            public string Title { get; set; }
+            public string Year { get; set; }
+            public string imdbID { get; set; }
+            public string Type { get; set; }
+            public string Genre { get; set; }
+            public string imdbRating { get; set; }
+            public string Runtime { get; set; }
+            public string Response { get; set; }
         }
     }
-
 }

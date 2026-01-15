@@ -7,7 +7,21 @@ namespace MediaProgressDataAccessLayer
 {
     static class clsDataAccessSettings
     {
-        public static string ConnectionString = ConfigurationManager.ConnectionStrings["MediaDbConn"].ConnectionString;
+        public static string ConnectionString
+        {
+            get
+            {
+                var conn = ConfigurationManager.ConnectionStrings["MediaDbConn"];
+                if (conn != null)
+                    return conn.ConnectionString;
+                
+                conn = ConfigurationManager.ConnectionStrings["MediaProgressWindowsForms.Properties.Settings.MovieDataConnectionString"];
+                if (conn != null)
+                    return conn.ConnectionString;
+
+                throw new Exception("Connection string 'MediaDbConn' or 'MovieDataConnectionString' not found in configuration.");
+            }
+        }
     }
 }
 

@@ -32,6 +32,36 @@ namespace MediaProgressDataAccessLayer
             }
         }
 
+        public static async Task<bool> InsertImdbDataAsync(string tconst, string titleType, string primaryTitle, bool isAdult, 
+            string startYear, int? runtimeMinutes, string genres)
+        {
+            // Only insert if it doesn't strictly exist
+            var sqlQuery = @"
+                IF NOT EXISTS (SELECT 1 FROM Basics WHERE tconst = @tconst)
+                BEGIN
+                    INSERT INTO Basics (tconst, titleType, primaryTitle, originalTitle, isAdult, startYear, runtimeMinutes, genres)
+                    VALUES (@tconst, @titleType, @primaryTitle, @primaryTitle, @isAdult, @startYear, @runtimeMinutes, @genres)
+                END";
+
+            using (var connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            {
+                using (var command = new SqlCommand(sqlQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@tconst", tconst ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@titleType", titleType ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@primaryTitle", primaryTitle ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@isAdult", isAdult);
+                    command.Parameters.AddWithValue("@startYear", startYear ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@runtimeMinutes", runtimeMinutes ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@genres", genres ?? (object)DBNull.Value);
+
+                    await connection.OpenAsync();
+                    int rowsAffected = await command.ExecuteNonQueryAsync();
+                    return rowsAffected > 0;
+                }
+            }
+        }
+
         public static async Task<int> AddNewMovieAndGetIdAsync(string title)
         {
             // The SQL command inserts a new record and immediately retrieves its new primary key ID.
