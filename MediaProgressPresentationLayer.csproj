@@ -187,18 +187,22 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="MediaProgressBusinessLayer\MediaProgressBusinessLayer.csproj">
-      <Project>{b324ca2f-db19-4f4d-a649-9e020102cf61}</Project>
-      <Name>MediaProgressBusinessLayer</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Microsoft.Data.SqlClient">
       <Version>6.1.2</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.4</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="MediaProgressBusinessLayer\MediaProgressBusinessLayer.csproj">
+      <Project>{b324ca2f-db19-4f4d-a649-9e020102cf61}</Project>
+      <Name>MediaProgressBusinessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="MediaProgressDataAccessLayer\MediaProgressDataAccessLayer.csproj">
+      <Project>{0CE04B10-7265-4BEE-904A-633C0E59B642}</Project>
+      <Name>MediaProgressDataAccessLayer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

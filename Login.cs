@@ -1,19 +1,25 @@
-﻿using System;
+﻿using MediaProgressBusinessLayer;
+using System.Data;
+using System.Data.OleDb;
+using System.Drawing;
+using System.Windows.Forms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
-using MediaProgressBusinessLayer;
 
 namespace MediaProgressWindowsForms
 {
+    
+    
     public partial class Login : Form
     {
+        
+        clsUser User = new clsUser();
         public Login()
         {
             InitializeComponent();
@@ -21,7 +27,7 @@ namespace MediaProgressWindowsForms
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            if (clsUser.ValidateUser(txtUser.Text, txtPassword.Text))
+            if (User.ValidateUser(txtUser.Text, txtPassword.Text))
             {
                 new Main().Show();
                 this.Hide();

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace MediaProgressDataAccessLayer
 {
-    public class UserData
+    public  class UserData
     {
         public static bool ValidateUser(string username, string password)
         {
