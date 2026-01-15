@@ -9,9 +9,10 @@ namespace MediaProgressBusinessLayer
 
 
 {
-    public class clsUser 
+    public class clsUser :UserData
     {
-        public static bool ValidateUser(string username, string password)
+       
+        public bool ValidateUser(string username, string password)
         {
             return UserData.ValidateUser(username, password);
         }
