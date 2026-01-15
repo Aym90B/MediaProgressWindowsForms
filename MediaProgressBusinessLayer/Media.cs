@@ -148,9 +148,9 @@ namespace MediaProgressBusinessLayer
             return false;
         }
 
-        public static async Task<OmdbApiResponse> SearchImdbOnlineAsync(string title)
+        public static async Task<ImdbService> SearchImdbOnlineAsync(string title)
         {
-            return await OmdbApiResponse.SearchImdbOnlineAsync(title);
+            return await ImdbService.GetMediaByTitleAsync(title);
         }
 
         public static async Task<ImdbService> SearchLocalImdbDatabaseAsync(string title)
