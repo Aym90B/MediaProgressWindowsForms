@@ -72,41 +72,7 @@ namespace MediaProgressBusinessLayer
 
         }
 
-        //public static clsSeries Find(int SeriesID)
-        //{
-
-            
-        //    int NumberOfSeasons = -1;
-        //    int NumberOfEpisodes = -1;
-          
-        //    int watchedEpisodes = 0;
-
-        //    //int SeriesID = -1;
-
-        //    if (clsSeriesDataAccess.GetSeriesInfoByID(SeriesID, ref NumberOfSeasons, ref NumberOfEpisodes, ref watchedEpisodes))
-
-        //        return new clsSeries(SeriesID, NumberOfSeasons, NumberOfEpisodes, watchedEpisodes);
-        //    else
-        //        return null;
-        //}
-
-        //public static clsSeries Find(string SeriesName)
-        //{
-        //    int ID = -1;
-          
-        //    int Seasons = -1;
-        //    double Rating = -1;
-        //    int Duration = -1;
-        //    bool Completed = false;
-
-
-        //    if (clsSeriesDataAccess.GetSeriesInfoByName(SeriesName, ref ID, ref Seasons, ref Rating, ref Duration, ref Completed))
-
-        //        return new clsSeries(ID, SeriesName, Seasons, Rating, Duration, Completed);
-        //    else
-        //        return null;
-
-        //}
+     
 
         static public float GetSeriesPercentageCompletion(int SeriesID)
         {

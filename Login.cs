@@ -7,13 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DevExpress.Internal;
+using MediaProgressBusinessLayer;
 
-using MediaProgressDataAccessLayer;
 
 namespace MediaProgressWindowsForms
 {
+    
     public partial class Login : Form
     {
+        
         public Login()
         {
             InitializeComponent();
@@ -21,7 +24,7 @@ namespace MediaProgressWindowsForms
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            if (UserData.ValidateUser(txtUser.Text, txtPassword.Text))
+            if (.ValidateUser(txtUser.Text, txtPassword.Text))
             {
                 new Main().Show();
                 this.Hide();
