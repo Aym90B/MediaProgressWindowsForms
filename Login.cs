@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using DevExpress.Internal;
 using MediaProgressBusinessLayer;
 
+using MediaProgressBusinessLayer;
 
 namespace MediaProgressWindowsForms
 {
@@ -24,7 +25,7 @@ namespace MediaProgressWindowsForms
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            if (.ValidateUser(txtUser.Text, txtPassword.Text))
+            if (clsUser.ValidateUser(txtUser.Text, txtPassword.Text))
             {
                 new Main().Show();
                 this.Hide();
