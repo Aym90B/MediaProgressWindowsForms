@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using MediaProgressDataAccessLayer;
+
 namespace MediaProgressWindowsForms
 {
     public partial class Login : Form
@@ -19,7 +21,7 @@ namespace MediaProgressWindowsForms
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            if (txtUser.Text == "Ayman" && txtPassword.Text == "12345")
+            if (UserData.ValidateUser(txtUser.Text, txtPassword.Text))
             {
                 new Main().Show();
                 this.Hide();

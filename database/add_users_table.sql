@@ -21,12 +21,12 @@ GO
 
 -- Insert default user "Ayman" with password "12345"
 -- Salt:  "h8x9p2k1m4" (random example string)
--- Hash:  SHA256("12345" + "h8x9p2k1m4") = 2a2b75344837599c26e11894a4e12e84704383427189736465451927756f7168
+-- Hash:  SHA256("12345" + "h8x9p2k1m4") = 985cd0e0f403204b22a3e2d36602e39070062b56113cfb6193fc54ebd10f14f2
 -- Please regenerate this in production!
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[Users] WHERE Username = 'Ayman')
 BEGIN
     INSERT INTO [dbo].[Users] (Username, PasswordHash, Salt)
-    VALUES ('Ayman', '2a2b75344837599c26e11894a4e12e84704383427189736465451927756f7168', 'h8x9p2k1m4')
+    VALUES ('Ayman', '985cd0e0f403204b22a3e2d36602e39070062b56113cfb6193fc54ebd10f14f2', 'h8x9p2k1m4')
 END
 GO
