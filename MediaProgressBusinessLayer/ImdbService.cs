@@ -8,7 +8,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MediaProgressWindowsForms
+namespace MediaProgressBusinessLayer
 {
     public class ImdbService
     {
@@ -96,6 +96,101 @@ namespace MediaProgressWindowsForms
             return null;
         }
         
+        public static async Task<ImdbService> GetMediaByTitleAsync(string title)
+        {
+            var requestUrl = $"http://www.omdbapi.com/?t={title}&apikey={ApiKey}";
+
+            try
+            {
+                HttpResponseMessage response = await httpClient.GetAsync(requestUrl);
+                response.EnsureSuccessStatusCode();
+
+                string jsonResponse = await response.Content.ReadAsStringAsync();
+                var details = JsonConvert.DeserializeObject<OmdbDetailsResponse>(jsonResponse);
+
+                if (details.Response == "True")
+                {
+                    int.TryParse(details.Runtime?.Split(' ')[0], out int runtime);
+                    
+                    return new ImdbService
+                    {
+                        Title = details.Title,
+                        Year = details.Year,
+                        Tconst = details.imdbID,
+                        Type = details.Type,
+                        Genres = details.Genre,
+                        ImdbRating = details.imdbRating,
+                        RuntimeMinutes = runtime,
+                        IsAdult = false 
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching details: {ex.Message}");
+            }
+            return null;
+        }
+
+        public static async Task<ImdbService> SearchLocalImdbDatabaseAsync(string title)
+        {
+             using (SqlConnection connection = new SqlConnection(ConnectionString))
+            {
+                string query = "SELECT TOP 1 * FROM Basics WHERE primaryTitle = @title";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@title", title);
+                    try
+                    {
+                        await connection.OpenAsync();
+                        using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                        {
+                            if (await reader.ReadAsync())
+                            {
+                                return new ImdbService
+                                {
+                                    Tconst = reader["tconst"].ToString(),
+                                    Title = reader["primaryTitle"].ToString(),
+                                    Type = reader["titleType"].ToString(),
+                                    Year = reader["startYear"].ToString(),
+                                    IsAdult = reader["isAdult"] != DBNull.Value && Convert.ToBoolean(reader["isAdult"]),
+                                    RuntimeMinutes = reader["runtimeMinutes"] != DBNull.Value ? (int?)reader["runtimeMinutes"] : null,
+                                    Genres = reader["genres"].ToString()
+                                };
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error searching local DB: " + ex.Message);
+                    }
+                }
+            }
+            return null;
+        }
+
+        public static async Task UpdateTconstInDatabaseAsync(string title, string tconst)
+        {
+             using (SqlConnection connection = new SqlConnection(ConnectionString))
+            {
+                string query = "UPDATE Basics SET tconst = @tconst WHERE primaryTitle = @title";
+                 using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@tconst", tconst);
+                    command.Parameters.AddWithValue("@title", title);
+                    try
+                    {
+                        await connection.OpenAsync();
+                        await command.ExecuteNonQueryAsync();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error updating tconst: " + ex.Message);
+                    }
+                }
+            }
+        }
+
         // Helper classes for OMDb JSON deserialization
         public class OmdbSearchResult
         {
