@@ -25,7 +25,7 @@ namespace MediaProgressWindowsForms
         private static readonly HttpClient httpClient = new HttpClient();
 
         // Refactored to use the centralized connection string
-        private static string ConnectionString => clsDataAccessSettings.ConnectionString;
+        private static string ConnectionString = clsDataAccessSettings.ConnectionString;
 
         public static async Task<List<ImdbService>> GetNewMediaByYearAsync(int year, string type, string searchTerm = "a", int page = 1)
         {
