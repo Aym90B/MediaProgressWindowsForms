@@ -4,12 +4,14 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MediaProgressBusinessLayer;
 using MediaProgressDataAccessLayer;
 
 namespace MediaProgressWindowsForms
 {
     public partial class FrmUpdates : Form
     {
+        clsMovieDataAccess clsMovieDataAccess = new clsMovieDataAccess();
         public FrmUpdates()
         {
             InitializeComponent();

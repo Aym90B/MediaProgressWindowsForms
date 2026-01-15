@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 
 namespace MediaProgressDataAccessLayer
 {
-    static class clsDataAccessSettings
+    public static class clsDataAccessSettings
     {
         public static string ConnectionString
         {
