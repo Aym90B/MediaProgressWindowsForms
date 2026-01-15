@@ -71,6 +71,7 @@
             this.chkHD = new System.Windows.Forms.CheckBox();
             this.chk4K = new System.Windows.Forms.CheckBox();
             this.btnCompleted = new System.Windows.Forms.Button();
+            this.btnDailyUpdates = new System.Windows.Forms.Button();
             this.lblDifficulty = new System.Windows.Forms.Label();
             this.DifficultyComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAll)).BeginInit();
@@ -536,6 +537,17 @@
             this.btnCompleted.UseVisualStyleBackColor = true;
             this.btnCompleted.Click += new System.EventHandler(this.btnCompleted_Click);
             // 
+            // btnDailyUpdates
+            // 
+            this.btnDailyUpdates.Location = new System.Drawing.Point(42, 540);
+            this.btnDailyUpdates.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.btnDailyUpdates.Name = "btnDailyUpdates";
+            this.btnDailyUpdates.Size = new System.Drawing.Size(342, 86);
+            this.btnDailyUpdates.TabIndex = 53;
+            this.btnDailyUpdates.Text = "Daily IMDb Updates";
+            this.btnDailyUpdates.UseVisualStyleBackColor = true;
+            this.btnDailyUpdates.Click += new System.EventHandler(this.btnDailyUpdates_Click);
+            // 
             // lblDifficulty
             // 
             this.lblDifficulty.AutoSize = true;
@@ -569,6 +581,7 @@
             this.Controls.Add(this.DifficultyComboBox);
             this.Controls.Add(this.lblDifficulty);
             this.Controls.Add(this.btnCompleted);
+            this.Controls.Add(this.btnDailyUpdates);
             this.Controls.Add(this.chk4K);
             this.Controls.Add(this.chkHD);
             this.Controls.Add(this.chkPC);
@@ -661,6 +674,7 @@
         private System.Windows.Forms.CheckBox chkHD;
         private System.Windows.Forms.CheckBox chk4K;
         private System.Windows.Forms.Button btnCompleted;
+        private System.Windows.Forms.Button btnDailyUpdates;
         private System.Windows.Forms.ComboBox DifficultyComboBox;
         private System.Windows.Forms.Label lblDifficulty;
     }

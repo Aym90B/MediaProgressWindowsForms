@@ -24,9 +24,16 @@ GO
 -- Hash:  SHA256("12345" + "h8x9p2k1m4") = 985cd0e0f403204b22a3e2d36602e39070062b56113cfb6193fc54ebd10f14f2
 -- Please regenerate this in production!
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[Users] WHERE Username = 'Ayman')
-BEGIN
-    INSERT INTO [dbo].[Users] (Username, PasswordHash, Salt)
-    VALUES ('Ayman', '985cd0e0f403204b22a3e2d36602e39070062b56113cfb6193fc54ebd10f14f2', 'h8x9p2k1m4')
-END
+    IF EXISTS (SELECT 1 FROM [dbo].[Users] WHERE Username = 'Ayman')
+    BEGIN
+        UPDATE [dbo].[Users]
+        SET PasswordHash = '985cd0e0f403204b22a3e2d36602e39070062b56113cfb6193fc54ebd10f14f2',
+            Salt = 'h8x9p2k1m4'
+        WHERE Username = 'Ayman'
+    END
+    ELSE
+    BEGIN
+        INSERT INTO [dbo].[Users] (Username, PasswordHash, Salt)
+        VALUES ('Ayman', '985cd0e0f403204b22a3e2d36602e39070062b56113cfb6193fc54ebd10f14f2', 'h8x9p2k1m4')
+    END
 GO

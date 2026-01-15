@@ -426,5 +426,12 @@ namespace MediaProgressWindowsForms
         }
 
         
+        private void btnDailyUpdates_Click(object sender, EventArgs e)
+        {
+            FrmUpdates frm = new FrmUpdates();
+            frm.ShowDialog();
+            _RefreshMoviesList();
+        }
+
     }
 }
