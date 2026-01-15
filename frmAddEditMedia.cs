@@ -385,7 +385,7 @@ namespace MediaProgressWindowsForms
                 this.Cursor = Cursors.WaitCursor;
 
                 // 1. Search your LOCAL IMDb database for the title
-                OmdbApiResponse foundMedia = await clsMedia.SearchImdbOnlineAsync(searchTitle);
+                ImdbService foundMedia = await clsMedia.SearchImdbOnlineAsync(searchTitle);
 
                 // 2. Check if the media was found
                 if (foundMedia != null)
@@ -401,7 +401,7 @@ namespace MediaProgressWindowsForms
                     {
 
                         // 3. If confirmed, INSERT the complete record in one step
-                        bool success = await clsMedia.AddNewMediaToMainAsync(foundMedia.Title, foundMedia.Tconst, foundMedia.isAdult, foundMedia.runtimeMinutes);
+                        bool success = await clsMedia.AddNewMediaToMainAsync(foundMedia.Title, foundMedia.Tconst, foundMedia.IsAdult, foundMedia.RuntimeMinutes.GetValueOrDefault());
                         if(!success)
                         {
                             MessageBox.Show("This media already exists in your collection.", "Duplicate Entry", MessageBoxButtons.OK, MessageBoxIcon.Warning);
