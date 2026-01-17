@@ -16,5 +16,10 @@ namespace MediaProgressBusinessLayer
         {
             return UserData.ValidateUser(username, password);
         }
+
+        public bool CreateUser(string username, string password)
+        {
+            return UserData.CreateUser(username, password);
+        }   
     }
 }
