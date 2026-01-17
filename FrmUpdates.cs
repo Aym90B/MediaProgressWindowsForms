@@ -154,5 +154,76 @@ namespace MediaProgressWindowsForms
                 MessageBox.Show($"Error importing: {ex.Message}");
             }
         }
+
+        private async void btnDailyUpdates_Click(object sender, EventArgs e)
+        {
+            btnDailyUpdates.Enabled = false;
+            int addedCount = 0;
+            int processedCount = 0;
+            int currentYear = DateTime.Now.Year;
+            int startYear = 2000; // Go back to 2000
+
+            // Expanded types including Series and Episodes
+            string[] types = { "movie", "series", "episode" };
+            string searchTerm = "a"; 
+
+            try
+            {
+                // Loop through years from current back to startYear
+                for (int year = currentYear; year >= startYear; year--)
+                {
+                    foreach (string type in types)
+                    {
+                        // Limit pages to avoid hitting API limits too hard
+                        // We check the first 2 pages of "popular" results (matched by 'a') for each year/type
+                        for (int page = 1; page <= 2; page++)
+                        {
+                            var results = await ImdbService.GetNewMediaByYearAsync(year, type, searchTerm, page);
+                            if (results == null || results.Count == 0) break;
+
+                            foreach (var item in results)
+                            {
+                                processedCount++;
+                                
+                                // Optimization: Check local DB existence BEFORE fetching details to save API calls
+                                // Since we don't have a direct "Exists" check exposed in this specific class context easily without details,
+                                // we'll use a lightweight check if possible. 
+                                // However, clsMovieDataAccess methods like InsertImdbDataAsync do a check, but that requires full data.
+                                // We can use IsMediaExistInMain or similar if we had Tconst check exposed globally.
+                                // For now, we continue with the Fetch-then-Insert pattern but rely on the SP to handle 'IF NOT EXISTS'.
+                                // Ideally we should check existence by Tconst first to save the Detail API call.
+
+                                var details = await ImdbService.GetMediaDetailsAsync(item.Tconst);
+                                if (details != null)
+                                {
+                                    bool success = await clsMovieDataAccess.InsertImdbDataAsync(
+                                        details.Tconst,
+                                        details.Type,
+                                        details.Title,
+                                        details.IsAdult,
+                                        details.Year,
+                                        details.RuntimeMinutes,
+                                        details.Genres
+                                    );
+
+                                    if (success) addedCount++;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                MessageBox.Show($"Deep Update Complete.\nScanned: {processedCount} items.\nNew Items Added: {addedCount}", 
+                    "Daily Updates", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error during update: {ex.Message}");
+            }
+            finally
+            {
+                btnDailyUpdates.Enabled = true;
+            }
+        }
     }
 }
