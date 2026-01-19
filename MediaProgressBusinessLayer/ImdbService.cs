@@ -68,9 +68,20 @@ namespace MediaProgressBusinessLayer
 
         public static async Task<List<ImdbService>> AymanGetNewMediaByYearAsync(int year, string type, string searchTerm = "a", int page = 1)
         {
-            // OMDb Search API: ?s={searchTerm}&y={year}&type={type}&page={page}
-            // Note: OMDb requires a search term. We use a generic one if not provided, but specificity helps.
-            var requestUrl = $"https://api.imdbapi.dev/titles?types={type}&startYear={year}";
+            // IMDB API: https://api.imdbapi.dev/titles?types={type}&startYear={year}
+            // Note: types parameter expects uppercase (e.g., MOVIE)
+            string apiType = type.ToUpper().Replace("TV", "TV_"); 
+            // Handle specific mappings if needed (e.g. tvSeries -> TV_SERIES)
+            if (apiType == "TVSERIES") apiType = "TV_SERIES";
+            if (apiType == "TVEPISODE") apiType = "TV_EPISODE";
+            if (apiType == "TVMINISERIES") apiType = "TV_MINI_SERIES";
+            if (apiType == "TVMOVIE") apiType = "TV_MOVIE";
+            if (apiType == "TVPILOT") apiType = "TV_PILOT";
+            if (apiType == "TVSHORT") apiType = "TV_SHORT";
+            if (apiType == "TVSPECIAL") apiType = "TV_SPECIAL";
+            if (apiType == "VIDEOGAME") apiType = "VIDEO_GAME";
+
+            var requestUrl = $"https://api.imdbapi.dev/titles?types={apiType}&startYear={year}";
 
             try
             {
@@ -80,19 +91,15 @@ namespace MediaProgressBusinessLayer
                 string jsonResponse = await response.Content.ReadAsStringAsync();
                 var searchResult = JsonConvert.DeserializeObject<IMDBSearchResult>(jsonResponse);
 
-                if (searchResult.Response == "True" && searchResult.Search != null)
+                if (searchResult.titles != null)
                 {
-                    return searchResult.Search.Select(m => new ImdbService
+                    return searchResult.titles.Select(m => new ImdbService
                     {
                         Title = m.primaryTitle,
-                        Year = m.startYear,
+                        Year = m.startYear.ToString(),
                         Tconst = m.id,
                         Type = m.type
                     }).ToList();
-                }
-                else if (searchResult.Response == "False")
-                {
-                    throw new Exception(searchResult.Error ?? "Unknown IMDB error");
                 }
             }
             catch (Exception ex)
@@ -106,7 +113,7 @@ namespace MediaProgressBusinessLayer
 
         public static async Task<ImdbService> GetMediaDetailsAsync(string tconst)
         {
-            var requestUrl = $"'https://api.imdbapi.dev/titles/{tconst}'";
+            var requestUrl = $"https://api.imdbapi.dev/titles/{tconst}";
 
             try
             {
@@ -116,19 +123,19 @@ namespace MediaProgressBusinessLayer
                 string jsonResponse = await response.Content.ReadAsStringAsync();
                 var details = JsonConvert.DeserializeObject<IMDBDetailsResponse>(jsonResponse);
 
-                if (details.Response == "True")
+                if (details != null && !string.IsNullOrEmpty(details.id))
                 {
-                    int.TryParse(details.Runtime?.Split(' ')[0], out int runtime);
+                    int.TryParse(details.runtimeMinutes?.ToString(), out int runtime);
                     
                     return new ImdbService
                     {
                         Title = details.primaryTitle,
-                        Year = details.startYear,
+                        Year = details.startYear.ToString(),
                         Tconst = details.id,
                         Type = details.type,
-                        Genres = details.genres,
-                        ImdbRating = details.aggregateRating,
-                        ImdbVotes = int.TryParse(details.imdbVotes?.Replace(",", ""), out int votes) ? (int?)votes : null,
+                        Genres = details.genres != null ? string.Join(", ", details.genres) : null,
+                        ImdbRating = details.rating?.aggregateRating?.ToString(),
+                        ImdbVotes = details.rating?.voteCount,
                         RuntimeMinutes = runtime,
                         IsAdult = false 
                     };
@@ -270,16 +277,16 @@ namespace MediaProgressBusinessLayer
         // Helper classes for imdbapi JSON deserialization
         public class IMDBSearchResult
         {
-            public List<IMDBApplyItem> Search { get; set; }
-            public string totalResults { get; set; }
-            public string Response { get; set; }
+            public List<IMDBApplyItem> titles { get; set; }
+            public int totalCount { get; set; }
+            public string nextPageToken { get; set; }
             public string Error { get; set; }
         }
 
         public class IMDBApplyItem
         {
             public string primaryTitle { get; set; }
-            public string startYear { get; set; }
+            public object startYear { get; set; } // Can be int or string depending on title
             public string id { get; set; }
             public string type { get; set; }
         }
@@ -287,14 +294,18 @@ namespace MediaProgressBusinessLayer
         public class IMDBDetailsResponse
         {
             public string primaryTitle { get; set; }
-            public string startYear { get; set; }
+            public object startYear { get; set; }
             public string id { get; set; }
             public string type { get; set; }
-            public string genres { get; set; }
-            public string aggregateRating { get; set; }
-            public string imdbVotes { get; set; }
-            public string Runtime { get; set; }
-            public string Response { get; set; }
+            public List<string> genres { get; set; }
+            public IMDBRating rating { get; set; }
+            public object runtimeMinutes { get; set; }
+        }
+
+        public class IMDBRating
+        {
+            public double? aggregateRating { get; set; }
+            public int? voteCount { get; set; }
         }
     }
 }
