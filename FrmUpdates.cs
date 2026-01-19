@@ -64,7 +64,7 @@ namespace MediaProgressWindowsForms
                             if (!includeAdult && details.IsAdult) continue;
 
                             // Filter by Rating (Only filter if it HAS a rating and it's less than min)
-                            if (decimal.TryParse(details.ImdbRating, out decimal rating))
+                            if (decimal.TryParse(details.ImdbRating, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out decimal rating))
                             {
                                 if (rating < minRating) continue;
                             }
@@ -124,7 +124,7 @@ namespace MediaProgressWindowsForms
 
             try
             {
-                decimal? rating = decimal.TryParse(item.ImdbRating, out decimal dRating) ? (decimal?)dRating : null;
+                decimal? rating = decimal.TryParse(item.ImdbRating, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out decimal dRating) ? (decimal?)dRating : null;
 
                 bool success = await clsMovieDataAccess.InsertImdbDataAsync(
                     item.Tconst, 
@@ -198,7 +198,7 @@ namespace MediaProgressWindowsForms
                                 var details = await ImdbService.GetMediaDetailsAsync(item.Tconst);
                                 if (details != null)
                                 {
-                                    decimal? rating = decimal.TryParse(details.ImdbRating, out decimal dRating) ? (decimal?)dRating : null;
+                                    decimal? rating = decimal.TryParse(details.ImdbRating, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out decimal dRating) ? (decimal?)dRating : null;
 
                                     bool success = await clsMovieDataAccess.InsertImdbDataAsync(
                                         details.Tconst,
