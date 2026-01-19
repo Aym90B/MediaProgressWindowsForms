@@ -66,9 +66,11 @@ namespace MediaProgressBusinessLayer
             return new List<ImdbService>();
         }
 
-        public static async Task<ImdbService> GetMediaDetailsAsync(string tconst)
+        public static async Task<List<ImdbService>> AymanGetNewMediaByYearAsync(int year, string type, string searchTerm = "a", int page = 1)
         {
-            var requestUrl = $"http://www.omdbapi.com/?i={tconst}&apikey={ApiKey}";
+            // OMDb Search API: ?s={searchTerm}&y={year}&type={type}&page={page}
+            // Note: OMDb requires a search term. We use a generic one if not provided, but specificity helps.
+            var requestUrl = $"https://api.imdbapi.dev/titles?types={type}&startYear={year}";
 
             try
             {
@@ -76,7 +78,43 @@ namespace MediaProgressBusinessLayer
                 response.EnsureSuccessStatusCode();
 
                 string jsonResponse = await response.Content.ReadAsStringAsync();
-                var details = JsonConvert.DeserializeObject<OmdbDetailsResponse>(jsonResponse);
+                var searchResult = JsonConvert.DeserializeObject<IMDBSearchResult>(jsonResponse);
+
+                if (searchResult.Response == "True" && searchResult.Search != null)
+                {
+                    return searchResult.Search.Select(m => new ImdbService
+                    {
+                        Title = m.primaryTitle,
+                        Year = m.startYear,
+                        Tconst = m.id,
+                        Type = m.type
+                    }).ToList();
+                }
+                else if (searchResult.Response == "False")
+                {
+                    throw new Exception(searchResult.Error ?? "Unknown IMDB error");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching data from IMDB: {ex.Message}");
+                throw; // Rethrow to allow UI to handle it
+            }
+
+            return new List<ImdbService>();
+        }
+
+        public static async Task<ImdbService> GetMediaDetailsAsync(string tconst)
+        {
+            var requestUrl = $"'https://api.imdbapi.dev/titles/{tconst}'";
+
+            try
+            {
+                HttpResponseMessage response = await httpClient.GetAsync(requestUrl);
+                response.EnsureSuccessStatusCode();
+
+                string jsonResponse = await response.Content.ReadAsStringAsync();
+                var details = JsonConvert.DeserializeObject<IMDBDetailsResponse>(jsonResponse);
 
                 if (details.Response == "True")
                 {
@@ -84,12 +122,12 @@ namespace MediaProgressBusinessLayer
                     
                     return new ImdbService
                     {
-                        Title = details.Title,
-                        Year = details.Year,
-                        Tconst = details.imdbID,
-                        Type = details.Type,
-                        Genres = details.Genre,
-                        ImdbRating = details.imdbRating,
+                        Title = details.primaryTitle,
+                        Year = details.startYear,
+                        Tconst = details.id,
+                        Type = details.type,
+                        Genres = details.genres,
+                        ImdbRating = details.aggregateRating,
                         ImdbVotes = int.TryParse(details.imdbVotes?.Replace(",", ""), out int votes) ? (int?)votes : null,
                         RuntimeMinutes = runtime,
                         IsAdult = false 
@@ -224,6 +262,36 @@ namespace MediaProgressBusinessLayer
             public string Type { get; set; }
             public string Genre { get; set; }
             public string imdbRating { get; set; }
+            public string imdbVotes { get; set; }
+            public string Runtime { get; set; }
+            public string Response { get; set; }
+        }
+
+        // Helper classes for imdbapi JSON deserialization
+        public class IMDBSearchResult
+        {
+            public List<IMDBApplyItem> Search { get; set; }
+            public string totalResults { get; set; }
+            public string Response { get; set; }
+            public string Error { get; set; }
+        }
+
+        public class IMDBApplyItem
+        {
+            public string primaryTitle { get; set; }
+            public string startYear { get; set; }
+            public string id { get; set; }
+            public string type { get; set; }
+        }
+
+        public class IMDBDetailsResponse
+        {
+            public string primaryTitle { get; set; }
+            public string startYear { get; set; }
+            public string id { get; set; }
+            public string type { get; set; }
+            public string genres { get; set; }
+            public string aggregateRating { get; set; }
             public string imdbVotes { get; set; }
             public string Runtime { get; set; }
             public string Response { get; set; }

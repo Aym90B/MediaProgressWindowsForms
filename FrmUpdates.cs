@@ -176,7 +176,7 @@ namespace MediaProgressWindowsForms
                         {
                             List<ImdbService> results;
                             try {
-                                results = await ImdbService.GetNewMediaByYearAsync(year, type, currentSearchTerm, page);
+                                results = await ImdbService.AymanGetNewMediaByYearAsync(year, type, currentSearchTerm, page);
                             } catch { 
                                 break; // Skip if too many results or API error for this combination
                             }
