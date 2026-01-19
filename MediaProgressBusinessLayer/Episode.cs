@@ -87,6 +87,7 @@ namespace MediaProgressBusinessLayer
                     command.Parameters.AddWithValue("@parentTconst", parentTconst ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@seasonNumber", seasonNumber ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@episodeNumber", episodeNumber ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@imdbRating", imdbRating ?? (object)DBNull.Value);
 
                     await connection.OpenAsync();
                     int rowsAffected = await command.ExecuteNonQueryAsync();
