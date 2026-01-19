@@ -33,31 +33,82 @@ namespace MediaProgressDataAccessLayer
         }
 
         public static async Task<bool> InsertImdbDataAsync(string tconst, string titleType, string primaryTitle, bool isAdult, 
-            string startYear, int? runtimeMinutes, string genres)
+            string startYear, int? runtimeMinutes, string genres, decimal? imbdRating = null, int? numVotes = null)
         {
-            // Only insert if it doesn't strictly exist
-            var sqlQuery = @"
+            // Update or Insert into Basics
+            // If it exists but has NULL genres/runtime, update them.
+            var basicsQuery = @"
                 IF NOT EXISTS (SELECT 1 FROM Basics WHERE tconst = @tconst)
                 BEGIN
                     INSERT INTO Basics (tconst, titleType, primaryTitle, originalTitle, isAdult, startYear, runtimeMinutes, genres)
                     VALUES (@tconst, @titleType, @primaryTitle, @primaryTitle, @isAdult, @startYear, @runtimeMinutes, @genres)
+                END
+                ELSE
+                BEGIN
+                    UPDATE Basics 
+                    SET genres = ISNULL(genres, @genres), 
+                        runtimeMinutes = ISNULL(runtimeMinutes, @runtimeMinutes)
+                    WHERE tconst = @tconst
+                END";
+
+            // Update or Insert into Ratings
+            var ratingsQuery = @"
+                IF NOT EXISTS (SELECT 1 FROM Ratings WHERE tconst = @tconst)
+                BEGIN
+                    IF @averageRating IS NOT NULL
+                    BEGIN
+                        INSERT INTO Ratings (tconst, averageRating, numVotes)
+                        VALUES (@tconst, @averageRating, @numVotes)
+                    END
+                END
+                ELSE
+                BEGIN
+                    IF @averageRating IS NOT NULL
+                    BEGIN
+                        UPDATE Ratings 
+                        SET averageRating = @averageRating, 
+                            numVotes = ISNULL(@numVotes, numVotes)
+                        WHERE tconst = @tconst
+                    END
                 END";
 
             using (var connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
             {
-                using (var command = new SqlCommand(sqlQuery, connection))
+                await connection.OpenAsync();
+                
+                using (var transaction = connection.BeginTransaction())
                 {
-                    command.Parameters.AddWithValue("@tconst", tconst ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@titleType", titleType ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@primaryTitle", primaryTitle ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@isAdult", isAdult);
-                    command.Parameters.AddWithValue("@startYear", startYear ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@runtimeMinutes", runtimeMinutes ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@genres", genres ?? (object)DBNull.Value);
+                    try
+                    {
+                        using (var command = new SqlCommand(basicsQuery, connection, transaction))
+                        {
+                            command.Parameters.AddWithValue("@tconst", tconst ?? (object)DBNull.Value);
+                            command.Parameters.AddWithValue("@titleType", titleType ?? (object)DBNull.Value);
+                            command.Parameters.AddWithValue("@primaryTitle", primaryTitle ?? (object)DBNull.Value);
+                            command.Parameters.AddWithValue("@isAdult", isAdult);
+                            command.Parameters.AddWithValue("@startYear", startYear ?? (object)DBNull.Value);
+                            command.Parameters.AddWithValue("@runtimeMinutes", runtimeMinutes ?? (object)DBNull.Value);
+                            command.Parameters.AddWithValue("@genres", genres ?? (object)DBNull.Value);
+                            await command.ExecuteNonQueryAsync();
+                        }
 
-                    await connection.OpenAsync();
-                    int rowsAffected = await command.ExecuteNonQueryAsync();
-                    return rowsAffected > 0;
+                        using (var command = new SqlCommand(ratingsQuery, connection, transaction))
+                        {
+                            command.Parameters.AddWithValue("@tconst", tconst ?? (object)DBNull.Value);
+                            command.Parameters.AddWithValue("@averageRating", imbdRating ?? (object)DBNull.Value);
+                            command.Parameters.AddWithValue("@numVotes", numVotes ?? (object)DBNull.Value);
+                            await command.ExecuteNonQueryAsync();
+                        }
+
+                        transaction.Commit();
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        Console.WriteLine("Error in InsertImdbDataAsync: " + ex.Message);
+                        return false;
+                    }
                 }
             }
         }

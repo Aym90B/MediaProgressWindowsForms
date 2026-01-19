@@ -19,6 +19,7 @@ namespace MediaProgressBusinessLayer
         public string Type { get; set; }
         public string Year { get; set; }
         public string ImdbRating { get; set; }
+        public int? ImdbVotes { get; set; }
         public bool IsAdult { get; set; }
 
         private const string ApiKey = "944c9115"; // 🔑 Your OMDb API key
@@ -89,8 +90,9 @@ namespace MediaProgressBusinessLayer
                         Type = details.Type,
                         Genres = details.Genre,
                         ImdbRating = details.imdbRating,
+                        ImdbVotes = int.TryParse(details.imdbVotes?.Replace(",", ""), out int votes) ? (int?)votes : null,
                         RuntimeMinutes = runtime,
-                        IsAdult = false // OMDb doesn't strictly provide isAdult in the free tier usually, defaulting to false or need another logic
+                        IsAdult = false 
                     };
                 }
             }
@@ -125,6 +127,7 @@ namespace MediaProgressBusinessLayer
                         Type = details.Type,
                         Genres = details.Genre,
                         ImdbRating = details.imdbRating,
+                        ImdbVotes = int.TryParse(details.imdbVotes?.Replace(",", ""), out int votes) ? (int?)votes : null,
                         RuntimeMinutes = runtime,
                         IsAdult = false 
                     };
@@ -221,6 +224,7 @@ namespace MediaProgressBusinessLayer
             public string Type { get; set; }
             public string Genre { get; set; }
             public string imdbRating { get; set; }
+            public string imdbVotes { get; set; }
             public string Runtime { get; set; }
             public string Response { get; set; }
         }
