@@ -61,20 +61,21 @@ namespace MediaProgressBusinessLayer
 
         }
 
-        public static async Task<bool> InsertEpisodeDataAsync(string tconst, string parentTconst, int? seasonNumber, int? episodeNumber)
+        public static async Task<bool> InsertEpisodeDataAsync(string tconst, string parentTconst, int? seasonNumber, int? episodeNumber, string imdbRating)
         {
             var sqlQuery = @"
                 IF NOT EXISTS (SELECT 1 FROM Episodes WHERE tconst = @tconst)
                 BEGIN
-                    INSERT INTO Episodes (tconst, parentTconst, seasonNumber, episodeNumber)
-                    VALUES (@tconst, @parentTconst, @seasonNumber, @episodeNumber)
+                    INSERT INTO Episodes (tconst, parentTconst, seasonNumber, episodeNumber, averageRating)
+                    VALUES (@tconst, @parentTconst, @seasonNumber, @episodeNumber, @imdbRating)
                 END
                 ELSE
                 BEGIN
                     UPDATE Episodes 
                     SET parentTconst = @parentTconst, 
                         seasonNumber = @seasonNumber, 
-                        episodeNumber = @episodeNumber
+                        episodeNumber = @episodeNumber,
+                        averageRating = @imdbRating
                     WHERE tconst = @tconst
                 END";
 

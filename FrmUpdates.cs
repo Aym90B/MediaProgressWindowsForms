@@ -256,7 +256,7 @@ namespace MediaProgressWindowsForms
                 foreach (var ep in episodes)
                 {
                     // Basic import to Episodes table
-                    if (await clsEpisode.InsertEpisodeDataAsync(ep.Tconst, selectedItem.Tconst, ep.Season, ep.EpisodeNumber))
+                    if (await clsEpisode.InsertEpisodeDataAsync(ep.Tconst, selectedItem.Tconst, ep.Season, ep.EpisodeNumber, ep.ImdbRating))
                     {
                         // Also ensure the episode exists in Basics table for titles/ratings to work
                         // We'll do a minimal insert for now, a deep scan would fill the rest
