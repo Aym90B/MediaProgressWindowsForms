@@ -45,6 +45,7 @@ namespace MediaProgressWindowsForms
             this.dgvResults = new System.Windows.Forms.DataGridView();
             this.btnImport = new System.Windows.Forms.Button();
             this.btnDailyUpdates = new System.Windows.Forms.Button();
+            this.btnImportEpisodes = new System.Windows.Forms.Button();
             this.grpDeepScan.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numRating)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResults)).BeginInit();
@@ -233,11 +234,22 @@ namespace MediaProgressWindowsForms
             this.btnDailyUpdates.UseVisualStyleBackColor = true;
             this.btnDailyUpdates.Click += new System.EventHandler(this.btnDailyUpdates_Click);
             // 
+            // btnImportEpisodes
+            // 
+            this.btnImportEpisodes.Location = new System.Drawing.Point(360, 500);
+            this.btnImportEpisodes.Name = "btnImportEpisodes";
+            this.btnImportEpisodes.Size = new System.Drawing.Size(150, 30);
+            this.btnImportEpisodes.TabIndex = 11;
+            this.btnImportEpisodes.Text = "Import Episodes";
+            this.btnImportEpisodes.UseVisualStyleBackColor = true;
+            this.btnImportEpisodes.Click += new System.EventHandler(this.btnImportEpisodes_Click);
+            // 
             // FrmUpdates
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 550);
+            this.Controls.Add(this.btnImportEpisodes);
             this.Controls.Add(this.btnDailyUpdates);
             this.Controls.Add(this.btnImport);
             this.Controls.Add(this.dgvResults);
@@ -279,5 +291,6 @@ namespace MediaProgressWindowsForms
         private System.Windows.Forms.DataGridView dgvResults;
         private System.Windows.Forms.Button btnImport;
         private System.Windows.Forms.Button btnDailyUpdates;
+        private System.Windows.Forms.Button btnImportEpisodes;
     }
 }

@@ -231,5 +231,52 @@ namespace MediaProgressWindowsForms
                 btnDailyUpdates.Enabled = true;
             }
         }
+        private async void btnImportEpisodes_Click(object sender, EventArgs e)
+        {
+            if (dgvResults.SelectedRows.Count == 0) return;
+
+            var selectedItem = (ImdbService)dgvResults.SelectedRows[0].DataBoundItem;
+            if (selectedItem.Type != "series" && selectedItem.Type != "tvSeries")
+            {
+                MessageBox.Show("Please select a Series to import its episodes.");
+                return;
+            }
+
+            btnImportEpisodes.Enabled = false;
+            try
+            {
+                var episodes = await ImdbService.GetEpisodesBySeriesIdAsync(selectedItem.Tconst);
+                if (episodes == null || episodes.Count == 0)
+                {
+                    MessageBox.Show("No episodes found for this series.");
+                    return;
+                }
+
+                int importedCount = 0;
+                foreach (var ep in episodes)
+                {
+                    // Basic import to Episodes table
+                    if (await MediaProgressDataAccessLayer.clsMovieDataAccess.InsertEpisodeDataAsync(ep.Tconst, selectedItem.Tconst, ep.Season, ep.EpisodeNumber))
+                    {
+                        // Also ensure the episode exists in Basics table for titles/ratings to work
+                        // We'll do a minimal insert for now, a deep scan would fill the rest
+                        await MediaProgressDataAccessLayer.clsMovieDataAccess.InsertImdbDataAsync(
+                            ep.Tconst, "tvEpisode", ep.Title, false, null, null, null);
+                        
+                        importedCount++;
+                    }
+                }
+
+                MessageBox.Show($"Successfully imported {importedCount} episodes for '{selectedItem.Title}'.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error importing episodes: " + ex.Message);
+            }
+            finally
+            {
+                btnImportEpisodes.Enabled = true;
+            }
+        }
     }
 }
