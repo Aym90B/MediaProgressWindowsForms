@@ -33,7 +33,7 @@ namespace MediaProgressDataAccessLayer
         }
 
         public static async Task<bool> InsertImdbDataAsync(string tconst, string titleType, string primaryTitle, bool isAdult, 
-            string startYear, int? runtimeMinutes, string genres, decimal? imbdRating = null, int? numVotes = null)
+            string startYear, int? runtimeMinutes, string genres, decimal? imdbRating = null, int? numVotes = null)
         {
             // Update or Insert into Basics
             // If it exists but has NULL genres/runtime, update them.
@@ -52,24 +52,20 @@ namespace MediaProgressDataAccessLayer
                 END";
 
             // Update or Insert into Ratings
+            // We ensure a row exists in Ratings table even if rating is currently unavailable 
+            // so that INNER JOIN queries in the UI don't hide the media.
             var ratingsQuery = @"
                 IF NOT EXISTS (SELECT 1 FROM Ratings WHERE tconst = @tconst)
                 BEGIN
-                    IF @averageRating IS NOT NULL
-                    BEGIN
-                        INSERT INTO Ratings (tconst, averageRating, numVotes)
-                        VALUES (@tconst, @averageRating, @numVotes)
-                    END
+                    INSERT INTO Ratings (tconst, averageRating, numVotes)
+                    VALUES (@tconst, ISNULL(@averageRating, 0), ISNULL(@numVotes, 0))
                 END
                 ELSE
                 BEGIN
-                    IF @averageRating IS NOT NULL
-                    BEGIN
-                        UPDATE Ratings 
-                        SET averageRating = @averageRating, 
-                            numVotes = ISNULL(@numVotes, numVotes)
-                        WHERE tconst = @tconst
-                    END
+                    UPDATE Ratings 
+                    SET averageRating = ISNULL(@averageRating, averageRating), 
+                        numVotes = ISNULL(@numVotes, numVotes)
+                    WHERE tconst = @tconst
                 END";
 
             using (var connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
@@ -95,8 +91,8 @@ namespace MediaProgressDataAccessLayer
                         using (var command = new SqlCommand(ratingsQuery, connection, transaction))
                         {
                             command.Parameters.AddWithValue("@tconst", tconst ?? (object)DBNull.Value);
-                            command.Parameters.AddWithValue("@averageRating", imbdRating ?? (object)DBNull.Value);
-                            command.Parameters.AddWithValue("@numVotes", numVotes ?? (object)DBNull.Value);
+                            command.Parameters.AddWithValue("@averageRating", (object)imdbRating ?? DBNull.Value);
+                            command.Parameters.AddWithValue("@numVotes", (object)numVotes ?? DBNull.Value);
                             await command.ExecuteNonQueryAsync();
                         }
 
