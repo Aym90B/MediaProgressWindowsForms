@@ -61,6 +61,8 @@ namespace MediaProgressWindowsForms
             {
                 User.CreateUser(txtUser.Text, txtPassword.Text);
               MessageBox.Show("User created successfully!");
+                txtUser.Clear();
+                txtPassword.Clear();
             }
         }
     }

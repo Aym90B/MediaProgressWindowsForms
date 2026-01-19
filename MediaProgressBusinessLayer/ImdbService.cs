@@ -51,10 +51,15 @@ namespace MediaProgressBusinessLayer
                         Type = m.Type
                     }).ToList();
                 }
+                else if (searchResult.Response == "False")
+                {
+                    throw new Exception(searchResult.Error ?? "Unknown OMDb error");
+                }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error fetching data from OMDb: {ex.Message}");
+                throw; // Rethrow to allow UI to handle it
             }
 
             return new List<ImdbService>();
@@ -197,6 +202,7 @@ namespace MediaProgressBusinessLayer
             public List<OmdbApplyItem> Search { get; set; }
             public string totalResults { get; set; }
             public string Response { get; set; }
+            public string Error { get; set; }
         }
 
         public class OmdbApplyItem
