@@ -20,6 +20,8 @@ namespace MediaProgressBusinessLayer
         public string Year { get; set; }
         public string ImdbRating { get; set; }
         public int? ImdbVotes { get; set; }
+        public int? Season { get; set; }
+        public int? EpisodeNumber { get; set; }
         public bool IsAdult { get; set; }
 
         private const string ApiKey = "944c9115"; // 🔑 Your OMDb API key
@@ -106,6 +108,38 @@ namespace MediaProgressBusinessLayer
             {
                 Console.WriteLine($"Error fetching data from IMDB: {ex.Message}");
                 throw; // Rethrow to allow UI to handle it
+            }
+
+            return new List<ImdbService>();
+        }
+
+        public static async Task<List<ImdbService>> GetEpisodesBySeriesIdAsync(string seriesId)
+        {
+            var requestUrl = $"https://api.imdbapi.dev/titles/{seriesId}/episodes";
+
+            try
+            {
+                HttpResponseMessage response = await httpClient.GetAsync(requestUrl);
+                response.EnsureSuccessStatusCode();
+
+                string jsonResponse = await response.Content.ReadAsStringAsync();
+                var episodeResult = JsonConvert.DeserializeObject<IMDBEpisodeResult>(jsonResponse);
+
+                if (episodeResult.episodes != null)
+                {
+                    return episodeResult.episodes.Select(e => new ImdbService
+                    {
+                        Tconst = e.id,
+                        Title = e.title,
+                        Season = e.season,
+                        EpisodeNumber = e.episodeNumber,
+                        Type = "tvEpisode"
+                    }).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching episodes for {seriesId}: {ex.Message}");
             }
 
             return new List<ImdbService>();
@@ -306,6 +340,20 @@ namespace MediaProgressBusinessLayer
         {
             public double? aggregateRating { get; set; }
             public int? voteCount { get; set; }
+        }
+
+        public class IMDBEpisodeResult
+        {
+            public List<IMDBEpisodeItem> episodes { get; set; }
+            public string nextPageToken { get; set; }
+        }
+
+        public class IMDBEpisodeItem
+        {
+            public string id { get; set; }
+            public string title { get; set; }
+            public int? season { get; set; }
+            public int? episodeNumber { get; set; }
         }
     }
 }

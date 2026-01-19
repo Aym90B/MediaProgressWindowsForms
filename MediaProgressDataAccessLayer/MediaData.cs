@@ -109,6 +109,39 @@ namespace MediaProgressDataAccessLayer
             }
         }
 
+        public static async Task<bool> InsertEpisodeDataAsync(string tconst, string parentTconst, int? seasonNumber, int? episodeNumber)
+        {
+            var sqlQuery = @"
+                IF NOT EXISTS (SELECT 1 FROM Episodes WHERE tconst = @tconst)
+                BEGIN
+                    INSERT INTO Episodes (tconst, parentTconst, seasonNumber, episodeNumber)
+                    VALUES (@tconst, @parentTconst, @seasonNumber, @episodeNumber)
+                END
+                ELSE
+                BEGIN
+                    UPDATE Episodes 
+                    SET parentTconst = @parentTconst, 
+                        seasonNumber = @seasonNumber, 
+                        episodeNumber = @episodeNumber
+                    WHERE tconst = @tconst
+                END";
+
+            using (var connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+            {
+                using (var command = new SqlCommand(sqlQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@tconst", tconst ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@parentTconst", parentTconst ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@seasonNumber", seasonNumber ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@episodeNumber", episodeNumber ?? (object)DBNull.Value);
+
+                    await connection.OpenAsync();
+                    int rowsAffected = await command.ExecuteNonQueryAsync();
+                    return rowsAffected > 0;
+                }
+            }
+        }
+
         public static async Task<int> AddNewMovieAndGetIdAsync(string title)
         {
             // The SQL command inserts a new record and immediately retrieves its new primary key ID.

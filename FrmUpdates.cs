@@ -155,7 +155,7 @@ namespace MediaProgressWindowsForms
             int addedCount = 0;
             int processedCount = 0;
             int currentYear = DateTime.Now.Year;
-            int startYear = 2000; // Go back to 2000
+            int startYear = 2025; // Go back to 2000
 
             // Expanded types including Series and Episodes
             string[] types = { "movie", "series", "episode", "tvEpisode", "tvSeries", "tvSpecial", "tvMovie","tvPilot","tvShort","tvMiniSeries","videoGame","Video","short" };
