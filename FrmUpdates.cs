@@ -124,6 +124,8 @@ namespace MediaProgressWindowsForms
 
             try
             {
+                decimal? rating = decimal.TryParse(item.ImdbRating, out decimal dRating) ? (decimal?)dRating : null;
+
                 bool success = await clsMovieDataAccess.InsertImdbDataAsync(
                     item.Tconst, 
                     item.Type, 
@@ -131,7 +133,9 @@ namespace MediaProgressWindowsForms
                     item.IsAdult, 
                     item.Year, 
                     item.RuntimeMinutes, 
-                    item.Genres
+                    item.Genres,
+                    rating,
+                    item.ImdbVotes
                 );
 
                 if (success)
@@ -194,6 +198,8 @@ namespace MediaProgressWindowsForms
                                 var details = await ImdbService.GetMediaDetailsAsync(item.Tconst);
                                 if (details != null)
                                 {
+                                    decimal? rating = decimal.TryParse(details.ImdbRating, out decimal dRating) ? (decimal?)dRating : null;
+
                                     bool success = await clsMovieDataAccess.InsertImdbDataAsync(
                                         details.Tconst,
                                         details.Type,
@@ -201,7 +207,9 @@ namespace MediaProgressWindowsForms
                                         details.IsAdult,
                                         details.Year,
                                         details.RuntimeMinutes,
-                                        details.Genres
+                                        details.Genres,
+                                        rating,
+                                        details.ImdbVotes
                                     );
 
                                     if (success) addedCount++;
