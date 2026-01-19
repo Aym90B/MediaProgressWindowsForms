@@ -63,30 +63,20 @@ namespace MediaProgressWindowsForms
                             // Filter by Adult
                             if (!includeAdult && details.IsAdult) continue;
 
-                            // Filter by Rating
+                            // Filter by Rating (Only filter if it HAS a rating and it's less than min)
                             if (decimal.TryParse(details.ImdbRating, out decimal rating))
                             {
                                 if (rating < minRating) continue;
                             }
-                            else if (minRating > 0) 
-                            { 
-                                // If rating is N/A and we require a min rating, skip or keep? 
-                                // Let's skip if minRating > 0
-                                continue; 
-                            }
+                            // Note: We no longer skip if rating is N/A - many new series won't have ratings yet.
 
                             // Filter by Genre
                             if (!string.IsNullOrEmpty(genreFilter))
                             {
-                                if (string.IsNullOrEmpty(details.Genres) || 
-                                    !details.Genres.IndexOf(genreFilter, StringComparison.OrdinalIgnoreCase).Equals(-1))
+                                if (details.Genres == null || 
+                                    details.Genres.IndexOf(genreFilter, StringComparison.OrdinalIgnoreCase) == -1)
                                 {
-                                    // Genre doesn't match
-                                    // Wait, IndexOf != -1 means it matches. 
-                                    // !Equals(-1) is correct for match. 
-                                    // So if it DOESN'T match (Equals -1), continue.
-                                    if (details.Genres == null || details.Genres.IndexOf(genreFilter, StringComparison.OrdinalIgnoreCase) == -1)
-                                        continue;
+                                    continue;
                                 }
                             }
 
@@ -174,11 +164,19 @@ namespace MediaProgressWindowsForms
                 {
                     foreach (string type in types)
                     {
-                        // Limit pages to avoid hitting API limits too hard
-                        // We check the first 2 pages of "popular" results (matched by 'a') for each year/type
+                        // Use a more specific search term than "a" to avoid "Too many results"
+                        // Searching for the type itself or common prefixes
+                        string currentSearchTerm = (type == "movie") ? "movie" : (type == "series" ? "series" : "a");
+
                         for (int page = 1; page <= 2; page++)
                         {
-                            var results = await ImdbService.GetNewMediaByYearAsync(year, type, searchTerm, page);
+                            List<ImdbService> results;
+                            try {
+                                results = await ImdbService.GetNewMediaByYearAsync(year, type, currentSearchTerm, page);
+                            } catch { 
+                                break; // Skip if too many results or API error for this combination
+                            }
+                            
                             if (results == null || results.Count == 0) break;
 
                             foreach (var item in results)
