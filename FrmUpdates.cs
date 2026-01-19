@@ -259,9 +259,12 @@ namespace MediaProgressWindowsForms
                     if (await clsEpisode.InsertEpisodeDataAsync(ep.Tconst, selectedItem.Tconst, ep.Season, ep.EpisodeNumber, ep.ImdbRating))
                     {
                         // Also ensure the episode exists in Basics table for titles/ratings to work
-                        // We'll do a minimal insert for now, a deep scan would fill the rest
+                        decimal? rating = null;
+                        if (decimal.TryParse(ep.ImdbRating, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out decimal r))
+                            rating = r;
+
                         await MediaProgressDataAccessLayer.clsMovieDataAccess.InsertImdbDataAsync(
-                            ep.Tconst, "tvEpisode", ep.Title, false, null, null, null);
+                            ep.Tconst, "tvEpisode", ep.Title, false, null, null, null, rating, ep.ImdbVotes);
                         
                         importedCount++;
                     }
