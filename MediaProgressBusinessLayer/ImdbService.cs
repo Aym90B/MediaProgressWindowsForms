@@ -133,6 +133,8 @@ namespace MediaProgressBusinessLayer
                         Title = e.title,
                         Season = e.season,
                         EpisodeNumber = e.episodeNumber,
+                        ImdbRating = e.rating?.aggregateRating?.ToString(),
+                        ImdbVotes = e.rating?.voteCount,
                         Type = "tvEpisode"
                     }).ToList();
                 }
@@ -354,6 +356,7 @@ namespace MediaProgressBusinessLayer
             public string title { get; set; }
             public int? season { get; set; }
             public int? episodeNumber { get; set; }
+            public IMDBRating rating { get; set; }
         }
     }
 }
