@@ -66,7 +66,7 @@ namespace MediaProgressBusinessLayer
             var sqlQuery = @"
                 IF NOT EXISTS (SELECT 1 FROM Episodes WHERE tconst = @tconst)
                 BEGIN
-                    INSERT INTO Episodes (tconst, parentTconst, seasonNumber, episodeNumber, averageRating)
+                    INSERT INTO Episodes (tconst, parentTconst, seasonNumber, episodeNumber, Rating)
                     VALUES (@tconst, @parentTconst, @seasonNumber, @episodeNumber, @imdbRating)
                 END
                 ELSE
@@ -75,7 +75,7 @@ namespace MediaProgressBusinessLayer
                     SET parentTconst = @parentTconst, 
                         seasonNumber = @seasonNumber, 
                         episodeNumber = @episodeNumber,
-                        averageRating = @imdbRating
+                        Rating = @imdbRating
                     WHERE tconst = @tconst
                 END";
 
