@@ -155,7 +155,7 @@ namespace MediaProgressWindowsForms
             int addedCount = 0;
             int processedCount = 0;
             int currentYear = DateTime.Now.Year;
-            int startYear = 2000; // Go back to 2000
+            int startYear = 2025; // Go back to 2000
 
             // Expanded types including Series and Episodes
             string[] types = { "movie", "series", "episode", "tvEpisode", "tvSeries", "tvSpecial", "tvMovie","tvPilot","tvShort","tvMiniSeries","videoGame","Video","short" };
@@ -256,7 +256,7 @@ namespace MediaProgressWindowsForms
                 foreach (var ep in episodes)
                 {
                     // Basic import to Episodes table
-                    if (await MediaProgressDataAccessLayer.clsMovieDataAccess.InsertEpisodeDataAsync(ep.Tconst, selectedItem.Tconst, ep.Season, ep.EpisodeNumber))
+                    if (await clsEpisode.InsertEpisodeDataAsync(ep.Tconst, selectedItem.Tconst, ep.Season, ep.EpisodeNumber))
                     {
                         // Also ensure the episode exists in Basics table for titles/ratings to work
                         decimal? rating = null;

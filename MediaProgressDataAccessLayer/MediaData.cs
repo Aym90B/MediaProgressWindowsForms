@@ -109,6 +109,8 @@ namespace MediaProgressDataAccessLayer
             }
         }
 
+
+
         public static async Task<int> AddNewMovieAndGetIdAsync(string title)
         {
             // The SQL command inserts a new record and immediately retrieves its new primary key ID.
