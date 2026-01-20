@@ -5,7 +5,7 @@
 [![Releases](https://img.shields.io/github/v/release/Aym90B/MediaProgressWindowsForms)]()
 [![Issues](https://img.shields.io/github/issues/Aym90B/MediaProgressWindowsForms)]()
 
-A professional 3‑tier desktop application to organize, track and discover media (Movies, Series and Episodes) using a local IMDb dataset. Built with WinForms (Presentation), a Business Logic Layer (BLL) and a Data Access Layer (DAL) using ADO.NET and SQL Server.
+A professional 3‑tier desktop application to organize, track and discover media (Movies, Series and Episodes) using real-time IMDb data and local caching. Built with WinForms (Presentation), a Business Logic Layer (BLL) and a Data Access Layer (DAL) using ADO.NET and SQL Server.
 
 ## Table of Contents
 - [About](#about)
@@ -23,29 +23,33 @@ A professional 3‑tier desktop application to organize, track and discover medi
 - [Contact](#contact)
 
 ## About
-MediaProgress helps users catalogue and track their media consumption with advanced filters (time-optimized, narrative complexity/mood), intelligent sorting by IMDb rating, and simplified progress states (Watching / Completed). It is designed for local, personal use with a local SQL Server instance.
+MediaProgress helps users catalogue and track their media consumption with advanced filters (time-optimized, narrative complexity/mood), intelligent sorting by IMDb rating, and simplified progress states (Watching / Completed). It leverages the power of the `api.imdbapi.dev` to keep your local database updated with the latest releases automatically.
 
 ## Key features
-- Intelligent media cataloging from local IMDb TSV datasets
-- Progress tracking (Watching, Completed)
-- Time-based filtering to find items that fit a viewing session
-- "Script Complexity" filter (custom complexity rating per title)
-- Smart sorting prioritizing unwatched high-rated titles
-- 3-tier architecture: WinForms UI, BLL, DAL for modularity and maintainability
-- Prioritize the next to watch episode based on time availability and IMDB user ratings.
-- Filter media based on the platform (Netflix, OSN+, HBO, Crunchyroll etc..) 
+- **Automated IMDb Sync**: One-click "Daily Updates" to fetch and merge new media from IMDb directly into your local database.
+- **Comprehensive Episode Import**: Select any TV series and instantly import all its episodes, including season numbers, episode numbers, ratings, and vote counts.
+- **Intelligent Media Cataloging**: Supports Movies, Series, Games, and more with robust data handling.
+- **Progress Tracking**: Seamlessly track "Watching" and "Completed" states.
+- **Advanced Filtering**: 
+  - Time-based filtering for viewing sessions.
+  - "Script Complexity" and Narrative Type filters.
+  - Culture-invariant rating parsing (supports all regional decimal formats).
+- **Smart Sorting**: Prioritizes unwatched high-rated titles based on live IMDb metrics.
+- **Modular Architecture**: Clean separation between UI, Business Logic (BLL), and Data Access (DAL).
 
 ## Architecture
-- Presentation Layer: WinForms C# GUI
-- Business Logic Layer (BLL): State transitions, complexity calculations, filters
-- Data Access Layer (DAL): ADO.NET, optimized for large SQL Server datasets
+- **Presentation Layer**: WinForms C# GUI with dynamic update controls.
+- **Business Logic Layer (BLL)**: 
+  - `ImdbService`: Handles real-time API communication with `api.imdbapi.dev` and OMDb.
+  - State management for media transitions and complexity calculations.
+- **Data Access Layer (DAL)**: Optimized ADO.NET for high-performance SQL Server interaction.
 
 ## Requirements
-- Windows 10 or later
-- .NET Framework / .NET runtime: (specify version, e.g., .NET 6.0 or .NET Framework 4.8) — update accordingly
-- Visual Studio 2019/2022 (for development)
-- Microsoft SQL Server (Developer/Express recommended)
-- IMDb data (.tsv) downloaded from IMDb Interfaces
+- Windows 10/11
+- .NET Framework 4.8+ / .NET 6.0+
+- Visual Studio 2022 (for development)
+- Microsoft SQL Server (LocalDB, Express, or Developer Edition)
+- Internet connection (for automated sync features)
 
 ## Installation
 1. Clone the repository:
@@ -53,40 +57,16 @@ MediaProgress helps users catalogue and track their media consumption with advan
    git clone https://github.com/Aym90B/MediaProgressWindowsForms.git
    cd MediaProgressWindowsForms
    ```
-
 2. Open the solution in Visual Studio and restore NuGet packages.
-
-3. Build the solution (Release or Debug) and run the UI project.
+3. Build the solution and run the UI project.
 
 ## Database setup
-To comply with IMDb terms, raw datasets are not included. Download official datasets from:
-- https://www.imdb.com/interfaces/
-
-Typical steps:
-1. Download the needed TSV files (e.g., title.basics.tsv.gz, title.ratings.tsv.gz).
-2. Unzip the files into a folder you control (e.g., C:\IMDbData).
-3. Create the database schema by running the provided script:
-   - The schema script is at `/Database/Schema.sql` — open it in SQL Server Management Studio and execute it on your target database.
-   - Example in SSMS:
-     1. Connect to your local SQL Server instance.
-     2. File → Open → Database/Schema.sql
-     3. Execute
-
-4. Import TSV data into the database using SQL Server Import Wizard or a bulk-import script. Map columns carefully to the schema.
-
-Suggested minimal schema for complexity table (add to /Database/Schema.sql):
-```sql
-CREATE TABLE MediaComplexity (
-    TitleID VARCHAR(20) PRIMARY KEY,
-    ComplexityLevel INT NOT NULL, -- 1 (Light) to 5 (Heavy)
-    NarrativeType VARCHAR(50),
-    CONSTRAINT FK_MediaTitles_TitleID FOREIGN KEY (TitleID)
-      REFERENCES MediaTitles(TitleID)
-);
-```
+1. Create the database schema by running the script at `/Database/Schema.sql` in SQL Server Management Studio (SSMS).
+2. The application will handle data population through the **Daily Updates** feature.
+3. (Optional) For legacy bulk imports, use official IMDb TSV files from [IMDb Interfaces](https://www.imdb.com/interfaces/).
 
 ## Configuration
-Update your UI project's App.config (or use appsettings.json depending on project) to point to your database. Example App.config snippet:
+Update your UI project's `App.config` to point to your SQL Server instance:
 ```xml
 <connectionStrings>
   <add name="MediaDbConn"
@@ -94,48 +74,27 @@ Update your UI project's App.config (or use appsettings.json depending on projec
        providerName="System.Data.SqlClient" />
 </connectionStrings>
 ```
-Security note: Prefer using Integrated Security or environment-based secrets instead of embedding credentials directly in VCS.
 
 ## Usage
-- Start the application.
-- Configure the connection string if first run (UI → Settings).
-- Use the search bar to look up titles from the local index.
-- Apply filters such as Time Available, Complexity (Light/Medium/Heavy), Narrative Type.
-- Mark progress: Watching, Completed.
+- **Daily Updates**: Open the "Updates" screen and click "Get Daily Updates" to synchronize your database with the latest IMDb releases since the year 2000.
+- **Episode Import**: Find a series, select it, and use the "Import Episodes" button to pull in all seasons and episode ratings automatically.
+- **Deep Scan**: Enable "Deep Scan" during searches to fetch enhanced metadata including Genres, Runtime, and detailed Ratings for multiple titles at once.
 
-Add screenshots or a short GIF to this section (place images in /docs or /assets and reference them):
-![Main view screenshot](docs/screenshot-main.png)
+## Roadmap 🚀
+MediaProgress is evolving into a universal media hub:
+- [x] **Automated Data Sync**: Implemented via `imdbapi.dev` integration.
+- [x] **Episode Management**: Full hierarchy import and rating sync.
+- [ ] **Video Games Module**: Advanced integration for gaming libraries and platform tracking.
+- [ ] **Books & Literature**: Support for reading progress and author metadata.
+- [ ] **User Profiles**: Multi-user support with personalized viewing lists.
 
-## Development
-- Branching: use feature branches off `main`.
-- Commit messages: follow Conventional Commits (recommended).
-- Run unit tests: (add commands here if you have tests)
-- To debug BLL/DAL, set the Startup Project to the UI and attach debugger.
+## Contributing 🤝
+Contributions are welcome! We are currently focusing on:
+- **Platform Integrations**: Adding more streaming platform indicators (Netflix, OSN+, HBO, etc.).
+- **UI/UX Refinement**: Modernizing the WinForms interface with enhanced responsiveness.
+- **Data Mapping**: Refining the "Complexity" algorithm with community-driven metrics.
 
-🚀 Future Roadmap & Vision
-MediaProgress is designed to be a universal consumption tracker. Future updates will include:
-
-Video Games Module: Full database integration for gaming libraries and platform tracking.
-
-Books & Literature: Support for reading progress, authors, and genre-based complexity.
-
-Automated Data Sync: Currently, the project requires manual importing of IMDb TSV files. I am looking to implement an automated sync service.
-
-🤝 How to Contribute
-I am actively looking for developers to help expand the ecosystem. Specifically, I am seeking contributions for:
-
-⚡ The "Delta Update" Challenge
-Current Gap: The project currently lacks an automated way to fetch and merge newly created media from the daily IMDb dataset updates into the existing local SQL database without re-importing everything.
-
-We (since we now) need help with:
-
-Incremental Sync Logic: A C# or SQL service that identifies only the new records in the .tsv files.
-
-Web Scraper/API Integration: Exploring ways to fetch real-time updates for specific titles using the IMDb ID.
-
-Data Mapping: Improving the "Complexity/Difficulty" algorithm using community-driven data.
-
-If you have ideas for new metrics, platform integrations, or UI enhancements, please open an issue or submit a pull request!
+If you have ideas or fixes, please open an issue or submit a pull request!
 
 ## License
 This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
@@ -143,8 +102,6 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) for detai
 ## Contact
 Author: Ayman Bahih — [GitHub](https://github.com/Aym90B) · [LinkedIn](https://www.linkedin.com/in/ayman-bahih)
 
-(If you prefer direct email, see my GitHub profile. Consider removing or limiting phone number/email from the public README for privacy.)
-
 ## Attribution & Legal
-- Metadata sourced from IMDb; users must download data directly from IMDb according to their terms of use.
-- Data is intended for personal, non-commercial use only.
+- Metadata provided by [imdbapi.dev](https://imdbapi.dev) and [IMDb](https://www.imdb.com/interfaces/).
+- This project is intended for personal, non-commercial use only.
