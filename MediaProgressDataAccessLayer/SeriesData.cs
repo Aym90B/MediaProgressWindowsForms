@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -638,6 +638,35 @@ namespace MediaProgressDataAccessLayer
                 connection.Close();
             }
             return seriesID;
+        }
+
+        public static List<string> GetAllSeriesTconsts()
+        {
+            List<string> tconsts = new List<string>();
+            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
+            string query = "SELECT tconst FROM Basics WHERE titleType IN ('series', 'tvSeries')";
+            SqlCommand command = new SqlCommand(query, connection);
+
+            try
+            {
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    if (reader["tconst"] != DBNull.Value)
+                        tconsts.Add(reader["tconst"].ToString());
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return tconsts;
         }
     }
 }

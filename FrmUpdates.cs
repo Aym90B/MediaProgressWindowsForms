@@ -281,5 +281,54 @@ namespace MediaProgressWindowsForms
                 btnImportEpisodes.Enabled = true;
             }
         }
+
+        private async void btnImportAllMissingEpisodes_Click(object sender, EventArgs e)
+        {
+            btnImportAllMissingEpisodes.Enabled = false;
+            try
+            {
+                var seriesTconsts = clsSeries.GetAllSeriesTconsts();
+                if (seriesTconsts == null || seriesTconsts.Count == 0)
+                {
+                    MessageBox.Show("No series found in the database to update.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                int totalMissingEpisodesLinked = 0;
+                int seriesProcessed = 0;
+
+                foreach (var tconst in seriesTconsts)
+                {
+                    var episodes = await ImdbService.GetEpisodesBySeriesIdAsync(tconst);
+                    if (episodes == null || episodes.Count == 0) continue;
+
+                    foreach (var ep in episodes)
+                    {
+                        if (await clsEpisode.InsertEpisodeDataAsync(ep.Tconst, tconst, ep.Season, ep.EpisodeNumber, ep.ImdbRating))
+                        {
+                            decimal? rating = null;
+                            if (decimal.TryParse(ep.ImdbRating, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out decimal r))
+                                rating = r;
+
+                            await MediaProgressDataAccessLayer.clsMovieDataAccess.InsertImdbDataAsync(
+                                ep.Tconst, "tvEpisode", ep.Title, false, null, null, null, rating, ep.ImdbVotes);
+                            
+                            totalMissingEpisodesLinked++;
+                        }
+                    }
+                    seriesProcessed++;
+                }
+
+                MessageBox.Show($"Successfully processed {seriesProcessed} series and linked {totalMissingEpisodesLinked} missing episodes.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error importing missing episodes: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                btnImportAllMissingEpisodes.Enabled = true;
+            }
+        }
     }
 }
