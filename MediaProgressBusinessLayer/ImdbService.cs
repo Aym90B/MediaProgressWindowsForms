@@ -1,4 +1,4 @@
-﻿using MediaProgressDataAccessLayer;
+using MediaProgressDataAccessLayer;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -22,6 +22,7 @@ namespace MediaProgressBusinessLayer
         public int? ImdbVotes { get; set; }
         public int? Season { get; set; }
         public int? EpisodeNumber { get; set; }
+        public string ParentTconst { get; set; }
         public bool IsAdult { get; set; }
 
         private const string ApiKey = "944c9115"; // 🔑 Your OMDb API key
@@ -205,6 +206,9 @@ namespace MediaProgressBusinessLayer
                         Title = details.Title,
                         Year = details.Year,
                         Tconst = details.imdbID,
+                        ParentTconst = details.seriesID,
+                        Season = int.TryParse(details.Season, out int s) ? (int?)s : null,
+                        EpisodeNumber = int.TryParse(details.Episode, out int e) ? (int?)e : null,
                         Type = details.Type,
                         Genres = details.Genre,
                         ImdbRating = details.imdbRating,
@@ -308,6 +312,9 @@ namespace MediaProgressBusinessLayer
             public string imdbVotes { get; set; }
             public string Runtime { get; set; }
             public string Response { get; set; }
+            public string seriesID { get; set; }
+            public string Season { get; set; }
+            public string Episode { get; set; }
         }
 
         // Helper classes for imdbapi JSON deserialization

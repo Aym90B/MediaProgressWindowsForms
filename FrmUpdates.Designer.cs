@@ -46,6 +46,7 @@ namespace MediaProgressWindowsForms
             this.btnImport = new System.Windows.Forms.Button();
             this.btnDailyUpdates = new System.Windows.Forms.Button();
             this.btnImportEpisodes = new System.Windows.Forms.Button();
+            this.btnImportAllMissingEpisodes = new System.Windows.Forms.Button();
             this.grpDeepScan.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numRating)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResults)).BeginInit();
@@ -244,11 +245,22 @@ namespace MediaProgressWindowsForms
             this.btnImportEpisodes.UseVisualStyleBackColor = true;
             this.btnImportEpisodes.Click += new System.EventHandler(this.btnImportEpisodes_Click);
             // 
+            // btnImportAllMissingEpisodes
+            // 
+            this.btnImportAllMissingEpisodes.Location = new System.Drawing.Point(530, 500);
+            this.btnImportAllMissingEpisodes.Name = "btnImportAllMissingEpisodes";
+            this.btnImportAllMissingEpisodes.Size = new System.Drawing.Size(150, 30);
+            this.btnImportAllMissingEpisodes.TabIndex = 12;
+            this.btnImportAllMissingEpisodes.Text = "Import All Missing Episodes";
+            this.btnImportAllMissingEpisodes.UseVisualStyleBackColor = true;
+            this.btnImportAllMissingEpisodes.Click += new System.EventHandler(this.btnImportAllMissingEpisodes_Click);
+            // 
             // FrmUpdates
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 550);
+            this.Controls.Add(this.btnImportAllMissingEpisodes);
             this.Controls.Add(this.btnImportEpisodes);
             this.Controls.Add(this.btnDailyUpdates);
             this.Controls.Add(this.btnImport);
@@ -292,5 +304,6 @@ namespace MediaProgressWindowsForms
         private System.Windows.Forms.Button btnImport;
         private System.Windows.Forms.Button btnDailyUpdates;
         private System.Windows.Forms.Button btnImportEpisodes;
+        private System.Windows.Forms.Button btnImportAllMissingEpisodes;
     }
 }

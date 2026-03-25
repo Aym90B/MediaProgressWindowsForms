@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Xml.Linq;
@@ -155,6 +155,11 @@ namespace MediaProgressBusinessLayer
         public static int GetNumberOfSeasonsForSeries(string seriesName)
         {
             return clsSeriesDataAccess.getNumberOfSeasonsForSeries(seriesName);
+        }
+
+        public static List<string> GetAllSeriesTconsts()
+        {
+            return clsSeriesDataAccess.GetAllSeriesTconsts();
         }
 
 

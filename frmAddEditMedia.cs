@@ -1,4 +1,4 @@
-﻿using MediaProgressBusinessLayer;
+using MediaProgressBusinessLayer;
 using MediaProgressWindowsForms;
 
 using System;
@@ -410,6 +410,11 @@ namespace MediaProgressWindowsForms
                         }
                         if (success)
                         {
+                            if ((foundMedia.Type == "episode" || foundMedia.Type == "tvEpisode") && !string.IsNullOrEmpty(foundMedia.ParentTconst))
+                            {
+                                await clsEpisode.InsertEpisodeDataAsync(
+                                    foundMedia.Tconst, foundMedia.ParentTconst, foundMedia.Season, foundMedia.EpisodeNumber, foundMedia.ImdbRating);
+                            }
                             MessageBox.Show($"'{foundMedia.Title}' was successfully added to your collection.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else
