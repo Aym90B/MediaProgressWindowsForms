@@ -644,7 +644,8 @@ namespace MediaProgressDataAccessLayer
         {
             List<string> tconsts = new List<string>();
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
-            string query = "SELECT tconst FROM Basics WHERE titleType IN ('series', 'tvSeries')";
+            //string query = "SELECT tconst FROM Basics WHERE titleType IN ('series', 'tvSeries')";
+            string query = "SELECT tconst FROM Basics WHERE titleType IN ('series', 'tvSeries') and tconst = 'tt1190634'";
             SqlCommand command = new SqlCommand(query, connection);
 
             try
