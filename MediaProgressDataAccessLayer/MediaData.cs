@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
@@ -78,6 +78,7 @@ namespace MediaProgressDataAccessLayer
                     {
                         using (var command = new SqlCommand(basicsQuery, connection, transaction))
                         {
+                            command.CommandTimeout = 120;
                             command.Parameters.AddWithValue("@tconst", tconst ?? (object)DBNull.Value);
                             command.Parameters.AddWithValue("@titleType", titleType ?? (object)DBNull.Value);
                             command.Parameters.AddWithValue("@primaryTitle", primaryTitle ?? (object)DBNull.Value);
@@ -90,6 +91,7 @@ namespace MediaProgressDataAccessLayer
 
                         using (var command = new SqlCommand(ratingsQuery, connection, transaction))
                         {
+                            command.CommandTimeout = 120;
                             command.Parameters.AddWithValue("@tconst", tconst ?? (object)DBNull.Value);
                             command.Parameters.AddWithValue("@averageRating", (object)imdbRating ?? DBNull.Value);
                             command.Parameters.AddWithValue("@numVotes", (object)numVotes ?? DBNull.Value);
