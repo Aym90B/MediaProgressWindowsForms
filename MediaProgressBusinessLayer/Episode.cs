@@ -1,4 +1,4 @@
-﻿using MediaProgressDataAccessLayer;
+using MediaProgressDataAccessLayer;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -82,6 +82,7 @@ namespace MediaProgressBusinessLayer
             {
                 using (var command = new SqlCommand(sqlQuery, connection))
                 {
+                    command.CommandTimeout = 120;
                     command.Parameters.AddWithValue("@tconst", tconst ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@parentTconst", parentTconst ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@seasonNumber", seasonNumber ?? (object)DBNull.Value);
