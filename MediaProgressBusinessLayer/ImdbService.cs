@@ -13,6 +13,7 @@ namespace MediaProgressBusinessLayer
     public class ImdbService
     {
         public string Tconst { get; set; }
+
         public string Title { get; set; }
         public string Genres { get; set; }
         public int? RuntimeMinutes { get; set; }

@@ -433,5 +433,9 @@ namespace MediaProgressWindowsForms
             _RefreshMoviesList();
         }
 
+        private void DifficultyComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
