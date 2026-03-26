@@ -118,28 +118,43 @@ namespace MediaProgressBusinessLayer
         public static async Task<List<ImdbService>> GetEpisodesBySeriesIdAsync(string seriesId)
         {
             var requestUrl = $"https://api.imdbapi.dev/titles/{seriesId}/episodes";
+            var allEpisodes = new List<ImdbService>();
 
             try
             {
-                HttpResponseMessage response = await httpClient.GetAsync(requestUrl);
-                response.EnsureSuccessStatusCode();
-
-                string jsonResponse = await response.Content.ReadAsStringAsync();
-                var episodeResult = JsonConvert.DeserializeObject<IMDBEpisodeResult>(jsonResponse);
-
-                if (episodeResult.episodes != null)
+                while (!string.IsNullOrEmpty(requestUrl))
                 {
-                    return episodeResult.episodes.Select(e => new ImdbService
+                    HttpResponseMessage response = await httpClient.GetAsync(requestUrl);
+                    response.EnsureSuccessStatusCode();
+
+                    string jsonResponse = await response.Content.ReadAsStringAsync();
+                    var episodeResult = JsonConvert.DeserializeObject<IMDBEpisodeResult>(jsonResponse);
+
+                    if (episodeResult.episodes != null)
                     {
-                        Tconst = e.id,
-                        Title = e.title,
-                        Season = e.season,
-                        EpisodeNumber = e.episodeNumber,
-                        ImdbRating = e.rating?.aggregateRating?.ToString(),
-                        ImdbVotes = e.rating?.voteCount,
-                        Type = "tvEpisode",
-                        ParentTconst = seriesId
-                    }).ToList();
+                        var mappedEpisodes = episodeResult.episodes.Select(e => new ImdbService
+                        {
+                            Tconst = e.id,
+                            Title = e.title,
+                            Season = e.season,
+                            EpisodeNumber = e.episodeNumber,
+                            ImdbRating = e.rating?.aggregateRating?.ToString(),
+                            ImdbVotes = e.rating?.voteCount,
+                            Type = "tvEpisode",
+                            ParentTconst = seriesId
+                        }).ToList();
+                        
+                        allEpisodes.AddRange(mappedEpisodes);
+                    }
+
+                    if (!string.IsNullOrEmpty(episodeResult.nextPageToken))
+                    {
+                        requestUrl = $"https://api.imdbapi.dev/titles/{seriesId}/episodes?nextPageToken={episodeResult.nextPageToken}";
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
             }
             catch (Exception ex)
@@ -147,7 +162,7 @@ namespace MediaProgressBusinessLayer
                 Console.WriteLine($"Error fetching episodes for {seriesId}: {ex.Message}");
             }
 
-            return new List<ImdbService>();
+            return allEpisodes;
         }
 
         public static async Task<ImdbService> GetMediaDetailsAsync(string tconst)
