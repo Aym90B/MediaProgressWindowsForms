@@ -136,7 +136,8 @@ namespace MediaProgressBusinessLayer
                         EpisodeNumber = e.episodeNumber,
                         ImdbRating = e.rating?.aggregateRating?.ToString(),
                         ImdbVotes = e.rating?.voteCount,
-                        Type = "tvEpisode"
+                        Type = "tvEpisode",
+                        ParentTconst = seriesId
                     }).ToList();
                 }
             }
