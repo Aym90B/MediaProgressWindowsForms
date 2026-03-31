@@ -117,8 +117,9 @@ namespace MediaProgressBusinessLayer
 
         public static async Task<List<ImdbService>> GetEpisodesBySeriesIdAsync(string seriesId)
         {
-            var requestUrl = $"https://api.imdbapi.dev/titles/{seriesId}/episodes";
             var allEpisodes = new List<ImdbService>();
+            string baseUrl = $"https://api.imdbapi.dev/titles/{seriesId}/episodes?season=4";
+            string requestUrl = baseUrl;
 
             try
             {
@@ -128,33 +129,56 @@ namespace MediaProgressBusinessLayer
                     response.EnsureSuccessStatusCode();
 
                     string jsonResponse = await response.Content.ReadAsStringAsync();
-                    var episodeResult = JsonConvert.DeserializeObject<IMDBEpisodeResult>(jsonResponse);
 
-                    if (episodeResult.episodes != null)
+                    // Parse dynamically to be resilient to pagination / property name differences
+                    var j = JsonConvert.DeserializeObject<Newtonsoft.Json.Linq.JObject>(jsonResponse);
+
+                    // Try several common locations for the episodes array
+                    var episodesToken = j.SelectToken("episodes") ?? j.SelectToken("data.episodes") ?? j.SelectToken("items") ?? j.SelectToken("results");
+
+                    if (episodesToken != null && episodesToken.Type == Newtonsoft.Json.Linq.JTokenType.Array)
                     {
-                        var mappedEpisodes = episodeResult.episodes.Select(e => new ImdbService
+                        foreach (var e in episodesToken)
                         {
-                            Tconst = e.id,
-                            Title = e.title,
-                            Season = e.season,
-                            EpisodeNumber = e.episodeNumber,
-                            ImdbRating = e.rating?.aggregateRating?.ToString(),
-                            ImdbVotes = e.rating?.voteCount,
-                            Type = "tvEpisode",
-                            ParentTconst = seriesId
-                        }).ToList();
-                        
-                        allEpisodes.AddRange(mappedEpisodes);
+                            string id = e.Value<string>("id") ?? e.Value<string>("tconst") ?? e.Value<string>("imdbID");
+                            string title = e.Value<string>("title") ?? e.Value<string>("primaryTitle");
+                            int? season = e.Value<int?>("season");
+                            int? epNum = e.Value<int?>("episodeNumber");
+                            double? agg = e.SelectToken("rating.aggregateRating")?.ToObject<double?>();
+                            int? votes = e.SelectToken("rating.voteCount")?.ToObject<int?>();
+
+                            allEpisodes.Add(new ImdbService
+                            {
+                                Tconst = id,
+                                Title = title,
+                                Season = season,
+                                EpisodeNumber = epNum,
+                                ImdbRating = agg?.ToString(),
+                                ImdbVotes = votes,
+                                Type = "tvEpisode",
+                                ParentTconst = seriesId
+                            });
+                        }
                     }
 
-                    if (!string.IsNullOrEmpty(episodeResult.nextPageToken))
+                    // Try to find a next page token or url in several possible locations
+                    string nextToken = j.Value<string>("nextPageToken") ?? j.Value<string>("nextToken") ?? j.SelectToken("pagination.nextPageToken")?.ToString();
+                    if (!string.IsNullOrEmpty(nextToken))
                     {
-                        requestUrl = $"https://api.imdbapi.dev/titles/{seriesId}/episodes?nextPageToken={episodeResult.nextPageToken}";
+                        requestUrl = $"{baseUrl}?nextPageToken={Uri.EscapeDataString(nextToken)}";
+                        continue;
                     }
-                    else
+
+                    string nextUrl = j.Value<string>("next") ?? j.Value<string>("nextPage") ?? j.Value<string>("nextPageUrl");
+                    if (!string.IsNullOrEmpty(nextUrl))
                     {
-                        break;
+                        // If the API returned a full URL use it, otherwise append to base
+                        requestUrl = Uri.IsWellFormedUriString(nextUrl, UriKind.Absolute) ? nextUrl : baseUrl + nextUrl;
+                        continue;
                     }
+
+                    // No further pages
+                    break;
                 }
             }
             catch (Exception ex)

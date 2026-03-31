@@ -646,12 +646,14 @@ namespace MediaProgressDataAccessLayer
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
             
             // Fix: Only fetch tconsts for series tracking in the user's local 'Main' table
-            string query = @"
-                SELECT DISTINCT Basics.tconst 
-                FROM Main 
-                INNER JOIN Basics ON Main.Name = Basics.primaryTitle 
-                WHERE Main.CategoryID = 2 AND Basics.titleType IN ('series', 'tvSeries')";
-                
+            string query = @"SELECT tconst FROM Basics WHERE titleType IN ('series', 'tvSeries') and tconst = 'tt1190634'";
+
+            //string query = @"
+            //    SELECT DISTINCT Basics.tconst 
+            //    FROM Main 
+            //    INNER JOIN Basics ON Main.Name = Basics.primaryTitle 
+            //    WHERE Main.CategoryID = 2 AND Basics.titleType IN ('series', 'tvSeries')";
+
             SqlCommand command = new SqlCommand(query, connection);
             command.CommandTimeout = 120;
 
