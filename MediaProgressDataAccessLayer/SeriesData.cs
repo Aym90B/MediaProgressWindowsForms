@@ -644,9 +644,11 @@ namespace MediaProgressDataAccessLayer
         {
             List<string> tconsts = new List<string>();
             SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
-            
+
             // Fix: Only fetch tconsts for series tracking in the user's local 'Main' table
-            string query = @"SELECT tconst FROM Basics WHERE titleType IN ('series', 'tvSeries') and tconst = 'tt1190634'";
+            //string query = @"SELECT tconst FROM Basics WHERE titleType IN ('series', 'tvSeries', 'tvMiniSeries') and tconst = 'tt31806037'";
+
+            string query = @"  SELECT tconst FROM Basics WHERE titleType IN ('series', 'tvSeries', 'tvMiniSeries', 'tvSpecial') and startYear in ('2026')";
 
             //string query = @"
             //    SELECT DISTINCT Basics.tconst 

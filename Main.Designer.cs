@@ -74,6 +74,7 @@
             this.btnDailyUpdates = new System.Windows.Forms.Button();
             this.lblDifficulty = new System.Windows.Forms.Label();
             this.DifficultyComboBox = new System.Windows.Forms.ComboBox();
+            this.chkIPTV = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAll)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -142,7 +143,7 @@
             "15",
             "16"});
             this.hoursComboBox.Location = new System.Drawing.Point(42, 343);
-            this.hoursComboBox.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.hoursComboBox.Margin = new System.Windows.Forms.Padding(8);
             this.hoursComboBox.Name = "hoursComboBox";
             this.hoursComboBox.Size = new System.Drawing.Size(154, 41);
             this.hoursComboBox.TabIndex = 4;
@@ -158,7 +159,7 @@
             "30",
             "45"});
             this.minutesComboBox.Location = new System.Drawing.Point(238, 343);
-            this.minutesComboBox.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.minutesComboBox.Margin = new System.Windows.Forms.Padding(8);
             this.minutesComboBox.Name = "minutesComboBox";
             this.minutesComboBox.Size = new System.Drawing.Size(204, 41);
             this.minutesComboBox.TabIndex = 5;
@@ -185,7 +186,7 @@
             "Games",
             "Books"});
             this.categoryComboBox.Location = new System.Drawing.Point(478, 343);
-            this.categoryComboBox.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.categoryComboBox.Margin = new System.Windows.Forms.Padding(8);
             this.categoryComboBox.Name = "categoryComboBox";
             this.categoryComboBox.Size = new System.Drawing.Size(199, 41);
             this.categoryComboBox.TabIndex = 7;
@@ -200,7 +201,7 @@
             this.dgvAll.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAll.ContextMenuStrip = this.contextMenuStrip1;
             this.dgvAll.Location = new System.Drawing.Point(-5, 586);
-            this.dgvAll.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.dgvAll.Margin = new System.Windows.Forms.Padding(8);
             this.dgvAll.Name = "dgvAll";
             this.dgvAll.RowHeadersWidth = 102;
             this.dgvAll.Size = new System.Drawing.Size(3810, 1462);
@@ -475,7 +476,7 @@
             // btnEpisodes25
             // 
             this.btnEpisodes25.Location = new System.Drawing.Point(2740, 178);
-            this.btnEpisodes25.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.btnEpisodes25.Margin = new System.Windows.Forms.Padding(8);
             this.btnEpisodes25.Name = "btnEpisodes25";
             this.btnEpisodes25.Size = new System.Drawing.Size(258, 175);
             this.btnEpisodes25.TabIndex = 45;
@@ -486,7 +487,7 @@
             // btnMovies25
             // 
             this.btnMovies25.Location = new System.Drawing.Point(2740, 368);
-            this.btnMovies25.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.btnMovies25.Margin = new System.Windows.Forms.Padding(8);
             this.btnMovies25.Name = "btnMovies25";
             this.btnMovies25.Size = new System.Drawing.Size(258, 162);
             this.btnMovies25.TabIndex = 46;
@@ -568,17 +569,29 @@
             "D",
             "E"});
             this.DifficultyComboBox.Location = new System.Drawing.Point(712, 343);
-            this.DifficultyComboBox.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.DifficultyComboBox.Margin = new System.Windows.Forms.Padding(8);
             this.DifficultyComboBox.Name = "DifficultyComboBox";
             this.DifficultyComboBox.Size = new System.Drawing.Size(206, 41);
             this.DifficultyComboBox.TabIndex = 52;
             this.DifficultyComboBox.SelectedIndexChanged += new System.EventHandler(this.DifficultyComboBox_SelectedIndexChanged);
+            // 
+            // chkIPTV
+            // 
+            this.chkIPTV.AutoSize = true;
+            this.chkIPTV.Location = new System.Drawing.Point(1550, 305);
+            this.chkIPTV.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.chkIPTV.Name = "chkIPTV";
+            this.chkIPTV.Size = new System.Drawing.Size(110, 37);
+            this.chkIPTV.TabIndex = 55;
+            this.chkIPTV.Text = "IPTV";
+            this.chkIPTV.UseVisualStyleBackColor = true;
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 33F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(2775, 1460);
+            this.Controls.Add(this.chkIPTV);
             this.Controls.Add(this.DifficultyComboBox);
             this.Controls.Add(this.lblDifficulty);
             this.Controls.Add(this.btnCompleted);
@@ -619,7 +632,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.Margin = new System.Windows.Forms.Padding(8);
             this.Name = "Main";
             this.Text = "Main";
             this.Load += new System.EventHandler(this.Main_Load);
@@ -678,5 +691,6 @@
         private System.Windows.Forms.Button btnDailyUpdates;
         private System.Windows.Forms.ComboBox DifficultyComboBox;
         private System.Windows.Forms.Label lblDifficulty;
+        private System.Windows.Forms.CheckBox chkIPTV;
     }
 }

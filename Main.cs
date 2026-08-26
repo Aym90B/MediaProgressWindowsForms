@@ -96,6 +96,7 @@ namespace MediaProgressWindowsForms
             if (chkCrunchyRoll.Checked) selectedPlatforms.Add("CrunchyRoll");
             if (chkPS.Checked) selectedPlatforms.Add("PlayStation");
             if(chkPC.Checked) selectedPlatforms.Add("PC");
+            if(chkIPTV.Checked) selectedPlatforms.Add("IPTV");
 
             Choices = string.Join(",", selectedPlatforms);
 
@@ -407,6 +408,7 @@ namespace MediaProgressWindowsForms
             if (chkCrunchyRoll.Checked) selectedPlatforms.Add("CrunchyRoll");
             if (chkPS.Checked) selectedPlatforms.Add("PlayStation");
             if (chkPC.Checked) selectedPlatforms.Add("PC");
+            if (chkIPTV.Checked) selectedPlatforms.Add("IPTV");
 
             Choices = string.Join(",", selectedPlatforms);
 
@@ -437,5 +439,7 @@ namespace MediaProgressWindowsForms
         {
 
         }
+
+        
     }
 }

@@ -118,7 +118,7 @@ namespace MediaProgressBusinessLayer
         public static async Task<List<ImdbService>> GetEpisodesBySeriesIdAsync(string seriesId)
         {
             var allEpisodes = new List<ImdbService>();
-            string baseUrl = $"https://api.imdbapi.dev/titles/{seriesId}/episodes?season=4";
+            string baseUrl = $"https://api.imdbapi.dev/titles/{seriesId}/episodes?season=1";
             string requestUrl = baseUrl;
 
             try

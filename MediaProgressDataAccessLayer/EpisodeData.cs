@@ -64,7 +64,7 @@ namespace MediaProgressDataAccessLayer
             }
             catch (Exception ex)
             {
-                //Console.WriteLine("Error: " + ex.Message);
+                Console.WriteLine("Error: " + ex.Message);
                 isFound = false;
             }
             finally
@@ -253,7 +253,7 @@ namespace MediaProgressDataAccessLayer
 
             catch (Exception ex)
             {
-                // Console.WriteLine("Error: " + ex.Message);
+                 Console.WriteLine("Error: " + ex.Message);
             }
             finally
             {
@@ -293,7 +293,7 @@ namespace MediaProgressDataAccessLayer
 
             catch (Exception ex)
             {
-                // Console.WriteLine("Error: " + ex.Message);
+                 Console.WriteLine("Error: " + ex.Message);
             }
             finally
             {
@@ -327,7 +327,7 @@ namespace MediaProgressDataAccessLayer
             }
             catch (Exception ex)
             {
-                // Console.WriteLine("Error: " + ex.Message);
+                 Console.WriteLine("Error: " + ex.Message);
             }
             finally
             {
